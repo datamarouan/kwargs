@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        {% include "meta.html" %}
+        <title>{% block titre_page %}{% endblock %}</title>
+        {% include "style.html" %}
+        {% block style_page %}{% endblock %}
+    </head>
+    <body>
+        <div id="layoutDefault">
+            <div id="layoutDefault_content">
+                <main>
+                    <!-- Navbar-->
+                    {% include "navbar.html" %}
+                    <!-- Page Header-->
+                    {% block entete %}{% endblock %}
+                    <!-- Message, le cas échéant -->
+                    {% if messages %}
+                      {% for message in messages %}
+                        <div class="container pt-2">
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                      {% endfor %}
+                    {% endif %}        
+                    <!-- Contenu-->
+                    {% block contenu %}{% endblock %}
+                </main>
+            </div>
+            <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-arrow-up fa-lg"></i></button>
+            {% include "footer.html" %}
+        </div>
+        {% include "js.html" %}
+        {% block js_page %}{% endblock %}
+    </body>
+</html>
