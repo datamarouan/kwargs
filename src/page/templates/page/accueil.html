@@ -23,19 +23,7 @@
 {% endblock %}
 
 {% block contenu %}
-<section class="bg-img-cover overlay overlay-10" style="background-image: url('https://source.unsplash.com/JI01fn0U7Cg/2400x1600');height: 100vh;" id="apropos">
-    <div class="container-fluid">
-        <div class="row justify-content-start align-items-center">
-            <div class="col-lg-5 col-sm-12">
-                <div class="display-4 text-left py-md-10 text-black">
-                    Mettre en oeuvre le BIM peut être lourd, risqué et incertain. 
-                    <span class="text-primary">**kwargs</span> vous accompagne, étape par étape, en tirant parti des investissements existants et avec les technologies présentes en interne.</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="bg-dark py-10">
+<section class="bg-dark py-5">
     <div class="container">
         <div class="row justify-content-start align-items-center my-md-10 pt-sm-5">
             <div class="col-lg-6 mb-5 col-sm-12">
@@ -76,6 +64,22 @@
                 </div>
         </div>
     </div>
+    
 </section>
+
+<section class="bg-img-cover overlay overlay-10" style="background-image: url('https://source.unsplash.com/JI01fn0U7Cg/2400x1600');height: 100vh;" id="apropos">
+{% include "vague_bleue.html" %}
+    <div class="container-fluid">
+        <div class="row justify-content-start align-items-center">
+            <div class="col-lg-5 col-sm-12">
+                <div class="display-4 text-left py-md-10 text-black">
+                    Mettre en oeuvre le BIM peut être lourd, risqué et incertain. 
+                    <span class="text-primary">**kwargs</span> vous accompagne, étape par étape, en tirant parti des investissements existants et avec les technologies présentes en interne.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 
 {% endblock %}
