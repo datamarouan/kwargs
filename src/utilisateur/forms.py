@@ -20,4 +20,4 @@ class UserUpdateForm(forms.ModelForm):
 class kwgPersonUpdateForm(forms.ModelForm):
     class Meta:
         model = kwgPerson
-        fields = ['image', 'roles',]
+        fields = ['image',]

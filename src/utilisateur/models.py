@@ -67,7 +67,7 @@ class kwgPerson(models.Model):
 	"""This entity represents an individual human being.
 	Entity adapted from person defined in ISO 10303-41"""
 	identification = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="personne")
 	middle_name = models.CharField(max_length=255, blank=True, null=True, 
 		help_text="Additional names given to a person that enable their identification apart from others who may have the same or similar family and given names",
 		verbose_name="Autre(s) prénom(s)")
