@@ -1,28 +1,40 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block titre_page %}Modélisation des Données du Bâtiment{% endblock %}
+{% block titre_page %}kwaargs - Bâti Immobilier Modélisé{% endblock %}
 
 {% block entete %}
 <header class="page-header page-header-dark bg-img-cover overlay overlay-10" style="background-image: url('https://source.unsplash.com/jTCLppdwSEc/2400x1600');height: 100vh;">
     <div class="page-header-content py-10">
         <div class="container-fluid">
             <div class="row justify-content-end align-items-end">
-                <div class="col-xl-8 col-lg-12 text-center">
+                <div class="col-12 text-center">
                     <div data-aos="fade-up" class="aos-init aos-animate">
-                        <h1 class="page-header-title text-black text-right mr-10">kwargs</h1>
-                        <h3 class="text-black text-right mr-10">Un chemin vers le<br>Bâti Immobilier Modélisé</h3>
+                        <h1 class="page-header-title text-black text-right">kwargs</h1>
+                        <h3 class="text-black text-right">Un chemin vers le<br>Bâti Immobilier Modélisé</h3>
                     </div>
-                    <div class="mr-10 mt-5 text-right"><a href="{% url 'page:accueil' %}#apropos"><i class="far fa-play-circle fa-6x text-black"></i></a></div>
+                    <div class="mt-5 text-right"><a href="{% url 'page:accueil' %}#apropos"><i class="far fa-play-circle fa-6x text-black"></i></a></div>
                 </div>
-
             </div>
         </div>
     </div>
 </header>
+
 {% endblock %}
 
 {% block contenu %}
+<section class="bg-img-cover overlay overlay-10" style="background-image: url('https://source.unsplash.com/JI01fn0U7Cg/2400x1600');height: 100vh;" id="apropos">
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="col-lg-5 col-sm-12">
+                <div class="text-left py-15 text-black h1">
+                    Mettre en oeuvre le BIM peut être lourd, risqué et incertain. 
+                    <span class="text-primary">**kwargs</span> vous accompagne, étape par étape, en tirant parti des investissements existants et avec les technologies présentes en interne.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="bg-dark py-5">
     <div class="container">
         <div class="row justify-content-start align-items-center my-md-10 pt-sm-5">
@@ -66,18 +78,6 @@
     </div>   
 </section>
 
-<section class="bg-img-cover overlay overlay-10" style="background-image: url('https://source.unsplash.com/JI01fn0U7Cg/2400x1600');height: 100vh;" id="apropos">
-{% include "vague_bleue.html" %}
-    <div class="container-fluid">
-        <div class="row justify-content-start align-items-center">
-            <div class="col-lg-5 col-sm-12">
-                <div class="display-4 text-left py-md-10 text-black">
-                    Mettre en oeuvre le BIM peut être lourd, risqué et incertain. 
-                    <span class="text-primary">**kwargs</span> vous accompagne, étape par étape, en tirant parti des investissements existants et avec les technologies présentes en interne.</div>
-            </div>
-        </div>
-    </div>
-</section>
 
 
 
