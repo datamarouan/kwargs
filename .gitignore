@@ -1,0 +1,7 @@
+/venv
+TokenGithub.txt
+/src/.env
+/src/.my.cnf
+/__pycache__/
+*.pyc
+accueil.txt
