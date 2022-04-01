@@ -8,6 +8,7 @@ from utilisateur import views as user_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('page.urls')),
+    path('blog', include('blog.urls')),
 ]
 
 url_users = [

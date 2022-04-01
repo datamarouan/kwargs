@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titre %}Journal(self){% endblock %}
+
+{% block contenu %}
+<section class="bg-light py-10">
+    <div class="container h-100">
+        <div class="row" data-masonry='{"percentPosition": true }'>
+            {% for article in publications %}
+            <div class="col-md-6 col-xl-4 mb-5">
+                <a class="card post-preview lift" href="{% url 'blog:article-details' slug=article.slug %}">
+                    {% if not 'default.jpg' in article.image.url %}
+                    <img class="card-img-top" src="{{ article.image.url }}" alt="...">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ article.titre }}</h5>
+                        <p class="card-text">{{ article.contenu|safe|truncatewords_html:10 }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="post-preview-meta">
+                            <img class="post-preview-meta-img" src="{{ article.created_by.personne.image.url }}">
+                            <div class="post-preview-meta-details">
+                                <div class="post-preview-meta-details-name">{{ article.created_by }}</div>
+                                <div class="post-preview-meta-details-date">{{ article.created|date }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% include 'pagination.html' %}
+    </div>
+</section>
+{% endblock %}
