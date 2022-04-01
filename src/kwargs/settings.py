@@ -24,6 +24,7 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 # Application definition
 
 INSTALLED_APPS = [
+    "glossaire",
     "blog",
     "utilisateur",
     "page",
