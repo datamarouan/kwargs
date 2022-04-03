@@ -5,6 +5,7 @@
         <title>{% block titre_page %}{% endblock %}</title>
         {% include "style.html" %}
         {% block style_page %}{% endblock %}
+        {{ form.media }}
     </head>
     <body class="{% block body_class %}{% endblock %}">
         <div id="layoutDefault">

@@ -2,8 +2,8 @@
 <div class="pagination justify-content-center">
     <span class="step-links ">
         {% if page_obj.has_previous %}
-            <a href="?page=1"><i class="bi bi-skip-start text-white"></i></a>
-            <a href="?page={{ page_obj.previous_page_number }}"><i class="bi bi-skip-backward text-white"></i></a>
+            <a href="?page=1"><i class="fas fa-fast-backward"></i></a>
+            <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-step-backward"></i></a>
         {% endif %}
 
         <span class="current">
@@ -11,9 +11,10 @@
         </span>
 
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}"><i class="bi bi-skip-forward text-white"></i></a>
-            <a href="?page={{ page_obj.paginator.num_pages }}"><i class="bi bi-skip-end text-white"></i></a>
+            <a href="?page={{ page_obj.next_page_number }}"><i class="fas fa-step-forward"></i></a>
+            <a href="?page={{ page_obj.paginator.num_pages }}"><i class="fas fa-fast-forward"></i></a>
         {% endif %}
     </span>
 </div>
 {% endif %}
+
