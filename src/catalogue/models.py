@@ -19,10 +19,10 @@ class kwgAddress(models.Model):
 		SITE = "S", _("Site")
 		HOME = "H", _("Domicile")
 		DISTRIBUTIONPOINT = "D", _("Point de distribution postal")
-		USERDEFINED = "U", ("Défini par l'utilisateur")
+		USERDEFINED = "UD", ("Défini par l'utilisateur")
 
 	purpose = models.CharField(
-		max_length=1,
+		max_length=2,
 		choices=kwgAddressTypeEnum.choices,
 		help_text="Identifies the logical location of the address")
 	description = models.TextField(blank=True, null=True)
@@ -47,18 +47,6 @@ class kwgPostalAddress(kwgAddress):
 	region = models.CharField(max_length=255, blank=True, null=True)
 	postal_code = models.CharField(max_length=10, blank=True, null=True, verbose_name="Code postal")
 	country = models.CharField(max_length=255, blank=True, null=True, default="Belgique", verbose_name="Pays")
-	# Coordonnées WSG84
-	latitude = models.FloatField(default=0)
-	longitude = models.FloatField(default=0)
-
-	def coordonnees_adresse(self):
-		''' Définition des latitude et longitude de l'Adresse.'''
-		geoloc = Here(apikey=env('HERE_APIKEY'))
-		try:
-			loc = geoloc.geocode(self.addresses_lines+', '+self.town).raw['Location']['NavigationPosition'][0]
-			return (loc['Latitude'], loc['Longitude'])
-		except:
-			return (0,0)
 
 	def clean(self):
 		"""Requires that at least one attribute of internal location, 
@@ -80,6 +68,28 @@ class kwgPostalAddress(kwgAddress):
 
 	def __str__(self):
 		return self.addresses_lines+" - "+str(self.postal_code)+" "+self.town
+
+class GeoRefPostalAddress(kwgPostalAddress):
+	# Coordonnées WSG84
+	latitude = models.FloatField(editable=False, default=0)
+	longitude = models.FloatField(editable=False, default=0)
+
+	def latitude_longitude(self):
+		"""Définition des latitude et longitude de l'Adresse."""
+		geoloc = Here(apikey=env('HERE_APIKEY'))
+		try:
+			loc = geoloc.geocode(self.addresses_lines+', '+self.town).raw['Location']['NavigationPosition'][0]
+			return (loc['Latitude'], loc['Longitude'])
+		except:
+			return (0,0)
+
+	def save(self, *args,**kwargs):
+		self.latitude, self.longitude = self.latitude_longitude()
+		return super().save(*args,**kwargs)
+
+	class Meta:
+		verbose_name = "Adresse postale géoréférencée"
+		verbose_name_plural = "Adresses postales géoréférencées"
 
 class kwgTelecomAddress(kwgAddress):
 	"""This entity represents an address to which telephone, electronic 
@@ -122,8 +132,6 @@ class kwgOrganization(models.Model):
 	name = models.CharField(max_length=255)
 	description = models.TextField(blank=True, null=True)
 	roles=models.ManyToManyField('utilisateur.kwgActorRole')
-	fase=models.CharField(max_length=6, blank=True, null=True)
-	bce = models.CharField(max_length=15,blank=True, null=True)
 
 	def __str__(self):
 		return self.name
@@ -135,6 +143,17 @@ class kwgOrganization(models.Model):
 		ordering = ('name',)
 		verbose_name = "Organisation"
 		verbose_name_plural = "Organisations"
+
+class EtablissementEnseignement(kwgOrganization):
+	"""Fichier signalétique des établissements d'enseignement 
+	de la Fédération Wallonie-Bruxelles (FASE)"""
+	fase=models.CharField(max_length=6, blank=True, null=True)
+	bce = models.CharField(max_length=15,blank=True, null=True)
+	reseau = models.CharField(max_length=255, blank=True, null=True)
+
+	class Meta:
+		verbose_name = "Etablissement d'enseignement"
+		verbose_name_plural = "Etablissements d'enseignement"
 
 class kwgPersonAndOrganization(models.Model):
 	"""This entity represents a person acting on behalf of an organization.

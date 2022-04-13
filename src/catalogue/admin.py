@@ -8,5 +8,7 @@ admin.site.register([
 	kwgPersonAndOrganization,
 	kwgOrganizationRelationship,
 	kwgApplication,
-	kwgOwnerHistory
+	kwgOwnerHistory,
+	EtablissementEnseignement,
+	GeoRefPostalAddress
 	])
