@@ -43,44 +43,12 @@
 
 {% block contenu %}
 
-    <div class="container-fluid">
+    <div class="container">
         <div class="row gx-4 justify-content-center pt-5">
-            <div class="col-lg-4">
+            <div class="col">
                 <p><a href="{% url 'catalogue:fase-list' %}">FASE</a></p>
             </div>
         </div>
     </div>
   
-{% endblock %}
-
-
-{% block js_page %}
-{% load l10n %}
-<script type="text/javascript">
-var map = L.map('map').setView([50.534, 4.400], 8);
-var osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-});
-map.addLayer(osm);
-
-var markers = L.markerClusterGroup();
-
-{% for site in adresses %}
-  markers.addLayer(L.marker([{{site.latitude|unlocalize}}, {{site.longitude|unlocalize}}]).bindPopup('<a href="{{ site.get_absolute_url }}">{{ site }}</a>'));
-{% endfor %}
-
-map.addLayer(markers);
-
-var osmGeocoder = new L.Control.OSMGeocoder({
-  placeholder: 'Chercher un lieu...',
-  collapsed: false,
-  text:"Hop !"
-});
-
-map.addControl(osmGeocoder);
-map.addControl(new L.Control.Fullscreen());
-</script>
-<script type="text/javascript"> $("a[href='#geoloc']").on('shown.bs.tab', function(e) {
-      map.invalidateSize();
- });</script>
 {% endblock %}

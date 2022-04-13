@@ -247,8 +247,27 @@ class kwgOwnerHistory(models.Model):
 ##################
 # II. CORE LAYER #
 ##################
+################
+# II.1. Kernel #
+################
+class kwgRoot(models.Model):
+	global_id = models.CharField(max_length=36,primary_key=True, default=uuid.uuid4, editable=False)
+	owner_history = models.ForeignKey(kwgOwnerHistory, on_delete=models.CASCADE)
+	name = models.CharField(max_length=255, blank=True, null=True)
+	description = models.TextField(blank=True, null=True)
 
+	class Meta:
+		abstract = True
+##########################
+# II.2. ProductExtension #
+##########################
+class Pset_LandRegistration(models.Model):
+	land_id = models.CharField(max_length=20, help_text="Capakey (Identifiant numérique de la parcelle attribué par une autorité)")
+	is_permanent_id = models.BooleanField(default=True)
+	land_title_id = models.CharField(max_length=10, help_text="Numéro de partition (Identifiant numérique du titre de la parcelle attribué par une autorité.)")
 
+	class Meta:
+		abstract=True
 #####################
 # III. SHARED LAYER #
 #####################
