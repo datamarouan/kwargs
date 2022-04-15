@@ -43,7 +43,7 @@
 {% endblock %}
 
 {% block contenu %}
-<section class="bg-light py-10">
+
     <div class="container h-100">
         <div class="row" data-masonry='{"percentPosition": true }'>
             {% for article in publications %}
@@ -71,5 +71,5 @@
         </div>
         {% include 'pagination.html' %}
     </div>
-</section>
+
 {% endblock %}

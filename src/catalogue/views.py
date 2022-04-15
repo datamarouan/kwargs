@@ -13,7 +13,7 @@ def index(request):
 
 class EtabEnsListView(ListView):
 	model = EtablissementEnseignement
-	template_name = "catalogue/crud/organization/etabens_list.html"
+	template_name = "catalogue/crud/organization/fase_list.html"
 	paginate_by = 10
 
 	def get_context_data(self,**kwargs):
