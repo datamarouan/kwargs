@@ -23,28 +23,48 @@
 
 {% block contenu_dash %}
 <div class="container-xl px-4">
-    <div class="row gx-4 justify-content-center pt-5">
-        <div class="col-lg-6 text-justify">
-            <h2>Origine</h2>
-            <p><a href="https://www.odwb.be/explore/dataset/signaletique-fase/information/" target="_blank">FASE</a> est un fichier de données signalétiques géo-localisées par implantation scolaire en Fédération Wallonie-Bruxelles. Le fichier reprend {{ total }} enregistrements dont {{ total_po }} Pouvoirs Organisateurs et {{ total_etab }} Etablissements d'enseignement. Un même établissement scolaire peut regrouper plusieurs implantations de différentes localisations ou de différents niveaux d'enseignement.</p>
+    <div class="row">
+        <div class="col-xxl-6 col-xl-6 mb-4">
+            <div class="card card-header-actions">
+                <div class="card-header">
+                    Origine
+                </div>
+                <div class="card-body">
+                    <p>Le fichier <a href="https://www.odwb.be/explore/dataset/signaletique-fase/information/" target="_blank">FASE</a> reprend les données signalétiques géo-localisées par implantation scolaire en Fédération Wallonie-Bruxelles. Le fichier reprend {{ total }} enregistrements dont {{ total_po }} Pouvoirs Organisateurs et {{ total_etab }} Etablissements d'enseignement. Un même établissement scolaire peut regrouper plusieurs implantations de différentes localisations ou de différents niveaux d'enseignement.</p>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-4">
-            <h2>Regroupements</h2>
-            <ul>
-                <li><a href="{% url 'catalogue:po-list' %}">Pouvoirs Organisateurs</a></li>
-                <li><a href="">Etablissements d'enseignement</a></li>
-                <li><a href="">Implantations (unité d'enseignement)</a></li>
-            </ul>
+        <div class="col-xxl-4 col-xl-4 mb-4">
+            <div class="card card-header-actions">
+                <div class="card-header">
+                    Vues & Concepts
+                </div>
+                <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'catalogue:po-list' %}">Pouvoirs Organisateurs</a></li>
+                    <li><a href="">Etablissements d'enseignement</a></li>
+                    <li><a href="">Implantations (unité d'enseignement)</a></li>
+                </ul>
+                </div>
+                <div class="card-footer position-relative">
+                    <div class="d-flex align-items-center justify-content-between small text-body">
+                        <a class="stretched-link text-body" href="#!">Autres vues</a>
+                        <i class="fas fa-angle-right"></i>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-2">
-            <h2>Niveau ETL</h2>
-            <p class="text-yellow">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-            </p>
+        <div class="col-xxl-2 col-xl-2 mb-4">
+            <div class="text-center text-xl-start text-xxl-center mb-4 mb-xl-0 mb-xxl-4">
+                <h2 class="text-primary">Niveau ETL</h2>
+                <p class="text-yellow">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                </p>
+            </div>
         </div>
     </div>
 </div>

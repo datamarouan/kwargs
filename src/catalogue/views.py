@@ -14,8 +14,6 @@ def index(request):
 ########
 # FASE #
 ########
-
-
 class PoListView(ListView):
 	queryset = EtablissementEnseignement.objects.all().filter(roles=1).order_by('reseau')
 	template_name = "catalogue/fase/po_list.html"
