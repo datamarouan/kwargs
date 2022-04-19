@@ -151,6 +151,9 @@ class EtablissementEnseignement(kwgOrganization):
 	bce = models.CharField(max_length=15,blank=True, null=True)
 	reseau = models.CharField(max_length=255, blank=True, null=True)
 
+	def get_absolute_url(self):
+		return reverse("catalogue:fase-details", args=[self.identification])
+
 	class Meta:
 		verbose_name = "Etablissement d'enseignement"
 		verbose_name_plural = "Etablissements d'enseignement"

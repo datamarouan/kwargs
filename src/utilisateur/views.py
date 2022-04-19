@@ -5,11 +5,10 @@ from django.contrib.auth.views import LogoutView, LoginView
 from django.contrib.messages.views import SuccessMessageMixin
 from .forms import UserRegisterForm, UserUpdateForm, kwgPersonUpdateForm
 
-class LogoutView(SuccessMessageMixin,LogoutView):
+class LogoutView(LogoutView,SuccessMessageMixin):
     template_name = 'utilisateur/logout.html'
-    success_message = "Salut et merci pour les poissons"
 
-class LoginView(LoginView):
+class LoginView(SuccessMessageMixin,LoginView):
     template_name = 'utilisateur/login.html'
 
 def register(request):
@@ -18,7 +17,6 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Vous pouvez maintenant vous connecter.')
             return redirect('login')
     else:
         form = UserRegisterForm()
@@ -33,7 +31,6 @@ def profile(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(request, f'Vos informations ont été mises à jour.')
             return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=request.user)

@@ -1,42 +1,43 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
-{% block titre %}{{ object.titre }}{% endblock %}
+{% block titre_page %}Blog(**kwargs){% endblock %}
+
 
 {% block contenu %}
-<section class="bg-light py-10">
-    <div class="container">
-        <div class="row justify-content-center">
+<section class="bg-light py-15">
+    <div class="container px-5">
+        <div class="row gx-5 justify-content-center">
             <div class="col-lg-10 col-xl-8">
                 <div class="single-post">
                     <h1>{{ object.titre }}</h1>
+                    <p class="lead fst-italic">{{ object.intro }}</p>
                     <div class="d-flex align-items-center justify-content-between mb-5">
-                        <div class="single-post-meta mr-4">
-                            <img class="single-post-meta-img" src="{{ object.created_by.personne.image.url }}">
+                        <div class="single-post-meta me-4">
+                            <img class="single-post-meta-img" src="{{ article.created_by.personne.image.url }}">
                             <div class="single-post-meta-details">
                                 <div class="single-post-meta-details-name">{{ object.created_by }}</div>
-                                <div class="single-post-meta-details-date">{{ object.created|date }}</div>
+                                <div class="single-post-meta-details-date">{{ object.created|date}}</div>
+                                <div class="single-post-meta-details-date">
+                                    {% for tag in object.tags.all %}
+                                    <span style="font-size: 0.75rem;">{{ tag }} </span>
+                                    {% endfor %}    
+                                </div>
                             </div>
                         </div>
-						<div class="single-post-meta-details">
-						{% for tag in object.tags.all %}
-							<span class="badge bg-secondary-soft text-decoration-none link-light">{{ tag }}</span>
-						{% endfor %}
-						</div>
                     </div>
                     {% if not 'default.jpg' in object.image.url %}
-                    <img class="img-fluid mb-2 " src="{{ object.image.url }}">
+                    <img class="img-fluid mb-2 rounded mx-auto d-block" src="{{ object.image.url }}">
                     {% endif %}
                     <div class="single-post-text my-5">
-                    	{{ object.contenu|safe }}
+                        {{ article.contenu|safe }}
                         <hr class="my-5">
-                        <div class="text-center"><a class="btn btn-transparent-dark" href="{% url 'blog:index' %}">Retour aux autres arcticles</a></div>
+                        <div class="text-center"><a class="btn btn-transparent-dark" href="{% url 'blog:index' %}">Retour aux autres articles</a></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-  
 {% endblock %}
+

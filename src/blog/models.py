@@ -35,6 +35,7 @@ class Cachet(models.Model):
 
 class Article(Cachet):
 	titre = models.CharField(max_length=255, unique=True)
+	intro = models.TextField(default="")
 	contenu = HTMLField()
 	slug = models.SlugField(max_length=255, unique=True, blank=True, editable=False)
 	published = models.BooleanField(default=False, verbose_name="Publié")

@@ -8,9 +8,11 @@ def index(request):
     article_tout = Article.objects.all()
     brouillons = article_tout.filter(published=False)
     publications = article_tout.filter(published=True)
+    headline = article_tout.last()
     context = {
         'brouillons':brouillons,
-        'publications':publications
+        'publications':publications,
+        "headline":headline
     }
     return render(request, 'blog/accueil.html', context)
 

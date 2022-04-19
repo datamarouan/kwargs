@@ -1,24 +1,10 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block titre_page %}kwargs industria{% endblock %}
 
 {% block entete %}
-<header class="page-header page-header-dark bg-img-cover overlay overlay-10" style="background-image: url('https://source.unsplash.com/jTCLppdwSEc/2400x1600');height: 100vh;">
-    <div class="page-header-content py-10">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div data-aos="fade-up" class="aos-init aos-animate">
-                        <h3 class="text-dark text-right">Un chemin vers le</h3>
-                        <h1 class="page-header-title text-dark text-right">Bâti<br>Immobilier<br>Modélisé</h1>
-                    </div>
-                    <div class="mt-5 text-right"><a type="button" class="btn btn-dark border-5" href="{% url 'page:accueil' %}#apropos">Premier pas</a></div>
-                </div>
-            </div>
-        </div>
-    </div>
+<header class="page-header page-header-dark bg-img-cover" style="background-image: url('https://source.unsplash.com/jTCLppdwSEc/2400x1600');height: 100vh;">
 </header>
 
 {% endblock %}
-

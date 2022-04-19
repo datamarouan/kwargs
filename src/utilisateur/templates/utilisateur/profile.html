@@ -1,33 +1,49 @@
-{% extends 'base.html' %}
-{% block titre_page %}Comtpte de {{ user }}{% endblock %}
+{% extends "base_dash.html" %}
 {% load crispy_forms_tags %}
-{% load static %}
+{% block titre_page %}Profil de {{ user }}{% endblock %}
 
-{% block body_class %}bg-dark{% endblock %}
-{% block contenu %}
-<div class="container py-10">
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-        <div class="row">
-            <div class="col-xl-5 py-4">
-                <!-- Profile picture card-->
-                <div class="card h-100">
-                    <div class="card-header">Avatar</div>
-                    <div class="card-body text-center">
-                        <!-- Profile picture image-->
-                        <img class="img-thumbnail rounded-circle mb-2" src="{{ user.personne.image.url }}" alt="">
-                        <!-- Profile picture help block-->
-                        <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 2 MB</div>
-                        <!-- Profile picture upload button-->
-                        {{ p_form.image|as_crispy_field }}
-                        <button class="btn btn-primary" type="submit">Changer</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-7 py-4">
-                <!-- Account details card-->
-                <div class="card mb-4 h-100">
-                    <div class="card-header">Details</div>
+{% block entete_dash %}
+
+<header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+	<div class="container-xl px-4">
+	    <div class="page-header-content">
+	        <div class="row align-items-center justify-content-between pt-3">
+	            <div class="col-auto mb-3">
+	                <h1 class="page-header-title">
+	                    <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+	                    Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user}}{% endif %}
+	                </h1>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+</header>
+{% endblock %}
+
+{% block contenu_dash %}
+<div class="container-xl px-4 mt-4">
+	<form method="POST" enctype="multipart/form-data">
+	{% csrf_token %}
+		<div class="row">
+		    <div class="col-xl-5">
+		        <!-- Profile picture card-->
+		        <div class="card mb-4 mb-xl-0">
+		            <div class="card-header">Photo du compte</div>
+		            <div class="card-body text-center">
+		                <!-- Profile picture image-->
+		                <img class="img-account-profile rounded-circle mb-2" src="{{ user.personne.image.url }}" alt="">
+		                <!-- Profile picture help block-->
+		                <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+		                <!-- Profile picture upload button-->
+		                {{ p_form.image|as_crispy_field }}
+		                <button class="btn btn-primary mt-4" type="submit">Upload new image</button>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="col-xl-7">
+		        <!-- Account details card-->
+		        <div class="card mb-4">
+		            <div class="card-header">Détails du compte</div>
                     <div class="card-body">
                         <div class="row">
                           <div class="col-md col-sm-12">
@@ -47,13 +63,9 @@
                         </div>
                         <button class="btn btn-primary float-right" type="submit">Changer</button>
                     </div>
-                </div>
-            </div>
-        </div>
-    </form>
+		        </div>
+		    </div>
+		</div>
+	</form>
 </div>
 {% endblock %}
-{% block jsSupp %}
-
-{% endblock %}
-

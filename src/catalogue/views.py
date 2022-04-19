@@ -11,16 +11,30 @@ def index(request):
 	context = {'adresses':adresses}
 	return render(request, 'catalogue/accueil.html', context)
 
-class EtabEnsListView(ListView):
+########
+# FASE #
+########
+
+
+class PoListView(ListView):
+	queryset = EtablissementEnseignement.objects.all().filter(roles=1).order_by('reseau')
+	template_name = "catalogue/fase/po_list.html"
+
+class FaseDetailView(DetailView):
 	model = EtablissementEnseignement
-	template_name = "catalogue/crud/organization/fase_list.html"
+	fields = '__all__'
+	template_name = "catalogue/fase/fase_details.html"
+
+class FaseListView(ListView):
+	model = EtablissementEnseignement
+	template_name = "catalogue/fase/fase_list.html"
 	paginate_by = 10
 
 	def get_context_data(self,**kwargs):
 		context = super().get_context_data(**kwargs)
 		context['total'] = EtablissementEnseignement.objects.all().count()
-		context['total_po'] = kwgOrganization.objects.filter(roles=1).count()
-		context['total_etab'] = kwgOrganization.objects.filter(roles=2).count()
+		context['total_po'] = kwgOrganization.objects.all().filter(roles=1).count()
+		context['total_etab'] = kwgOrganization.objects.all().filter(roles=2).count()
 		return context
 
 class OrganizationListView(ListView):

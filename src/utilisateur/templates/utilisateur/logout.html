@@ -1,16 +1,23 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %}
-{% block titre_page %}Ciao les amis \o>{% endblock %}
-{% block body_class %}bg-white{% endblock %}
-{% block contenu %}
+{% include "easter_egg.txt" %}
 {% load static %}
-<div class="container-fluid py-5">
-    <div class="row justify-content-center py-5">
-        <div class="col-lg-5">
-            <a href="{% url 'page:accueil' %}">
-                <img class="img-fluid mx-auto d-block" src="{% static 'img/logout.png' %}"/>
-            </a>
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        {% include "meta.html" %}
+        <title>So long and thank you for the fish</title>
+        {% include "style_dash.html" %}
+        {% block style_page %}{% endblock %}
+        {{ form.media }}
+    </head>
+    <body class="bg-white">
+        <div class="container-fluid py-5">
+            <div class="row justify-content-center py-5">
+                <div class="col-lg-5">
+                    <a href="{% url 'page:accueil' %}">
+                        <img class="img-fluid mx-auto d-block" src="{% static 'img/logout.png' %}"/>
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-{% endblock %}
+    </body>
+</html>

@@ -25,9 +25,9 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 INSTALLED_APPS = [
     "catalogue",
+    "utilisateur",
     "glossaire",
     "blog",
-    "utilisateur",
     "page",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'tinymce',
     'taggit',
-
 ]
 
 MIDDLEWARE = [

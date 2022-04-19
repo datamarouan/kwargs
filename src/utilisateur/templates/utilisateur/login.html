@@ -1,27 +1,46 @@
-{% extends 'base.html' %}
+{% include "easter_egg.txt" %}
 {% load crispy_forms_tags %}
-{% block titre_page %}Se connecter{% endblock %}
-{% block body_class %}bg-dark{% endblock %}
-{% block contenu %}
-<div class="container pt-10">
-  <div class="row">
-    <div class="col-lg-6 mx-auto">
-      <div class="shadow card bg-light my-5">
-        <div class="card-header text-center">
-          <h3>Se connecter</h3>
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        {% include "meta.html" %}
+        <title>Se connecter</title>
+        {% include "style_dash.html" %}
+        {% block style_page %}{% endblock %}
+        {{ form.media }}
+    </head>
+    <body class="bg-secondary">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container-xl px-4">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-5">
+                                <!-- Basic login form-->
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header justify-content-center"><h3 class="fw-light my-4">Se connecter</h3></div>
+                                    <div class="card-body">
+                                        <!-- Login form-->
+                                        <form method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <p class="card-text">{{ form|crispy }}</p>
+                                            <!-- Form Group (login box)-->
+                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                                <a class="small" href="#">Mot de passe oublié ?</a>
+                                                <button type="submit" class="btn btn-secondary">Connexion</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <div class="small"><a href="auth-register-basic.html">Pas de compte ? S'enregistrer</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
         </div>
-        <form method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <div class="card-body">
-            <p class="card-text">{{ form|crispy }}</p>
-            <button type="submit" class="btn btn-primary">Connexion</button>
-          </div>
-          <div class="card-footer d-flex justify-content-end">
-              <div class="small">Pas de compte ? <a href="{% url 'page:contact' %}">Contact</a></div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>  
-{% endblock %}
+        {% include 'js_dash.html' %}
+    </body>
+</html>

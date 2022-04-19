@@ -44,3 +44,7 @@ urlpatterns += url_users
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = 'Administration kwargs Industria'  # default: "Django Administration"
+admin.site.index_title = 'Objets éditables'  # default: "Site administration"
+admin.site.site_title = 'kwargs admin'       # default: "Django site admin"

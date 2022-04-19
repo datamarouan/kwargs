@@ -1,48 +1,64 @@
-{% extends 'base.html' %}
+{% include "easter_egg.txt" %}
 {% load crispy_forms_tags %}
-{% block titre_page %}S'enregistrer{% endblock %}
-{% block entete %}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        {% include "meta.html" %}
+        <title>Se connecter</title>
+        {% include "style_dash.html" %}
+        {% block style_page %}{% endblock %}
+        {{ form.media }}
+    </head>
+    <body class="bg-secondary">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container-xl px-4">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-5">
+                                <!-- Basic login form-->
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header justify-content-center"><h3 class="fw-light my-4">S'enregistrer'</h3></div>
+                                    <div class="card-body">
+                                        <!-- Login form-->
+                                        <form method="POST" enctype="multipart/form-data">
+                                            <p class="card-text">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        {{ form.username|as_crispy_field }}
+                                                    </div>
+                                                    <div class="col">
+                                                        {{ form.email|as_crispy_field }}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        {{ form.password1|as_crispy_field }}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        {{ form.password2|as_crispy_field }}
+                                                    </div>
+                                                </div>                        
+                                            </p>
+                                            <!-- Form Group (login box)-->
+                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
 
-{% endblock %}
-{% block contenu %}
-<div class="container-fluid py-10">
-    <div class="row justify-content-center">
-        <div class="col-lg-12">
-            <div class="shadow-lg card bg-light mx-auto">
-                <div class="card-header">Création d'un nouvel utilisateur</div>
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="card-body">
-                    <p class="card-text">
-                        <div class="row">
-                            <div class="col">
-                                {{ form.username|as_crispy_field }}
-                            </div>
-                            <div class="col">
-                                {{ form.email|as_crispy_field }}
+                                                <button type="submit" class="btn btn-secondary">Créer le compte</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <div class="small"><a href="auth-register-basic.html">Déjà un compte ? Se connecter</a></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                {{ form.password1|as_crispy_field }}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                {{ form.password2|as_crispy_field }}
-                            </div>
-                        </div>                        
-                    </p>
-                    <button type="submit" class="btn btn-primary">S'enregistrer</button>
                     </div>
-                </form>
-                <div class="card-footer text-muted text-right">
-                    <small class="text-muted">
-                    Déjà un compte ? <a class="ml-2" href="{% url 'login' %}">Se connecter</a>
-                    </small>
-                </div>
+                </main>
             </div>
         </div>
-    </div>
-</div>
-{% endblock %}
+        {% include 'js_dash.html' %}
+    </body>
+</html>
