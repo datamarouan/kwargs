@@ -14,14 +14,13 @@ def index(request):
 ########
 # FASE #
 ########
+class EtabListView(ListView):
+	queryset = EtablissementEnseignement.objects.all().filter(roles=2)
+	template_name = "catalogue/fase/etab_list.html"
+	
 class PoListView(ListView):
-	queryset = EtablissementEnseignement.objects.all().filter(roles=1).order_by('reseau')
+	queryset = EtablissementEnseignement.objects.all().filter(roles=1)
 	template_name = "catalogue/fase/po_list.html"
-
-class FaseDetailView(DetailView):
-	model = EtablissementEnseignement
-	fields = '__all__'
-	template_name = "catalogue/fase/fase_details.html"
 
 class FaseListView(ListView):
 	model = EtablissementEnseignement
@@ -53,7 +52,7 @@ class OrganizationDetailView(DetailView):
 	def get_context_data(self,**kwargs):
 		context = super().get_context_data(**kwargs)
 		context['adresses'] = GeoRefPostalAddress.objects.all().filter(of_organization=self.object)
-		context['relations'] = kwgOrganizationRelationship.objects.all().filter(relating_organization=self.object)
+		context['relations'] = kwgOrganizationRelationship.objects.all().filter(relating_organization_id=self.object)
 		context['depend_de'] = kwgOrganizationRelationship.objects.all().filter(related_organization=self.object)
 		context['fase'] =  EtablissementEnseignement.objects.all().filter(kwgorganization_ptr_id=self.object)
 		return context

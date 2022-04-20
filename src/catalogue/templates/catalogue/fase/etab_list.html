@@ -1,6 +1,6 @@
 {% extends "base_dash.html" %}
 {% load crispy_forms_tags %}
-{% block titre_page %}Pouvoirs Organisateurs | FASE{% endblock %}
+{% block titre_page %}Etablissements d'enseignement | FASE{% endblock %}
 {% load static %}
 
 {% block style_page %}
@@ -18,9 +18,9 @@
                 <div class="col-auto mt-4">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i class="far fa-object-group"></i></div>
-                        Pouvoirs Organisateurs
+                        Etablissements d'enseignement
                     </h1>
-                    <div class="page-header-subtitle">Le pouvoir organisateur d'un établissement d'enseignement est l'autorité, la ou les personne(s) physique(s) ou morale(s), publique(s) ou privée(s),qui en assume(nt) la responsabilité.</div>
+                    <div class="page-header-subtitle">Désigne une entité scolaire placée sous la responsabilité d'un chef d'établissement qui peut être répartie en plusieurs lieux d'implantation géographique. Chaque école dépend d'un pouvoir organisateur et appartient à un "réseau" d'enseignement.</div>
                 </div>
             </div>
         </div>
@@ -44,12 +44,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for po in object_list %}
+                            {% for etab in object_list %}
                             <tr>
-                                <td>{{ po.fase }}</td>
-                                <td>{{ po.bce }}</td>
-                                <td><a href="{{ po.get_absolute_url }}">{{ po.name }}</a></td>
-                                <td>{{ po.reseau }}</td>
+                                <td>{{ etab.fase }}</td>
+                                <td>{{ etab.bce }}</td>
+                                <td><a href="{{ etab.get_absolute_url }}">{{ etab.name }}</a></td>
+                                <td>{{ etab.reseau }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>

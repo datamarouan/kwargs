@@ -9,5 +9,7 @@ urlpatterns = [
 	path("fase/", views.FaseListView.as_view(), name="fase-list"),
 	path("organisation/<str:pk>/", views.OrganizationDetailView.as_view(), name="orga-details"),
 	path('pouvoirs_organisateurs/', views.PoListView.as_view(), name='po-list'),
-	path('fase/<str:pk>/', views.FaseDetailView.as_view(), name='fase-details')
+	path('etablissements_enseignement/', views.EtabListView.as_view(), name='etab-list'),
+	#path('cubim/', views.CubimDetailView.as_view(), name="cubim"),
+	#path('fase/<str:pk>/', views.FaseDetailView.as_view(), name='fase-details')
 ]

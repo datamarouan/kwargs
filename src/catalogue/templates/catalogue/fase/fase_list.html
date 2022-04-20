@@ -5,7 +5,7 @@
 
 {% block entete_dash %}
 <header class="page-header page-header-light bg-light mb-0">
-    <div class="container-xl px-4">
+    <div class="container-fluid px-4">
         <div class="page-header-content pt-4">
             <div class="row align-items-center justify-content-between">
                 <div class="col-auto mt-4">
@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block contenu_dash %}
-<div class="container-xl px-4">
+<div class="container-fluid px-4">
     <div class="row">
         <div class="col-xxl-6 col-xl-6 mb-4">
             <div class="card card-header-actions">
@@ -42,7 +42,7 @@
                 <div class="card-body">
                 <ul class="list-unstyled">
                     <li><a href="{% url 'catalogue:po-list' %}">Pouvoirs Organisateurs</a></li>
-                    <li><a href="">Etablissements d'enseignement</a></li>
+                    <li><a href="{% url 'catalogue:etab-list' %}">Etablissements d'enseignement</a></li>
                     <li><a href="">Implantations (unité d'enseignement)</a></li>
                 </ul>
                 </div>
