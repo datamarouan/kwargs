@@ -25,6 +25,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div>
+                            {% if object.published %}
+                                <span class="badge bg-green-soft text-green">Publié</span>
+                            {% else %}
+                                <span class="badge bg-orange-soft text-orange">Brouillon</span>
+                            {% endif %}
+                        </div>
                     </div>
                     {% if not 'default.jpg' in object.image.url %}
                     <img class="img-fluid mb-2 rounded mx-auto d-block" src="{{ object.image.url }}">
@@ -32,7 +39,15 @@
                     <div class="single-post-text my-5">
                         {{ article.contenu|safe }}
                         <hr class="my-5">
-                        <div class="text-center"><a class="btn btn-transparent-dark" href="{% url 'blog:index' %}">Retour aux autres articles</a></div>
+                        {% if user.is_authenticated %}
+                        <div class="d-flex align-items-center justify-content-center">
+                            <div class="text-center mx-auto"><a class="btn btn-outline-dark" href="{% url 'blog:article-edition' slug=object.slug %}">Editer cet article</a></div>
+                            <div class="text-center mx-auto"><a class="btn btn-outline-dark" href="{% url 'blog:index' %}">Retour au site public</a></div>
+                            <div class="text-center mx-auto"><a class="btn btn-outline-dark" href="{% url 'blog:articles-list' %}">Retour au site d'administration</a></div>
+                        </div>
+                        {% else %}
+                        <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'blog:index' %}">Retour aux autres articles</a></div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

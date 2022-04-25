@@ -38,7 +38,7 @@ class Article(Cachet):
 	intro = models.TextField(default="")
 	contenu = HTMLField()
 	slug = models.SlugField(max_length=255, unique=True, blank=True, editable=False)
-	published = models.BooleanField(default=False, verbose_name="Publié")
+	published = models.BooleanField(default=False, verbose_name="Publication immédiate ?")
 	tags = TaggableManager(verbose_name="Mots-clés", blank=True,
 	help_text="Une liste de mots-clés séparés par une virgule, en minuscule")
 	image = models.ImageField(default='blog/default.jpg', upload_to='blog/')
@@ -55,7 +55,7 @@ class Article(Cachet):
 		super().save(*args,**kwargs)
 		img = Image.open(self.image.path)
 		if img.height > 300 or img.width > 600:
-			output_size = (300, 600)
+			output_size = (200, 400)
 			img.thumbnail(output_size)
 			img.save(self.image.path)
 

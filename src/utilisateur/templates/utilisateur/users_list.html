@@ -1,0 +1,83 @@
+{% extends "base_dash.html" %}
+{% load crispy_forms_tags %}
+{% block titre_page %}Utilisateurs{% endblock %}
+
+{% block entete_dash %}
+
+<header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+	<div class="container-fluid px-4">
+	    <div class="page-header-content">
+	        <div class="row align-items-center justify-content-between pt-3">
+	            <div class="col-auto mb-3">
+	                <h1 class="page-header-title">
+	                    <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+	                    Liste des personnes
+	                </h1>
+	            </div>
+				<div class="col-12 col-md-auto mb-3">
+				    <a class="btn btn-sm btn-light text-primary" href="#">
+				        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users me-1"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+				        Gestion des rôles
+				    </a>
+				    <a class="btn btn-sm btn-light text-primary" href="{% url 'register' %}">
+				        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus me-1"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+				        Nouvel utilisateur
+				    </a>
+				</div>
+	        </div>
+	    </div>
+	</div>
+</header>
+{% endblock %}
+
+{% block contenu_dash %}
+<div class="container-fluid px-4">
+    <div class="row">
+        <div class="col">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <table id="example" class="table" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>user</th>
+                                <th>email</th>
+                                <th>Groupes</th>
+                                <th>Joined Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in object_list %}
+                            <tr>
+                                <td>
+                                	<div class="d-flex align-items-center">
+                                		<div class="avatar me-2">
+                                			<img class="avatar-img img-fluid" src="{{ p.image.url }}">
+                                		</div>
+                              			{% if p.user.last_name %}
+                                    	{{ p.user.first_name }} {{ p.user.last_name }}
+                                    {% else %}
+                                    	{{ p.user.username}}
+                                    {% endif %}
+                                  </div>
+                                </td>
+                                <td>{{ p.user.email }}</td>
+                                <td>{% for groupe in p.user.groups.all %}<span class="badge bg-primary-soft text-primary">{{ groupe }}</span> {% endfor %}</td>
+                                <td>{{ p.user.date_joined|date }}</td>
+								<td>
+									<a class="btn btn-datatable btn-icon btn-transparent-dark me-2" href="mailto:{{ p.user.email }}"><i class="far fa-envelope text-red"></i></a>
+								</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>             
+        </div>      
+    </div>
+</div>
+{% endblock %}
+
+{% block js_page %}
+{% include 'table1.html' %}
+{% endblock %}

@@ -19744,8 +19744,8 @@ body {
   margin-right: 0.5rem;
 }
 .post-preview .post-preview-meta .post-preview-meta-img {
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 1.25rem;
+  width: 1.25rem;
   border-radius: 100%;
   margin-right: 0.5rem;
   flex-shrink: 0;
@@ -19761,11 +19761,11 @@ body {
 }
 
 .post-preview-featured .post-preview-featured-img {
-  height: 20rem;
+  height: 100%;
   width: 100%;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  
 }
 .post-preview-featured h5.card-title, .post-preview-featured .card-title.h5 {
   font-size: 1.75rem;

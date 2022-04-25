@@ -21,37 +21,7 @@
 
 {% block contenu %}
 <section class="bg-light py-4">
-    <div class="container px-5">
-        {% if headline %}
-        <a class="card post-preview post-preview-featured lift mb-5 overflow-hidden" href="{% url 'blog:article-details' slug=headline.slug %}">
-            <div class="row g-0">
-                <div class="col-lg-5">
-                    <img class="post-preview-featured-img" src="{{ headline.image.url }}">
-                </div>
-                <div class="col-lg-7">
-                    <div class="card-body">
-                        <div class="py-5">
-                            <h5 class="card-title">{{ headline.titre }}</h5>
-                            <p class="card-text">{{ headline.intro }}</p>
-                        </div>
-                        <hr>
-                        <div class="post-preview-meta">
-                            <img class="post-preview-meta-img" src="{{ headline.created_by.personne.image.url }}">
-                            <div class="post-preview-meta-details">
-                                <div class="post-preview-meta-details-name">{{ headline.created_by }}</div>
-                                <div class="post-preview-meta-details-date">{{ headline.created|date }}</div>
-                                <div class="post-preview-meta-details-date">
-                                {% for tag in headline.tags.all %}
-                                <em class="text-primary">{{ tag }}</em>
-                                {% endfor %}    
-                                </div>                            
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        {% endif %}
+    <div class="container-fluid px-5">
         {% if publications %}
         <div class="row gx-5" data-masonry='{"percentPosition": true }'>
             {% for article in publications %}

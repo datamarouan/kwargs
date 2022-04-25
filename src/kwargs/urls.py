@@ -10,7 +10,6 @@ urlpatterns = [
     path('', include('page.urls')),
     path('blog/', include('blog.urls')),
     path('glossaire/', include('glossaire.urls')),
-    path('catalogue/', include('catalogue.urls')),
 ]
 
 url_users = [
@@ -38,6 +37,8 @@ url_users = [
         name="password_reset_complete"),
     path('profile/', user_views.profile, name="profile"),
     path('register/', user_views.register, name="register"),
+    path('users/', user_views.UsersList.as_view(), name="users-list"),
+    path('groupes/', user_views.GroupsList.as_view(), name="groups-list"),
 ]
 
 urlpatterns += url_users

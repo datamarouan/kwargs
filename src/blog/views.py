@@ -16,6 +16,10 @@ def index(request):
     }
     return render(request, 'blog/accueil.html', context)
 
+class ArticleListView(ListView):
+    model = Article
+    template_name = "blog/crud/articles_list.html"
+
 class ArticleDetailView(DetailView):
     model = Article
     template_name = "blog/crud/article_details.html"
@@ -33,4 +37,4 @@ class ArticleUpdateView(UpdateView, LoginRequiredMixin, SuccessMessageMixin):
 class ArticleDeleteView(DeleteView, LoginRequiredMixin, SuccessMessageMixin):
     model = Article
     template_name = "blog/crud/objet_a_effacer.html"
-    success_url = '/blog/'
+    success_url = '/blog/articles/'

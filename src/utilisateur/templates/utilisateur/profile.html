@@ -5,7 +5,7 @@
 {% block entete_dash %}
 
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
-	<div class="container-xl px-4">
+	<div class="container-fluid px-4">
 	    <div class="page-header-content">
 	        <div class="row align-items-center justify-content-between pt-3">
 	            <div class="col-auto mb-3">
@@ -21,11 +21,11 @@
 {% endblock %}
 
 {% block contenu_dash %}
-<div class="container-xl px-4 mt-4">
-	<form method="POST" enctype="multipart/form-data">
+<div class="container-fluid px-4 mt-4">
+	<form method="POST" enctype="multipart/form-data" action=".">
 	{% csrf_token %}
 		<div class="row">
-		    <div class="col-xl-5">
+		    <div class="col-xl-4">
 		        <!-- Profile picture card-->
 		        <div class="card mb-4 mb-xl-0">
 		            <div class="card-header">Photo du compte</div>
@@ -40,7 +40,7 @@
 		            </div>
 		        </div>
 		    </div>
-		    <div class="col-xl-7">
+		    <div class="col-xl-8">
 		        <!-- Account details card-->
 		        <div class="card mb-4">
 		            <div class="card-header">Détails du compte</div>
@@ -61,7 +61,7 @@
                             {{ u_form.last_name|as_crispy_field }}
                           </div>
                         </div>
-                        <button class="btn btn-primary float-right" type="submit">Changer</button>
+                         <button class="btn btn-primary float-right" type="submit">Changer</button>
                     </div>
 		        </div>
 		    </div>

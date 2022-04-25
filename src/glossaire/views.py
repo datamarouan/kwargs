@@ -10,7 +10,6 @@ from django.views.generic import View, CreateView, ListView, DetailView, UpdateV
 
 class TermeListView(ListView):
     model = Terme
-    template_name = "glossaire/accueil.html"
 
 class TermeDetailView(DetailView, LoginRequiredMixin, SuccessMessageMixin):
     model = Terme
@@ -33,6 +32,11 @@ class TermeUpdateView(UpdateView, LoginRequiredMixin, SuccessMessageMixin):
     success_message = "Le terme %(mot)s a bien été modifié."
     template_name = "glossaire/crud/terme_ajout.html"
     success_url = "/glossaire/"
+
+class TermeDeleteView(DeleteView, LoginRequiredMixin, SuccessMessageMixin):
+    model = Terme
+    template_name = "blog/crud/objet_a_effacer.html"
+    success_url = '/glossaire/'
 
 class SourceCreateView(LoginRequiredMixin, CreateView, SuccessMessageMixin):
     model = Source

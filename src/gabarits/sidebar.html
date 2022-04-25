@@ -6,17 +6,94 @@
                             <!-- * * Note: * * Visible only on and above the sm breakpoint-->
                             <div class="sidenav-menu-heading d-sm-none">Account</div>
                             <!-- Sidenav Heading (Custom)-->
-                            <a class="nav-link mt-2" href="{% url 'catalogue:index' %}">
+                            <a class="nav-link mt-2" href="#">
                                 <div class="nav-link-icon"><i class="fas fa-home"></i></div>
                                 Accueil
                             </a>
-                            <a class="nav-link mt-2" href="#">
-                                <div class="nav-link-icon"><i class="far fa-edit"></i></div>
-                                Edition
+                            <!-- Sidenav Menu Heading (Gestion du Site)-->
+                            <div class="sidenav-menu-heading">Gestion du site</div>
+                            <!-- Sidenav Accordion -->
+                            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseBlog" aria-expanded="false" aria-controls="collapseBlog">
+                                <div class="nav-link-icon"><i class="far fa-newspaper"></i></div>
+                                Blog
+                                <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapse" id="collapseBlog" data-bs-parent="#accordionSidenav">
+                                <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                                    <a class="nav-link" href="{% url 'blog:articles-list' %}">
+                                        Liste des articles
+                                    </a>
+                                </nav>
+                            </div>
+                            <div class="collapse" id="collapseBlog" data-bs-parent="#accordionSidenav">
+                                <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                                    <a class="nav-link" href="{% url 'blog:nouvel-article' %}">
+                                        Créer un article
+                                    </a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseUser" aria-expanded="false" aria-controls="collapseUser">
+                                <div class="nav-link-icon"><i class="fas fa-users"></i></div>
+                                Utilisateurs
+                                <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseUser" data-bs-parent="#accordionSidenav">
+                                <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                                    <a class="nav-link" href="{% url 'users-list' %}">
+                                        Liste des utilisateurs
+                                    </a>
+                                </nav>
+                            </div>
+                            <div class="collapse" id="collapseUser" data-bs-parent="#accordionSidenav">
+                                <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                                    <a class="nav-link" href="{% url 'groups-list' %}">
+                                        Liste des groupes
+                                    </a>
+                                </nav>
+                            </div>
+                            <!-- Sidenav Accordion -->
+                            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseGlossaire" aria-expanded="false" aria-controls="collapseGlossaire">
+                                <div class="nav-link-icon"><i class="fas fa-book"></i></div>
+                                Glossaire
+                                <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseGlossaire" data-bs-parent="#accordionSidenav">
+                                <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                                    <a class="nav-link" href="{% url 'glossaire:terms-list'%}">
+                                        Liste des termes
+                                    </a>
+                                </nav>
+                            </div>
+                            <div class="collapse" id="collapseGlossaire" data-bs-parent="#accordionSidenav">
+                                <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                                    <a class="nav-link" href="{% url 'glossaire:terme-ajout' %}">
+                                        Ajouter un terme
+                                    </a>
+                                </nav>
+                            </div>
+                            <div class="collapse" id="collapseGlossaire" data-bs-parent="#accordionSidenav">
+                                <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                                    <a class="nav-link" href="#">
+                                        Ajouter une source
+                                    </a>
+                                </nav>
+                            </div>
                             <!-- Sidenav Menu Heading (Core)-->
                             <div class="sidenav-menu-heading">Resource Layer</div>
                             <!-- Sidenav Accordion -->
+                            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapsePersonnes" aria-expanded="false" aria-controls="collapsePersonnes">
+                                <div class="nav-link-icon"><i class="fas fa-sitemap"></i></div>
+                                Personnes
+                                <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePersonnes" data-bs-parent="#accordionSidenav">
+                                <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                                    <a class="nav-link" href="{% url 'users-list' %}">
+                                        Liste des personnes
+                                        <span class="badge bg-primary-soft text-primary ms-auto">En cours</span>
+                                    </a>
+                                </nav>
+                            </div>
                             <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseOrganisations" aria-expanded="false" aria-controls="collapseOrganisations">
                                 <div class="nav-link-icon"><i class="fas fa-sitemap"></i></div>
                                 Organisations
@@ -24,7 +101,7 @@
                             </a>
                             <div class="collapse" id="collapseOrganisations" data-bs-parent="#accordionSidenav">
                                 <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
-                                    <a class="nav-link" href="{% url 'catalogue:fase-list' %}">
+                                    <a class="nav-link" href="#">
                                         FASE
                                         <span class="badge bg-primary-soft text-primary ms-auto">En cours</span>
                                     </a>
@@ -38,7 +115,7 @@
                             </a>
                             <div class="collapse" id="collapseProjets" data-bs-parent="#accordionSidenav">
                                 <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
-                                    <a class="nav-link" href="{% url 'catalogue:cubim' %}">CUBIM</a>
+                                    <a class="nav-link" href="#">CUBIM</a>
                                     <a class="nav-link" href="#">PLAGE</a>
                                 </nav>
                             </div>

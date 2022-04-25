@@ -24,11 +24,6 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 # Application definition
 
 INSTALLED_APPS = [
-    "catalogue",
-    "utilisateur",
-    "glossaire",
-    "blog",
-    "page",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -37,10 +32,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
     'django.contrib.humanize',
+    'glossaire',
+    'utilisateur',
+    'blog',
+    'page',
     "crispy_bootstrap5",
     'crispy_forms',
     'tinymce',
     'taggit',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -86,6 +86,7 @@ DATABASES = {
         'OPTIONS': {
             'read_default_file': './.my.cnf',
             'sql_mode':'traditional',
+            'init_command': 'SET default_storage_engine=INNODB',
         },
     }
 }

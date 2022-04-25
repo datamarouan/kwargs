@@ -7,50 +7,32 @@
 {% block contenu %}
 <section class="bg-light py-15">
     <div class="container px-5">
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
-            <h1 class="text-primary">{{ object }}</h1>
-            <div class="d-flex align-items-center justify-content-between mb-5">
-                <div class="single-post-meta mr-4 float-left">
-                    <div class="single-post-meta-details text-orange small">
-                        <div class="single-post-meta-details-name">Modifié par {{ object.modified_by }} le {{ object.modified|date }}</div>
-                        <div class="single-post-meta-details-date"></div>
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-10 col-xl-8">
+                <div class="single-post">
+                    <h1>{{ object }}</h1>
+                    <div class="d-flex align-items-center justify-content-between mb-5">
+                        <div class="single-post-meta me-4">
+                            <img class="single-post-meta-img" src="{{ object.created_by.personne.image.url }}">
+                            <div class="single-post-meta-details">
+                                <div class="single-post-meta-details-name">{{ object.created_by }}</div>
+                                <div class="single-post-meta-details-date">{{ object.created|date}}</div>
+                                <div class="single-post-meta-details-date">
+                                    {% for tag in object.tags.all %}
+                                    <span style="font-size: 0.75rem;">{{ tag }} </span>
+                                    {% endfor %}    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-post-text my-5">
+                        {{ object.desc|safe }}
+                        <hr class="my-5">
+                        <div class="text-center"><a class="btn btn-transparent-dark" href="{% url 'glossaire:index' %}">Retour au Glossaire</a></div>
                     </div>
                 </div>
-                {% if user.is_authenticated %}
-                <div class="single-post-meta-links align-items-center">
-                    <a class="btn btn-sm btn-primary-soft text-primary font-weight-500 mr-2 mb-2" href="{% url 'glossaire:terme-modif' slug=object.slug %}">Modifier</a>
-                    <a class="btn btn-sm btn-primary-soft text-primary font-weight-500 mb-2" href="{% url 'glossaire:terme-ajout' %}">Ajouter</a>
-                </div>
-                {% endif %}
-            </div>
-            <div class="single-post-text my-3">
-                <div class="card-body shadow-lg text-dark">{{ object.desc|safe }}</div>
-                
-                <hr class="my-3" />
-                  <dl class="row">
-                    <dt class="col-sm-2 mb-2">Source(s)<br>
-                        {% if user.is_authenticated %}
-                    <a href="{% url 'glossaire:source-ajout' %}"><i class="fas fa-plus-circle fa-lg"></i> </a>{% endif %}</dt>
-                    <dd class="col-sm-10">
-                        {% if not object.references.all %}
-                            {% if user.is_authenticated %}
-                            <i class="fas fa-exclamation-triangle text-danger"></i>
-                            <a href="{% url 'glossaire:source-ajout' %}" class="alert-link">Une défintion non sourcée n'est pas recevable : Ajouter une source</a>
-                        {% endif %}
-
-                      {% else %}
-                        {% for s in object.references.all %}
-                          <a href="{{ s.lien }}" target="_blank">{{ s }}</a><br>
-                        {% endfor %}
-                      {% endif %}
-                    </dd>
-                  </dl>
-                <hr class="my-5">
-                <div class="text-center"><a class="btn btn-transparent-dark" href="{% url 'glossaire:index' %}">Retour aux autres termes</a></div>
             </div>
         </div>
-    </div>
     </div>
 </section>
 {% endblock %}
