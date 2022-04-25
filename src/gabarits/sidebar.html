@@ -6,10 +6,11 @@
                             <!-- * * Note: * * Visible only on and above the sm breakpoint-->
                             <div class="sidenav-menu-heading d-sm-none">Account</div>
                             <!-- Sidenav Heading (Custom)-->
-                            <a class="nav-link mt-2" href="#">
+                            <a class="nav-link mt-2" href="{% url 'catalogue:index' %}">
                                 <div class="nav-link-icon"><i class="fas fa-home"></i></div>
                                 Accueil
                             </a>
+                            {% if user.is_staff %}
                             <!-- Sidenav Menu Heading (Gestion du Site)-->
                             <div class="sidenav-menu-heading">Gestion du site</div>
                             <!-- Sidenav Accordion -->
@@ -78,6 +79,7 @@
                                     </a>
                                 </nav>
                             </div>
+                            {% endif %}
                             <!-- Sidenav Menu Heading (Core)-->
                             <div class="sidenav-menu-heading">Resource Layer</div>
                             <!-- Sidenav Accordion -->
@@ -101,7 +103,7 @@
                             </a>
                             <div class="collapse" id="collapseOrganisations" data-bs-parent="#accordionSidenav">
                                 <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="{% url 'catalogue:fase-list'%}">
                                         FASE
                                         <span class="badge bg-primary-soft text-primary ms-auto">En cours</span>
                                     </a>
@@ -115,7 +117,7 @@
                             </a>
                             <div class="collapse" id="collapseProjets" data-bs-parent="#accordionSidenav">
                                 <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
-                                    <a class="nav-link" href="#">CUBIM</a>
+                                    <a class="nav-link" href="{% url 'catalogue:cubim' %}">CUBIM</a>
                                     <a class="nav-link" href="#">PLAGE</a>
                                 </nav>
                             </div>
