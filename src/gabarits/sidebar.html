@@ -82,6 +82,7 @@
                             {% endif %}
                             <!-- Sidenav Menu Heading (Core)-->
                             <div class="sidenav-menu-heading">Resource Layer</div>
+                            {% if user.is_staff %}
                             <!-- Sidenav Accordion -->
                             <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapsePersonnes" aria-expanded="false" aria-controls="collapsePersonnes">
                                 <div class="nav-link-icon"><i class="fas fa-sitemap"></i></div>
@@ -110,6 +111,7 @@
                                     <a class="nav-link" href="#">MCFWB</a>
                                 </nav>
                             </div>
+                            {% endif %}
                             <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseProjets" aria-expanded="false" aria-controls="collapseProjets">
                                 <div class="nav-link-icon"><i class="fas fa-project-diagram"></i></div>
                                 Projets
@@ -117,8 +119,13 @@
                             </a>
                             <div class="collapse" id="collapseProjets" data-bs-parent="#accordionSidenav">
                                 <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
-                                    <a class="nav-link" href="{% url 'catalogue:cubim' %}">CUBIM</a>
-                                    <a class="nav-link" href="#">PLAGE</a>
+                                    {% for group in request.user.groups.all %}
+                                        {% if group.name == 'CuBIM' %}
+                                            <a class="nav-link" href="{% url 'catalogue:cubim' %}">CUBIM</a>
+                                        {% elif group.name == 'Plage' %}
+                                            
+                                        {% endif %}
+                                    {% endfor %}
                                 </nav>
                             </div>
                         </div>
