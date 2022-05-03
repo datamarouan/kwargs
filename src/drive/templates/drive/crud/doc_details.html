@@ -1,0 +1,119 @@
+{% extends "base_dash.html" %}
+{% load crispy_forms_tags %}
+{% block titre_page %}{{ object }}{% endblock %}
+
+{% block entete_dash %}
+
+<header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+    <div class="container-fluid px-4">
+        <div class="page-header-content">
+            <div class="row align-items-center justify-content-between pt-3">
+                <div class="col-auto mb-3">
+                    <h1 class="page-header-title">
+                        <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                        {{ object }}
+                    </h1>
+                </div>
+                <div class="col-12 col-xl-auto mb-3">
+                    <a class="btn btn-sm btn-light text-primary" href="{% url 'drive:doc-modif' pk=object.pk %}">
+                    <i class="far fa-edit"></i>
+                    Editer ce document
+                    </a>
+                    <a class="btn btn-sm btn-light text-primary" href="{% url 'drive:docs-list' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left me-1"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    Retour au Drive
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block contenu_dash %}
+<div class="container-fluid px-4 mt-4">
+    <div class="row">
+        <div class="col-xl-7">
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header">
+                    Méta Données
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Etat</dt>
+                        <dd class="col-sm-9">
+                            {% if object.etat == 0 %}
+                                <span class="badge bg-primary-soft text-primary">{{ object.get_etat_display }}</span>
+                            {% elif object.etat == 1 %}
+                                <span class="badge bg-secondary-soft text-secondary">{{ object.get_etat_display }}</span>
+                            {% elif object.etat == 2 %}
+                                <span class="badge bg-success-soft text-success">{{ object.get_etat_display }}</span>
+                            {% elif object.etat == 3 %}
+                                <span class="badge bg-orange-soft text-orange">{{ object.get_etat_display }}</span>
+                            {% endif %}
+                        </dd>
+                        <dt class="col-sm-3">Validation</dt>
+                        <dd class="col-sm-9">
+                            {% if object.validation == 'AA' %}
+                                <span class="badge bg-primary-soft text-primary">{{ object.get_validation_display }}</span>
+                            {% elif object.validation == 'A' %}
+                                <span class="badge bg-secondary-soft text-secondary">{{ object.get_validation_display }}</span>
+                            {% elif object.validation == 'AC' %}
+                                <span class="badge bg-success-soft text-success">{{ object.get_validation_display }}</span>
+                            {% elif object.validation == 'NA' %}
+                                <span class="badge bg-danger-soft text-danger">{{ object.get_validation_display }}</span>
+                            {% endif %}
+                        </dd>
+                        <dt class="col-sm-3">Description</dt>
+                        <dd class="col-sm-9"><p>{{ object.description }}</p></dd>
+                        <dt class="col-sm-3">Première version</dt>
+                        <dd class="col-sm-9"><p>{{ object.history.last.history_date }}</p></dd>
+                        <dt class="col-sm-3">Dernière version</dt>
+                        <dd class="col-sm-9"><p>{{ object.history.first.history_date }}</p></dd>
+                        <dt class="col-sm-3">Créé par</dt>
+                        <dd class="col-sm-9"><p>{{ object.history.last.history_user }}</p></dd>
+                        <dt class="col-sm-3">Modifié par</dt>
+                        <dd class="col-sm-9"><p>{{ object.history.first.history_user }}</p></dd>
+                    </dl>                                                        
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-success" type="button" href="{{ object.fichier.url }}"><i class="fas fa-download"></i> Voir le fichier</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-5">
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header">Historique des modifications</div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tbody>
+                    {% for hist in object.history.all %}
+                        <tr>
+                            <td>
+                            {% if hist.history_type == '~' %}
+                                <span class="badge bg-yellow-soft text-yellow">mise à jour</span>
+                            {% elif hist.history_type == '+' %}
+                                <span class="badge bg-green-soft text-green">création</span>
+                            {% elif hist.history_type == '-' %}
+                                <span class="badge bg-red-soft text-red">suppression</span>
+                            {% endif %}                                
+                            </td>
+                            <td>
+                                <span class="small"> {{ hist.history_date }}</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-dark">{{ hist.history_user }}</span>
+                            </td>
+                        </tr>
+                    {% endfor %}        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

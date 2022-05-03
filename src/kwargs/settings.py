@@ -1,3 +1,4 @@
+from django.contrib.messages import constants as messages
 from pathlib import Path
 import os
 import environ
@@ -22,7 +23,7 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
-
+# INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -32,15 +33,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
     'django.contrib.humanize',
-    'catalogue',
-    'glossaire',
-    'utilisateur',
-    'blog',
-    'page',
     "crispy_bootstrap5",
     'crispy_forms',
     'tinymce',
     'taggit',
+    'simple_history',
+    'catalogue',
+    'glossaire',
+    'blog',
+    'page',
+    'utilisateur',
+    'drive',
     'django_cleanup.apps.CleanupConfig',
 ]
 
@@ -53,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'crum.CurrentRequestUserMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'kwargs.urls'
@@ -172,3 +176,11 @@ INTERNAL_IPS = [
     'localhost',
     '127.0.0.1',
 ]
+
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+ }

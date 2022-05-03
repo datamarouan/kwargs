@@ -8,9 +8,10 @@ from utilisateur import views as user_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('page.urls')),
+    path('drive/', include('drive.urls')),
     path('blog/', include('blog.urls')),
-    path('glossaire/', include('glossaire.urls')),
     path('catalogue/', include('catalogue.urls')),
+    path('glossaire/', include('glossaire.urls')),    
 ]
 
 url_users = [
@@ -40,6 +41,10 @@ url_users = [
     path('register/', user_views.register, name="register"),
     path('users/', user_views.UsersList.as_view(), name="users-list"),
     path('groupes/', user_views.GroupsList.as_view(), name="groups-list"),
+    path('groupe/<int:pk>/', user_views.GroupsDetailView.as_view(), name="group-details"),
+    path('groupe/ajouter/', user_views.GroupsCreateView.as_view(), name="new-group"),
+    path('groupe/<int:pk>/edition/', user_views.GroupsUpdateView.as_view(), name="group-modif"),
+    path('groupe/<int:pk>/effacer/', user_views.GroupsDeleteView.as_view(), name="group-delete"),
 ]
 
 urlpatterns += url_users

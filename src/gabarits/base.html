@@ -14,17 +14,6 @@
                 <main>
                     <!-- Navbar-->
                     {% include "navbar.html" %}
-                    <!-- Message, le cas échéant -->
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="container pt-10">
-                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                                {{ message }}
-                                <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
                     <!-- Page Header-->
                     {% block entete %}{% endblock %}
                             

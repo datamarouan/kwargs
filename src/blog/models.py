@@ -8,12 +8,6 @@ from PIL import Image
 
 
 class Cachet(models.Model):
-	'''Tous les objets héritent de cette classe pour que, lorsqu'un objet est
-	manipulé, il reçoit un 'stamp' indiquant par qui et quand l'objet a été
-	créé/modifié.
-	Utilise la fonction get_current_user du package django-crum.
-	IFC4 : Resource definition data schemas >> IfcUtilityResource >> IfcOwnerHistory
-	'''
 	created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	created_by = models.ForeignKey('auth.User', blank=True, null=True, editable=False,
 	on_delete=models.SET_NULL, default=None, related_name='%(app_label)s_%(class)s_created')

@@ -1,91 +1,66 @@
-{% extends "base_dash.html" %}
+{% extends "base_ajout.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block titre_page %}Nouvel article(**kwargs){% endblock %}
+{% block titre_page %}Blog | Article | Ajout{% endblock %}
 
-{% block entete_dash %}
-<header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
-    <div class="container-fluid px-4">
-        <div class="page-header-content">
-            <div class="row align-items-center justify-content-between pt-3">
-                <div class="col-auto mb-3">
-                    <h1 class="page-header-title">
-                        <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-plus"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg></div>
-                                      {% if '/edition/' in request.path %}
-                Modifier
-              {% else %}
-                Ecrire
-              {% endif %} un article
-                    </h1>
+{% block entete_objet_a_ajouter %}un article{% endblock %}
+
+{% block entete_boutons_droites %}
+<a class="btn btn-sm btn-light text-primary" href="{% url 'blog:articles-list' %}">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left me-1"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    Retour à tous les articles
+</a>
+{% endblock %}
+
+{% block formulaire %}
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+    <div class="row gx-4">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header">Titre de l'article</div>
+                <div class="card-body">{{ form.titre|as_crispy_field }}</div>
+            </div>
+            <div class="card card-header-actions mb-4">
+                <div class="card-header">
+                    Texte introductif
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="Le texte introductif apparâit sous le titre et est un résumé du contenu de l'article." aria-label="Le texte introductif apparâit sous le titre et est un résumé du contenu de l'article."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                 </div>
-                <div class="col-12 col-xl-auto mb-3">
-                    <a class="btn btn-sm btn-light text-primary" href="{% url 'blog:articles-list' %}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left me-1"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                        Retour à tous les articles
-                    </a>
+                <div class="card-body">{{ form.intro|as_crispy_field }}</div>
+            </div>
+            <div class="card card-header-actions mb-4 mb-lg-0">
+                <div class="card-header">
+                    Contenu de l'article
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="Markdown is supported within the post content editor." aria-label="Markdown is supported within the post content editor."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                </div>
+                <div class="card-body">
+                    {{ form.contenu|as_crispy_field }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card card-header-actions mb-4">
+                <div class="card-header">
+                    Illustration
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="Cette image servira à illustrer l'article." aria-label="Cette image servira à illustrer l'article."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid mb-3">{{ form.image|as_crispy_field }}</div>
+                    <div class="d-grid"><button type="submit" class="fw-500 btn btn-primary">Changer d'image</button></div>
+                </div>
+            </div>
+            <div class="card card-header-actions">
+                <div class="card-header">
+                    Enregistrement
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="Après enregistrement, l'article est en brouillon, à moins que la case ci-dessous est cochée." aria-label="Après enregistrement, l'article est en brouillon, à moins que la case ci-dessous est cochée."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid mb-3">{{ form.published|as_crispy_field }}</div>
+                    <div class="d-grid"><button type="submit" class="fw-500 btn btn-primary">Enregistrer</button></div>
                 </div>
             </div>
         </div>
     </div>
-</header>
+</form>
 {% endblock %}
-
-{% block contenu_dash %}
-<div class="container-fluid px-4">
-    <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-        <div class="row gx-4">
-            <div class="col-lg-8">
-                <div class="card mb-4">
-                    <div class="card-header">Titre de l'article</div>
-                    <div class="card-body">{{ form.titre|as_crispy_field }}</div>
-                </div>
-                <div class="card card-header-actions mb-4">
-                    <div class="card-header">
-                        Texte introductif
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="Le texte introductif apparâit sous le titre et est un résumé du contenu de l'article." aria-label="Le texte introductif apparâit sous le titre et est un résumé du contenu de l'article."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    </div>
-                    <div class="card-body">{{ form.intro|as_crispy_field }}</div>
-                </div>
-                <div class="card card-header-actions mb-4 mb-lg-0">
-                    <div class="card-header">
-                        Contenu de l'article
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="Markdown is supported within the post content editor." aria-label="Markdown is supported within the post content editor."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    </div>
-                    <div class="card-body">
-                        {{ form.contenu|as_crispy_field }}
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card card-header-actions mb-4">
-                    <div class="card-header">
-                        Illustration
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="Cette image servira à illustrer l'article." aria-label="Cette image servira à illustrer l'article."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-grid mb-3">{{ form.image|as_crispy_field }}</div>
-                        <div class="d-grid"><button type="submit" class="fw-500 btn btn-primary">Changer d'image</button></div>
-                    </div>
-                </div>
-                <div class="card card-header-actions">
-                    <div class="card-header">
-                        Enregistrement
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="Après enregistrement, l'article est en brouillon, à moins que la case ci-dessous est cochée." aria-label="Après enregistrement, l'article est en brouillon, à moins que la case ci-dessous est cochée."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-grid mb-3">{{ form.published|as_crispy_field }}</div>
-                        <div class="d-grid"><button type="submit" class="fw-500 btn btn-primary">Enregistrer</button></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-{% endblock %}
-
-{% block js_page %}
-{% include 'table1.html' %}
-{% endblock %}
-

@@ -1,38 +1,19 @@
-{% extends "base_dash.html" %}
+{% extends "base_ajout.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
+ 
+{% block titre_page %}Glossaire | Terme | Ajout{% endblock %}
 
-{% block titre_page %}NouveauTerme(**kwargs){% endblock %}
+{% block entete_objet_a_ajouter %}un terme{% endblock %}
 
-{% block entete_dash %}
-<header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
-    <div class="container-fluid px-4">
-        <div class="page-header-content">
-            <div class="row align-items-center justify-content-between pt-3">
-                <div class="col-auto mb-3">
-                    <h1 class="page-header-title">
-                        <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-plus"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg></div>
-                                      {% if '/edition/' in request.path %}
-                Modifier
-              {% else %}
-                Ecrire
-              {% endif %} un terme du glossaire
-                    </h1>
-                </div>
-                <div class="col-12 col-xl-auto mb-3">
-                    <a class="btn btn-sm btn-light text-primary" href="{% url 'glossaire:terms-list' %}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left me-1"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                        Retour au glossaire
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+{% block entete_boutons_droites %}
+<a class="btn btn-sm btn-light text-primary" href="{% url 'glossaire:terms-list' %}">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left me-1"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    Retour au glossaire
+</a>
 {% endblock %}
 
-{% block contenu_dash %}
-<div class="container-fluid px-4">
+{% block formulaire %}
     <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
         <div class="row gx-4">
@@ -66,10 +47,4 @@
             </div>
         </div>
     </form>
-</div>
 {% endblock %}
-
-{% block js_page %}
-{% include 'table1.html' %}
-{% endblock %}
-

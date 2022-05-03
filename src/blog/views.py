@@ -36,5 +36,5 @@ class ArticleUpdateView(UpdateView, LoginRequiredMixin, SuccessMessageMixin):
 
 class ArticleDeleteView(DeleteView, LoginRequiredMixin, SuccessMessageMixin):
     model = Article
-    template_name = "blog/crud/objet_a_effacer.html"
+    template_name = "objet_a_effacer.html"
     success_url = '/blog/articles/'

@@ -10,8 +10,9 @@
         {{ form.media }}
     </head>
     <body class="bg-white">
-        <div class="container-fluid py-5">
-            <div class="row justify-content-center py-5">
+        <div class="container-fluid">
+            {% include 'message.html' %}
+            <div class="row justify-content-center">
                 <div class="col-lg-5">
                     <a href="{% url 'page:accueil' %}">
                         <img class="img-fluid mx-auto d-block" src="{% static 'img/logout.png' %}"/>

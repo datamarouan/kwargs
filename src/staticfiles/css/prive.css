@@ -132,6 +132,10 @@
   }
 }
 
+.dataTables_filter {
+  text-align: right;
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
