@@ -10,5 +10,6 @@ admin.site.register([
 	kwgApplication,
 	kwgOwnerHistory,
 	EtablissementEnseignement,
-	GeoRefPostalAddress
+	GeoRefPostalAddress,
+	ImplantationScolaire
 	])

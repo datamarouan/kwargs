@@ -70,7 +70,7 @@ class OrganizationDetailView(DetailView):
 
 	def get_context_data(self,**kwargs):
 		context = super().get_context_data(**kwargs)
-		context['adresses'] = GeoRefPostalAddress.objects.all().filter(of_organization=self.object)
+		context['adresses'] = kwgPostalAddress.objects.all().filter(of_organization=self.object)
 		context['relations'] = kwgOrganizationRelationship.objects.all().filter(relating_organization_id=self.object)
 		context['depend_de'] = kwgOrganizationRelationship.objects.all().filter(related_organization=self.object)
 		context['fase'] =  EtablissementEnseignement.objects.all().filter(kwgorganization_ptr_id=self.object)

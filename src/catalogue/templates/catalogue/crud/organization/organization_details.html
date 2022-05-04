@@ -33,17 +33,25 @@
 	    </div>
 	</div>
 	<div class="row">
-		<div class="col-lg-4 pb-4">
+		<div class="col-lg-6 pb-4">
 			<div class="card">
 			    <div class="card-body">
 			        <div class="row">
 			            <div class="col">
 							<ul class="list-unstyled">
-								{% for ad in adresses %}
-									<li>
-									<span class="small text-muted">{{ ad.user_defined_purpose }}: </span><br>{{ ad }}
-									</li>
+								{% regroup adresses|dictsort:"user_defined_purpose" by user_defined_purpose as adresses_par_usage %}
+								<ul>
+								{% for usage, adrs in adresses_par_usage %}
+								<li>
+									{{ usage }}
+									<ul>
+										{% for ad in adrs %}
+											<li>{{ ad }}</li>
+										{% endfor %}
+									</ul>
+								</li>
 								{% endfor %}
+								</ul>
 							</ul>
 			            </div>
 			        </div>
@@ -65,7 +73,7 @@
 			    </div>
 			</div>			
 		</div>
-		<div class="col-lg-6 pb-4">
+		<div class="col-lg-4 pb-4">
 			<div class="card">
 			    <div class="card-body">
 			        <div class="small text-muted mb-2">Relation(s) avec d'autres organisations</div>

@@ -155,6 +155,35 @@ class EtablissementEnseignement(kwgOrganization):
 		verbose_name = "Etablissement d'enseignement"
 		verbose_name_plural = "Etablissements d'enseignement"
 
+class ImplantationScolaire(GeoRefPostalAddress):
+	fase_imp = models.CharField(max_length=6, blank=True, null=True)
+	NIVEAU = [(2, 'Secondaire'), (3, 'Supérieur'), (1,'Fondamental')]
+	class NiveauTypeEnum(models.IntegerChoices):
+		FONDAMENTAL = 1
+		SECONDAIRE = 2
+		SUPERIEUR = 3
+	niveau = models.IntegerField(choices=NiveauTypeEnum.choices)
+	class GenreTypeEnum(models.IntegerChoices):
+		ORDINAIRE = 1
+		SPECIALISE = 2
+	genre = models.IntegerField(choices=GenreTypeEnum.choices)
+	enum_type_enseignement = [
+		("prom_soc_sec", 'Promotion sociale secondaire'), 
+		("prom_soc_sup", 'Promotion sociale supérieur'),
+		("art_hor_red", 'Artistique à horaire réduit'), 
+		("mat_spe", 'Maternel spécialisé'),
+		("prim_spe", 'Primaire spécialisé'), 
+		("mat_ord", 'Maternel ordinaire'), 
+		("prim_ord", 'Primaire ordinaire'),
+		("sec_ord", 'Secondaire ordinaire'), 
+		("sec_cefa", 'Secondaire CEFA'), 
+		("sec_spe", 'Secondaire spécialisé'),
+		("eco_sup_art", 'École supérieure des Arts'), 
+		("prom_soc_cefa", 'Promotion Sociale CEFA'),
+		("unif", 'Université'), 
+		("he", 'Haute École')]
+	type_enseignement = models.CharField(max_length=24, choices=enum_type_enseignement)
+
 class kwgPersonAndOrganization(models.Model):
 	"""This entity represents a person acting on behalf of an organization.
 	Entity adapted from person_and_organization defined in ISO 10303-41."""
