@@ -14,7 +14,11 @@
                         Details du projet
                     </h1>
                 </div>
-
+                <div class="col-12 col-xl-auto mb-3">
+                    <a class="btn btn-sm btn-light text-primary" href="{% url 'catalogue:cubim' %}">
+                        <i class="fas fa-arrow-left"></i> Retour à la page du Groupe
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -131,35 +135,21 @@
 {% block js_page %}
 {% load l10n %}
 <script type="text/javascript">
-  var map = L.map('map').setView([{{adresse.latitude|unlocalize}}, {{adresse.longitude|unlocalize}}], 18);
+var map = L.map('map').setView([50.6086,3.4011], 14);
+var osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+map.addLayer(osm);
 
-  var osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 22,
-  }).addTo(map);
+var markers = L.markerClusterGroup();
 
-  var info_best = L.tileLayer.wms('http://wms.ngi.be/inspire/best/service?', {
-    layers:"itgi_best_complet_view_simple_names",
-    format:"image/png",
-    maxZoom: 22,
-  });
+{% for adresse in adresses %}
+  markers.addLayer(L.marker([{{adresse.latitude|unlocalize}}, {{adresse.longitude|unlocalize}}]).bindPopup('<a href="">{{ adresse }}</a>'));
+{% endfor %}
 
-  var info_minfin = L.tileLayer.wms('http://ccff02.minfin.fgov.be/geoservices/arcgis/services/WMS/Cadastral_Layers/MapServer/WMSServer',{
-    layers: 'Cadastral building,Cadastral Parcel,Regional building',
-    format:'image/png',
-    maxZoom: 22,
-  });
+map.addLayer(markers);
 
-  var baseMaps = {
-    "Osm":osm,
-    "BeST":info_best,
-    "Cadastre":info_minfin,
-  };
 
-  L.marker([{{ adresse.latitude|unlocalize }}, {{ adresse.longitude|unlocalize }}]).addTo(map).bindPopup('{{ site }}');
-  L.control.layers(baseMaps,null,{
-    position:'topleft'
-  }).addTo(map);
-  map.addControl(new L.Control.Fullscreen());
-  L.control.scale().addTo(map);
+map.addControl(new L.Control.Fullscreen());
 </script>
 {% endblock %}

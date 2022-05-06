@@ -28,7 +28,7 @@ class TfcView(TemplateView):
 		context = super().get_context_data(**kwargs)
 		projet = kwgOrganization.objects.all().get(name="Académie des Beaux-Arts de la Ville de Tournai")
 		context['projet'] = projet
-		context['adresse'] = GeoRefPostalAddress.objects.all().get(of_organization=projet.identification)
+		context['adresses'] = GeoRefPostalAddress.objects.all().filter(of_organization=projet.identification)
 		return context
 ########
 # FASE #
