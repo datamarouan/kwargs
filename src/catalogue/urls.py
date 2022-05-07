@@ -10,8 +10,8 @@ urlpatterns = [
 	path("cubim/", views.CubimView.as_view(), name="cubim"),
 	path("cubim/tfc/", views.TfcView.as_view(), name="tfc"),
 	path("organisation/<str:pk>/", views.OrganizationDetailView.as_view(), name="orga-details"),
+	path("localisation/<int:pk>/", views.VueDetailLocalisation.as_view(), name="localisation-details"),
 	path('pouvoirs_organisateurs/', views.PoListView.as_view(), name='po-list'),
 	path('etablissements_enseignement/', views.EtabListView.as_view(), name='etab-list'),
-	#path('cubim/', views.CubimDetailView.as_view(), name="cubim"),
-	#path('fase/<str:pk>/', views.FaseDetailView.as_view(), name='fase-details')
+	path("localisations/", views.VueListLocalisation.as_view(), name="localisations-list"),
 ]

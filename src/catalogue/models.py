@@ -91,6 +91,9 @@ class GeoRefPostalAddress(kwgPostalAddress):
 		verbose_name = "Adresse postale géoréférencée"
 		verbose_name_plural = "Adresses postales géoréférencées"
 
+	def get_absolute_url(self):
+		return reverse("catalogue:localisation-details", args=[self.pk])
+
 class kwgTelecomAddress(kwgAddress):
 	"""This entity represents an address to which telephone, electronic 
 	mail and other forms of telecommunications should be addressed."""

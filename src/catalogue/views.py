@@ -14,6 +14,20 @@ def index(request):
 #########
 # CUBIM #
 #########
+
+class VueDetailLocalisation(DetailView):
+	model = GeoRefPostalAddress
+	template_name = "catalogue/crud/localisation/localisation_details.html"
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['occupants'] = kwgPostalAddress.objects.all().filter(id=self.object.kwgpostaladdress_ptr_id)
+		return context
+
+class VueListLocalisation(ListView):
+	model = GeoRefPostalAddress
+	template_name = "catalogue/crud/localisation/localisation_list.html"
+
 class CubimView(TemplateView):
 	template_name = "catalogue/cubim/accueil.html"
 
@@ -28,7 +42,7 @@ class TfcView(TemplateView):
 		context = super().get_context_data(**kwargs)
 		projet = kwgOrganization.objects.all().get(name="Académie des Beaux-Arts de la Ville de Tournai")
 		context['projet'] = projet
-		context['adresses'] = GeoRefPostalAddress.objects.all().filter(of_organization=projet.identification)
+		context['adresses'] = ImplantationScolaire.objects.all().filter(georefpostaladdress_ptr_id__kwgpostaladdress_ptr_id__of_organization=projet.identification)
 		return context
 ########
 # FASE #

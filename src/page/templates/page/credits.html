@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block titre_page %}Contact(**kwargs){% endblock %}
+{% block titre_page %}Crédits(**kwargs){% endblock %}
+
+{% block style_page %}<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">{% endblock %}
 
 {% block entete %}
 <header class="page-header-ui page-header-ui-dark bg-gradient-primary-to-secondary">
@@ -22,29 +24,15 @@
 {% block contenu %}
 <section class="bg-light py-4">
 	<div class="container px-5">
-	    <div class="row gx-5 justify-content-center">
-	        <div class="col-lg-10 mt-5">
-	            <p class="lead">Dernière mise à jour: avril 2020</p>
-	            <hr class="my-2">
-	            <h2 class="mb-2">Developpement</h2>
-	            <ul class="list-unstyled">
-	            	<li>Python 3.7</li>
-	            	<li>Jupyter Notebook</li>
-	            	<li>Sublime Text 3.0</li>
-	            </ul>
-	            <h2 class="mb-2">Framework Web</h2>
-	            <ul class="list-unstyled">
-	            	<li>Django 3.2.1</li>
-	            	<li>Bootstrap 5.1.3</li>
-	            </ul>
-	            <h2 class="mb-2">Libraries</h2>
-	            <ul class="list-unstyled">
-	            	<li>pandas</li>
-	            	<li>geopy</li>
-	            	<li>leaflet</li>
-	            </ul>
-	        </div>
-	    </div>
+		<div class="row">
+			<div class="col">
+				<h1>Illustrations</h1>
+				<ul class="list-unstyled">
+					<li><a href="https://storyset.com/work" target="_blank">Storyset</a></li>
+					<li><a href="https://unsplash.com/photos/jTCLppdwSEc" target="_blank">Unsplash</a></li>
+				</ul>
+			</div>				
+		</div>
 	</div>
 </section>
 {% endblock %}
