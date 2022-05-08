@@ -41,9 +41,9 @@
                         <hr class="my-5">
                         {% if user.is_authenticated %}
                         <div class="d-flex align-items-center justify-content-center">
-                            <div class="text-center mx-auto"><a class="btn btn-outline-dark" href="{% url 'blog:article-edition' slug=object.slug %}">Editer cet article</a></div>
-                            <div class="text-center mx-auto"><a class="btn btn-outline-dark" href="{% url 'blog:index' %}">Retour au site public</a></div>
-                            <div class="text-center mx-auto"><a class="btn btn-outline-dark" href="{% url 'blog:articles-list' %}">Retour au site d'administration</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'blog:article-edition' slug=object.slug %}">Editer cet article</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'blog:index' %}">Retour au site public</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'blog:articles-list' %}">Retour au site d'administration</a></div>
                         </div>
                         {% else %}
                         <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'blog:index' %}">Retour aux autres articles</a></div>

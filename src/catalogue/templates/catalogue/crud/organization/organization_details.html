@@ -14,6 +14,11 @@
                         Details de l'organisation
                     </h1>
                 </div>
+                <div class="col-12 col-xl-auto mb-3">
+                    <a class="btn btn-sm btn-light text-primary" href="{% url 'catalogue:orga-modif' pk=object.pk %}">
+                    <i class="far fa-edit"></i>  Editer
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -46,7 +51,7 @@
 										{% for imp in implantations %}
 										<tr>
 											<td><span class="badge bg-danger-soft text-danger">{{ imp.fase_imp }}</span></td>
-											<td><a href="">{{ imp }}</a></td>											
+											<td><a href="{{ imp.get_absolute_url }}">{{ imp }}</a></td>											
 											<td>{{ imp.get_type_enseignement_display }}</td>
 										</tr>
 										{% endfor %}

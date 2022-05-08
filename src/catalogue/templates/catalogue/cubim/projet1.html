@@ -146,7 +146,7 @@ map.addLayer(osm);
 var markers = L.markerClusterGroup();
 
 {% for adresse in adresses %}
-  markers.addLayer(L.marker([{{adresse.latitude|unlocalize}}, {{adresse.longitude|unlocalize}}]).bindPopup('<a href="">{{ adresse }}</a>'));
+  markers.addLayer(L.marker([{{adresse.latitude|unlocalize}}, {{adresse.longitude|unlocalize}}]).bindPopup('<a href="{{ adresse.get_absolute_url }}">{{ adresse }}</a>'));
 {% endfor %}
 
 map.addLayer(markers);

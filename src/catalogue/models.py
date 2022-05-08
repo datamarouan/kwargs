@@ -1,9 +1,15 @@
-import uuid
+import uuid, environ
+from pathlib import Path
 from django.db import models
 from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from utilisateur.models import *
+from geopy.geocoders import Here
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env()
+environ.Env.read_env(env_file=str(BASE_DIR / ".env"))
 
 #####################
 # I. RESOURCE LAYER #

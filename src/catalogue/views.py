@@ -14,6 +14,16 @@ def index(request):
 #########
 # CUBIM #
 #########
+class VueUpdateLocalisation(UpdateView):
+	model = GeoRefPostalAddress
+	template_name = "catalogue/crud/localisation/localisation_ajout.html"
+	fields = "__all__"
+	success_url = reverse_lazy('catalogue:localisations-list')
+
+class VueCreateLocalisation(CreateView):
+	model = GeoRefPostalAddress
+	template_name = "catalogue/crud/localisation/localisation_ajout.html"
+	fields = "__all__"
 
 class VueDetailLocalisation(DetailView):
 	model = GeoRefPostalAddress
@@ -70,7 +80,6 @@ class FaseListView(ListView):
 class OrganizationListView(ListView):
 	model = kwgOrganization
 	template_name = "catalogue/crud/organization/organization_list.html"
-	paginate_by = 10
 
 	def get_context_data(self,**kwargs):
 		context = super().get_context_data(**kwargs)
@@ -92,3 +101,13 @@ class OrganizationDetailView(DetailView):
 		context['fase'] =  EtablissementEnseignement.objects.all().filter(kwgorganization_ptr_id=self.object)
 		return context
 
+class OrganizationUpdateView(UpdateView):
+	model = kwgOrganization
+	fields = '__all__'
+	template_name = "catalogue/crud/organization/organization_ajout.html"
+	success_url = "/catalogue/organisation/{identification}/"
+
+class OrganizationCreateView(CreateView):
+	model = kwgOrganization
+	fields = '__all__'
+	template_name = "catalogue/crud/organization/organization_ajout.html"

@@ -20,14 +20,17 @@
         <div class="col-lg-8">
             <div class="card mb-4">
                 <div class="card-header">Titre de l'article</div>
-                <div class="card-body">{{ form.titre|as_crispy_field }}</div>
+                <div class="card-body">
+                    {{ form.titre|as_crispy_field }}
+                </div>
             </div>
             <div class="card card-header-actions mb-4">
-                <div class="card-header">
+                <div class="card-header"> & mots-clés
                     Texte introductif
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info text-muted" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="Le texte introductif apparâit sous le titre et est un résumé du contenu de l'article." aria-label="Le texte introductif apparâit sous le titre et est un résumé du contenu de l'article."><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                 </div>
-                <div class="card-body">{{ form.intro|as_crispy_field }}</div>
+                <div class="card-body">{{ form.intro|as_crispy_field }}<br>
+                    {{ form.tags|as_crispy_field }}</div>
             </div>
             <div class="card card-header-actions mb-4 mb-lg-0">
                 <div class="card-header">
