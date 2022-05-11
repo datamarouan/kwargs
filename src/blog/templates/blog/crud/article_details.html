@@ -18,9 +18,9 @@
                             <div class="single-post-meta-details">
                                 <div class="single-post-meta-details-name">{{ object.created_by }}</div>
                                 <div class="single-post-meta-details-date">{{ object.created|date}}</div>
-                                <div class="single-post-meta-details-date">
+                                <div class="single-post-meta-details-date">mots-cles: 
                                     {% for tag in object.tags.all %}
-                                    <span style="font-size: 0.75rem;">{{ tag }} </span>
+                                    <span class="text-orange" style="font-size: 0.75rem;">{{ tag }} </span>
                                     {% endfor %}    
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
                         {{ article.contenu|safe }}
                         <hr class="my-5">
                         {% if user.is_authenticated %}
-                        <div class="d-flex align-items-center justify-content-center">
+                        <div class="d-flex align-items-center justify-content-between">
                             <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'blog:article-edition' slug=object.slug %}">Editer cet article</a></div>
                             <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'blog:index' %}">Retour au site public</a></div>
                             <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'blog:articles-list' %}">Retour au site d'administration</a></div>
