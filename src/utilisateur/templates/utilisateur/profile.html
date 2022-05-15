@@ -61,6 +61,11 @@
                             {{ u_form.last_name|as_crispy_field }}
                           </div>
                         </div>
+                        <div class="row">
+                        	<div class="col">
+                        		<p><a href="{% url 'password_reset' %}">Changer de mot de passe</a></p>
+                        	</div>
+                        </div>
                          <button class="btn btn-primary float-right" type="submit">Changer</button>
                     </div>
 		        </div>

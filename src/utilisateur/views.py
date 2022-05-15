@@ -4,12 +4,31 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LogoutView, LoginView
+from django.contrib.auth.views import LogoutView, LoginView, PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from .forms import UserRegisterForm, UserUpdateForm, kwgPersonUpdateForm
 from django.contrib.auth.models import Group, User
 
 from .models import kwgPerson
+
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse
+from django.contrib.auth.forms import PasswordResetForm
+from django.template.loader import render_to_string
+from django.db.models.query_utils import Q
+from django.utils.http import urlsafe_base64_encode
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+
+class PasswordResetView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'utilisateur/password/password_reset.html'
+    email_template_name = 'utilisateur/password/password_reset_email.html'
+    subject_template_name = 'utilisateur/password/password_reset_subject'
+    success_message = "We've emailed you instructions for setting your password, " \
+                      "if an account exists with the email you entered. You should receive them shortly." \
+                      " If you don't receive an email, " \
+                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_url = reverse_lazy('profile')
 
 class GroupsDetailView(SuccessMessageMixin, LoginRequiredMixin, DetailView):
     model = Group

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titre_page %}Glossaire(**kwargs){% endblock %}
+
+
+{% block contenu %}
+<section class="bg-light py-15">
+    <div class="container-fluid py-5">
+        <div class="row gx-4 justify-content-center pt-5">
+            <div class="col-lg-10">
+                <h1>{{ object.mot }}</h1>
+                <p class="text-muted">{{ object.created }} - {{ object.created_by }} - {% for tag in object.tags.all %}<span class="text-info">{{ tag }}</span> {% endfor %}</p>
+                <hr>
+                <div class="row">
+                    <div class="col-md-8 fs-4">
+                        <h2>Définitions</h2>
+                    {{ object.desc|safe }}
+                    </div>
+                    <div class="col-md-4">
+                        <h2>Sources</h2>
+                        {% if not object.references.all %}
+                            {% if user.is_authenticated %}
+                                <i class="fas fa-exclamation-triangle text-danger"></i>
+                                <a href="{% url 'glossaire:source-ajout' %}" class="alert-link">Une défintion non sourcée n'est pas recevable : Ajouter une source</a>
+                            {% endif %}
+                        {% else %}
+                            {% for s in object.references.all %}
+                            <a href="{{ s.lien }}" target="_blank">{{ s }}</a><br>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row py-3">
+            <div class="col text-center py-3">
+                <a type="button" class="btn btn-outline-danger" href="{% url 'glossaire:index' %}">Retour à l'index du Glossaire</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
