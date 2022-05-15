@@ -26,11 +26,19 @@
 {% block contenu %}
 <section class="bg-light py-4">
     <div class="container-fluid px-5">
+        <div class="row mb-4">
+            <div class="col-lg-8 mx-auto">
+                {% for l in alphabet %}
+                <a type="button" class="btn btn-outline-primary mb-2" href="#{{ l }}">{{ l }}</a>
+                {% endfor %}
+            </div>
+        </div>
       <div class="row">
         <div class="col-lg-8 mx-auto">
           {% regroup object_list by mot.0 as lettres %}
+          {{ lettres.grouper }}
           {% for lettre in lettres %}
-          <div class="icon-stack bg-primary-soft text-primary mr-2 mb-3"><strong>{{ lettre.grouper }}</strong></div>
+          <div class="icon-stack bg-primary-soft text-primary mr-2 mb-3" id="{{ lettre.grouper }}"><strong>{{ lettre.grouper }}</strong></div>
           <ul>
             {% for obj in lettre.list %}
               <li><a href="{{ obj.get_absolute_url }}">{{ obj }}</a></li>

@@ -1,12 +1,12 @@
 <nav class="navbar navbar-marketing navbar-expand-lg bg-transparent fixed-top
-            {% if request.path == '/' or '/blog/article/' or '/glossaire/terme/' in request.path %}
+            {% if request.path == '/' or '/blog/article/' in request.path or '/glossaire/terme/' in request.path %}
                 navbar-light
             {% else %}
                 navbar-dark
             {% endif %}">
     <div class="container-fluid px-5">
         <a class="navbar-brand              
-            {% if request.path == '/' or '/blog/article/' or '/glossaire/terme/' in request.path %}
+            {% if request.path == '/' or '/blog/article/' in request.path or '/glossaire/terme/' in request.path %}
                 text-dark
             {% else %}
                 text-white

@@ -1,3 +1,4 @@
+import string
 from .models import *
 from django.shortcuts import render
 from django.contrib import messages
@@ -10,6 +11,11 @@ from django.views.generic import View, CreateView, ListView, DetailView, UpdateV
 
 class TermeListView(ListView):
     model = Terme
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['alphabet'] = string.ascii_uppercase
+        return context
 
 class TermeDetailView(DetailView, LoginRequiredMixin, SuccessMessageMixin):
     model = Terme

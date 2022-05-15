@@ -6,36 +6,53 @@
 
 {% block contenu %}
 <section class="bg-light py-15">
-    <div class="container-fluid py-5">
-        <div class="row gx-4 justify-content-center pt-5">
-            <div class="col-lg-10">
-                <h1>{{ object.mot }}</h1>
-                <p class="text-muted">{{ object.created }} - {{ object.created_by }} - {% for tag in object.tags.all %}<span class="text-info">{{ tag }}</span> {% endfor %}</p>
-                <hr>
-                <div class="row">
-                    <div class="col-md-8 fs-4">
-                        <h2>Définitions</h2>
-                    {{ object.desc|safe }}
+    <div class="container px-5">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-8 col-xl-8">
+                <div class="single-post">
+                    <h1>{{ object.mot }}</h1>
+                    <hr>
+                    <div class="d-flex align-items-center justify-content-between mb-5">
+                        <div class="single-post-meta me-4">
+                            <img class="single-post-meta-img" src="{{ object.created_by.personne.image.url }}">
+                            <div class="single-post-meta-details">
+                                <div class="single-post-meta-details-name">{{ object.created_by }}</div>
+                                <div class="single-post-meta-details-date">{{ object.created|date}}</div>
+                            </div>
+                        </div>
+                        <div>
+                            {% for tag in object.tags.all %}
+                            <span class="text-orange" style="font-size: 0.75rem;">{{ tag }} </span>
+                            {% endfor %}   
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <h2>Sources</h2>
-                        {% if not object.references.all %}
-                            {% if user.is_authenticated %}
-                                <i class="fas fa-exclamation-triangle text-danger"></i>
-                                <a href="{% url 'glossaire:source-ajout' %}" class="alert-link">Une défintion non sourcée n'est pas recevable : Ajouter une source</a>
-                            {% endif %}
+                    <div class="single-post-text my-5">
+                        {{ object.desc|safe }}
+                        <hr class="my-5">
+                        {% if user.is_authenticated %}
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'glossaire:terme-modif' slug=object.slug %}">Editer cet article</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'glossaire:index' %}">Retour au site public</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'glossaire:terms-list' %}">Retour au site d'administration</a></div>
+                        </div>
                         {% else %}
-                            {% for s in object.references.all %}
-                            <a href="{{ s.lien }}" target="_blank">{{ s }}</a><br>
-                            {% endfor %}
+                        <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'glossaire:index' %}">Retour au Glossaire</a></div>
                         {% endif %}
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row py-3">
-            <div class="col text-center py-3">
-                <a type="button" class="btn btn-outline-danger" href="{% url 'glossaire:index' %}">Retour à l'index du Glossaire</a>
+            <div class="col-lg-4">
+                <h2>Sources</h2>
+                {% if not object.references.all %}
+                    {% if user.is_authenticated %}
+                        <i class="fas fa-exclamation-triangle text-danger"></i>
+                        <a href="{% url 'glossaire:source-ajout' %}" class="alert-link">Une défintion non sourcée n'est pas recevable : Ajouter une source</a>
+                    {% endif %}
+                {% else %}
+                    {% for s in object.references.all %}
+                    <a href="{{ s.lien }}" target="_blank">{{ s }}</a><br>
+                    {% endfor %}
+                {% endif %}                
             </div>
         </div>
     </div>
