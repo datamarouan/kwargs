@@ -11,6 +11,9 @@ def index(request):
 	context = {'adresses':adresses}
 	return render(request, 'catalogue/accueil.html', context)
 
+def gestion(request):
+	return render(request, "catalogue/gestion.html")
+
 #########
 # CUBIM #
 #########
