@@ -22,6 +22,7 @@
     <thead>
         <tr>
             <th>Nom</th>
+            <th>Extension</th>
             <th>Etat</th>
             <th>Validation</th>       
             <th>Actions</th>
@@ -31,6 +32,7 @@
         {% for doc in object_list %}
         <tr>
             <td><a href="{% url 'drive:doc-details' pk=doc.pk %}">{{ doc.nom }}</a></td>
+            <td><span class="badge bg-danger-soft text-danger">{{ doc.get_doc_extension }}</span></td>
             <td>
                 {% if doc.etat == 0 %}
                     <span class="badge bg-info-soft text-info">{{ doc.get_etat_display }}</span>

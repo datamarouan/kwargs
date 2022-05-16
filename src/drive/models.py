@@ -16,6 +16,7 @@ def get_doc_filename(instance, filename):
 		dossier = extension
 	return "drive/"+str(instance.get_etat_display().lower())+"/"+dossier+'/'+filename
 
+
 class Document(models.Model):
 	identification = models.CharField(max_length=36, primary_key=True, default=uuid.uuid4, editable=False)
 	fichier = models.FileField(upload_to=get_doc_filename, max_length=255, verbose_name="Document")
@@ -44,6 +45,11 @@ class Document(models.Model):
 			return self.nom
 		else:
 			return str(self.fichier).split("/")[-1]
+
+	def get_doc_extension(self):
+		base_name = os.path.basename(self.fichier.name)
+		name, ext = os.path.splitext(base_name)
+		return ext
 
 	def get_absolute_url(self):
 		return reverse("drive:doc-details", args=[self.identification])
