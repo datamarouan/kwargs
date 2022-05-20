@@ -1,0 +1,56 @@
+                            <div class="sidenav-menu-heading">Common Data Environment</div>
+                            <!-- Sidenav Accordion -->
+                            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseCDE" aria-expanded="false" aria-controls="collapseCDE">
+                                <div class="nav-link-icon"><i class="far fa-file-alt"></i></div>
+                                Rudi le CDE
+                                <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseCDE" data-bs-parent="#accordionSidenav">
+                                <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                                    <a class="nav-link" href="{% url 'rudi:index' %}">
+                                        Accueil
+                                    </a>
+                                    <a class="nav-link" href="">
+                                        Tous les documents
+                                    </a>
+                                    <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#docsCollapseStatuts" aria-expanded="false" aria-controls="docsCollapseStatuts">
+                                        Par Statuts<div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="docsCollapseStatuts" data-bs-parent="#accordionSidenavPagesMenu" style="">
+                                        <nav class="sidenav-menu-nested nav"> 
+                                            <a class="nav-link" href="">
+                                                Conception
+                                            </a>
+                                            <a class="nav-link" href="">
+                                                Partages
+                                            </a>
+                                            <a class="nav-link" href="">
+                                                Publications
+                                            </a>
+                                            <a class="nav-link" href="">
+                                                Archives
+                                            </a>
+                                        </nav>
+                                    </div>
+                                    <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#docsCollapseValidation" aria-expanded="false" aria-controls="docsCollapseValidation">
+                                        Validations<div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="docsCollapseValidation" data-bs-parent="#accordionSidenavPagesMenu" style="">
+                                        <nav class="sidenav-menu-nested nav"> 
+                                            <a class="nav-link" href="">
+                                                A Approuver
+                                            </a>
+                                            <a class="nav-link" href="">
+                                                Approuvé
+                                            </a>
+                                            <a class="nav-link" href="">
+                                                Approuvé et commenté
+                                            </a>
+                                            <a class="nav-link" href="">
+                                                Non Approuvé
+                                            </a>
+                                        </nav>
+                                    </div>
+
+                                </nav>
+                            </div>

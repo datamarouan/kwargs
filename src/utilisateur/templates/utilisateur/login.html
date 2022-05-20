@@ -1,17 +1,19 @@
 {% include "easter_egg.txt" %}
 {% load crispy_forms_tags %}
+
+{% include "easter_egg.txt" %}
 <!DOCTYPE html>
 <html lang="fr">
     <head>
         {% include "meta.html" %}
-        <title>Se connecter</title>
-        {% include "style_dash.html" %}
+        <title>{% block titre_page %}Hello{% endblock %}</title>
+        {% include 'public/style.html' %}
         {% block style_page %}{% endblock %}
         {{ form.media }}
     </head>
-    <body class="bg-secondary-soft">
-        <div id="layoutAuthentication">
-            <div id="layoutAuthentication_content">
+    <body>
+        <div id="layoutDefault">
+            <div id="layoutDefault_content">
                 <main>
                     <div class="container-xl px-4 py-10">
                         <div class="row justify-content-center">
@@ -40,7 +42,32 @@
                     </div>
                 </main>
             </div>
+            <div id="layoutDefault_footer">
+                {% include "footer.html" %}
+            </div>
         </div>
-        {% include 'js_dash.html' %}
+        {% include "public/js.html" %}
+        {% block js_page %}{% endblock %}
     </body>
+</html>
+
+
+<!doctype html>
+<html lang="fr">
+  <head>
+
+    
+
+
+    
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    
+
+
+
+    
+  </body>
 </html>

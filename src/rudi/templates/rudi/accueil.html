@@ -1,0 +1,96 @@
+{% extends "prive/base_dash.html" %}
+{% load crispy_forms_tags %}
+{% block titre_page %}Rudi-Docu-Mentaire{% endblock %}
+{% load static %}
+	{% block entete_dash %}
+<header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+    <div class="container-fluid px-4">
+        <div class="page-header-content pt-4">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-auto mt-4">
+                    <h1 class="page-header-title">
+                        <div class="page-header-icon"><i class="far fa-folder-open"></i></div>
+                        Rudi
+                    </h1>
+                    <div class="page-header-subtitle">Un système rudimentaire de gestion documentaire</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block contenu_dash %}
+<div class="container-fluid px-4 mt-n10">
+	<div class="row">
+		<div class="col-lg-6 col-xl-3 mb-4">
+		    <div class="card bg-yellow text-white h-100">
+		        <div class="card-body">
+		            <div class="d-flex justify-content-between align-items-center">
+		                <div class="me-3">
+		                    <div class="text-white">Travail en cours</div>
+		                    <div class="text-lg fw-bold">{{ conception|length }}</div>
+		                </div>
+		                <i class="fa-solid fa-list-check fa-3x text-white-50"></i>
+		            </div>
+		        </div>
+		        <div class="card-footer d-flex align-items-center justify-content-between small">
+		            <a class="text-white stretched-link" href="{% url 'rudi:conception-list' %}">Voir les documents</a>
+		            <div class="text-white"><i class="fas fa-angle-right"></i></div>
+		        </div>
+		    </div>
+		</div>
+		<div class="col-lg-6 col-xl-3 mb-4">
+		    <div class="card bg-green text-white h-100">
+		        <div class="card-body">
+		            <div class="d-flex justify-content-between align-items-center">
+		                <div class="me-3">
+		                    <div class="text-white">Partagés</div>
+		                    <div class="text-lg fw-bold">{{ partage|length }}</div>
+		                </div>
+		                <i class="fa-solid fa-share fa-3x text-white-50"></i>
+		            </div>
+		        </div>
+		        <div class="card-footer d-flex align-items-center justify-content-between small">
+		            <a class="text-white stretched-link" href="{% url 'rudi:partage-list' %}">Voir les documents</a>
+		            <div class="text-white"><i class="fas fa-angle-right"></i></div>
+		        </div>
+		    </div>
+		</div>
+		<div class="col-lg-6 col-xl-3 mb-4">
+		    <div class="card bg-teal text-white h-100">
+		        <div class="card-body">
+		            <div class="d-flex justify-content-between align-items-center">
+		                <div class="me-3">
+		                    <div class="text-white">Publiés</div>
+		                    <div class="text-lg fw-bold">{{ publication|length }}</div>
+		                </div>
+		                <i class="fa-solid fa-newspaper fa-3x text-white-50"></i>
+		            </div>
+		        </div>
+		        <div class="card-footer d-flex align-items-center justify-content-between small">
+		            <a class="text-white stretched-link" href="{% url 'rudi:publication-list' %}">Voir les documents</a>
+		            <div class="text-white"><i class="fas fa-angle-right"></i></div>
+		        </div>
+		    </div>
+		</div>
+		<div class="col-lg-6 col-xl-3 mb-4">
+		    <div class="card bg-cyan text-white h-100">
+		        <div class="card-body">
+		            <div class="d-flex justify-content-between align-items-center">
+		                <div class="me-3">
+		                    <div class="text-white">Archivage</div>
+		                    <div class="text-lg fw-bold">{{ archivage|length }}</div>
+		                </div>
+		                <i class="fa-solid fa-folder-tree fa-3x text-white-50"></i>
+		            </div>
+		        </div>
+		        <div class="card-footer d-flex align-items-center justify-content-between small">
+		            <a class="text-white stretched-link" href="{% url 'rudi:archivage-list' %}">Voir les documents</a>
+		            <div class="text-white"><i class="fas fa-angle-right"></i></div>
+		        </div>
+		    </div>
+			</div>
+	</div>
+</div>
+{% endblock %}

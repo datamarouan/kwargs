@@ -37,7 +37,6 @@ class TermeUpdateView(UpdateView, LoginRequiredMixin, SuccessMessageMixin):
     fields = '__all__'
     success_message = "Le terme %(mot)s a bien été modifié."
     template_name = "glossaire/crud/terme_ajout.html"
-    success_url = "/glossaire/"
 
 class TermeDeleteView(DeleteView, LoginRequiredMixin, SuccessMessageMixin):
     model = Terme
@@ -49,4 +48,4 @@ class SourceCreateView(LoginRequiredMixin, CreateView, SuccessMessageMixin):
     fields = '__all__'
     success_message = "Source ajoutée au glossaire. Merci."
     template_name = "glossaire/crud/source_ajout.html"
-    success_url = "/glossaire/"
+    success_url = "/glossaire/terme/%(slug)s/"

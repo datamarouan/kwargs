@@ -77,7 +77,6 @@ class kwgPerson(models.Model):
 		help_text="The word, or group of words, which specify the person's social and/or professional standing and appear before his/her names")
 	roles=models.ManyToManyField('kwgActorRole', blank=True)
 	image = models.ImageField(default='default.jpg', upload_to='avatars/')
-
 	
 	def save(self,*args,**kwargs):
 		super().save(*args,**kwargs)

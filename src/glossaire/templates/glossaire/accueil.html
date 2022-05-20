@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "public/base.html" %}
 {% load static %}
 
 {% block titre_page %}Glossaire(**kwargs){% endblock %}
@@ -34,9 +34,8 @@
             </div>
         </div>
       <div class="row">
-        <div class="col-lg-8 mx-auto">
+        <div class="col-sm-3 mx-auto">
           {% regroup object_list by mot.0 as lettres %}
-          {{ lettres.grouper }}
           {% for lettre in lettres %}
           <div class="icon-stack bg-primary-soft text-primary mr-2 mb-3" id="{{ lettre.grouper }}"><strong>{{ lettre.grouper }}</strong></div>
           <ul>
@@ -49,8 +48,4 @@
       </div>
     </div>
 </section>
-{% endblock %}
-
-{% block js_page %}
-
 {% endblock %}

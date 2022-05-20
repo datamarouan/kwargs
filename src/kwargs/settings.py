@@ -22,6 +22,15 @@ DEBUG = env.bool("DEBUG")
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.marouan.alwaysdata.net'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env('HOST_USER')
+EMAIL_HOST_PASSWORD = env('HOST_PASSWORD')
+
+DEFAULT_FROM_EMAIL = '**kwargs <info@kwargs.be>'
+EMAIL_HOST = 'smtp.alwaysdata.com'
+EMAIL_SUBJECT_PREFIX = '[kwargs notification]'
 
 # Application definition
 # INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -39,12 +48,12 @@ INSTALLED_APPS = [
     'tinymce',
     'taggit',
     'simple_history',
-    'catalogue',
-    'glossaire',
+    "rudi",
     'blog',
+    'glossaire',
     'page',
     'utilisateur',
-    'drive',
+    'ticket',
     'django_cleanup.apps.CleanupConfig',
 ]
 

@@ -1,4 +1,4 @@
-{% extends "base_dash.html" %}
+{% extends "prive/base_dash.html" %}
 {% load crispy_forms_tags %}
 {% block titre_page %}{{ object }}{% endblock %}
 
@@ -14,6 +14,11 @@
 	                    {{ object }}
 	                </h1>
 	            </div>
+                <div class="col-auto mb-3">
+                    <a class="btn btn-sm btn-light text-primary" href="{% url 'users-list' %}">
+                    <i class="far fa-edit"></i> Retour aux groupes
+                    </a>
+                </div>
 	        </div>
 	    </div>
 	</div>

@@ -1,47 +1,40 @@
-{% extends "base.html" %}
+{% extends "public/base.html" %}
 {% load static %}
 
-{% block titre_page %}Glossaire(**kwargs){% endblock %}
+{% block titre_page %}{{ object }}{% endblock %}
 
+{% block style_page %}
 
-{% block contenu %}
-<section class="bg-light py-15">
-    <div class="container px-5">
-        <div class="row gx-5 justify-content-center">
-            <div class="col-lg-8 col-xl-8">
-                <div class="single-post">
-                    <h1>{{ object.mot }}</h1>
-                    <hr>
-                    <div class="d-flex align-items-center justify-content-between mb-5">
-                        <div class="single-post-meta me-4">
-                            <img class="single-post-meta-img" src="{{ object.created_by.personne.image.url }}">
-                            <div class="single-post-meta-details">
-                                <div class="single-post-meta-details-name">{{ object.created_by }}</div>
-                                <div class="single-post-meta-details-date">{{ object.created|date}}</div>
-                            </div>
-                        </div>
-                        <div>
-                            {% for tag in object.tags.all %}
-                            <span class="text-orange" style="font-size: 0.75rem;">{{ tag }} </span>
-                            {% endfor %}   
-                        </div>
-                    </div>
-                    <div class="single-post-text my-5">
-                        {{ object.desc|safe }}
-                        <hr class="my-5">
-                        {% if user.is_authenticated %}
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'glossaire:terme-modif' slug=object.slug %}">Editer cet article</a></div>
-                            <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'glossaire:index' %}">Retour au site public</a></div>
-                            <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'glossaire:terms-list' %}">Retour au site d'administration</a></div>
-                        </div>
-                        {% else %}
-                        <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'glossaire:index' %}">Retour au Glossaire</a></div>
-                        {% endif %}
-                    </div>
+{% endblock %}
+
+{% block entete %}
+<header class="page-header-ui page-header-ui-dark bg-gradient-primary-to-secondary">
+    <div class="page-header-ui-content">
+        <div class="container px-5 text-center">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-8">
+                    <h1 class="page-header-ui-title">{{ object.mot }}</h1>
+                    <p class="page-header-ui-text mb-0">
+                        {% for tag in object.tags.all %}
+                        <span>{{ tag }} </span>
+                        {% endfor %}
+                    </p>
                 </div>
             </div>
-            <div class="col-lg-4">
+        </div>
+    </div>
+    {% include "wave_light.html" %}
+</header>
+{% endblock %}
+
+{% block contenu %}
+<section class="bg-light py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                {{ object.desc|safe }}
+            </div>
+            <div class="col-lg-3">
                 <h2>Sources</h2>
                 {% if not object.references.all %}
                     {% if user.is_authenticated %}
@@ -52,7 +45,19 @@
                     {% for s in object.references.all %}
                     <a href="{{ s.lien }}" target="_blank">{{ s }}</a><br>
                     {% endfor %}
-                {% endif %}                
+                {% endif %} 
+            </div>
+        </div>
+        <hr class="my-5">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <ul class="list-unstyled list-inline text-center">
+                    {% if user.is_staff %}
+                    <li class="list-inline-item"><a href="{% url 'glossaire:terme-modif' slug=object.slug %}">Editer</a></li>
+                    <li class="list-inline-item"><a href="">Retour à l'application</a></li>
+                    {% endif %}
+                    <li class="list-inline-item"><a href="{% url 'glossaire:index' %}">Retour au site public</a></li>
+                </ul>
             </div>
         </div>
     </div>

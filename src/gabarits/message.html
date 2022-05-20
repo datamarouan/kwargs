@@ -1,15 +1,14 @@
-                    <!-- Message, le cas échéant -->
-                    {% if messages %}
-{% for message in messages %}
-<div class="col-6 mx-auto">
-    <div class="alert {{ message.tags }} alert-dismissible fade show m-2" role="alert">
-        {{ message }}
-        <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>    
-</div>
-
-{% endfor %}
-                    {% endif %}
+<!-- Message, le cas échéant -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="col-10 mx-auto">
+            <div class="alert {{ message.tags }} alert-dismissible fade show m-2" role="alert">
+            {{ message }}
+            <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>    
+        </div>
+    {% endfor %}
+{% endif %}
 
 
 

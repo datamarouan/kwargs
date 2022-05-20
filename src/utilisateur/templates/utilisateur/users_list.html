@@ -1,4 +1,4 @@
-{% extends "base_list.html" %}
+{% extends "prive/base_list.html" %}
 {% load crispy_forms_tags %}
 {% block titre_page %}Utilisateurs{% endblock %}
 
@@ -20,7 +20,7 @@
             <th>user</th>
             <th>email</th>
             <th>Groupes</th>
-            <th>Joined Date</th>
+            <th>Dern. Connexion</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -32,16 +32,12 @@
                     <div class="avatar me-2">
                         <img class="avatar-img img-fluid" src="{{ p.image.url }}">
                     </div>
-                    {% if p.user.last_name %}
-                    {{ p.user.first_name }} {{ p.user.last_name }}
-                {% else %}
                     {{ p.user.username}}
-                {% endif %}
               </div>
             </td>
             <td>{{ p.user.email }}</td>
-            <td>{% for groupe in p.user.groups.all %}<span class="badge bg-primary-soft text-primary">{{ groupe }}</span> {% endfor %}</td>
-            <td>{{ p.user.date_joined|date }}</td>
+            <td>{% for groupe in p.user.groups.all %}<span class="badge bg-primary-soft text-primary"><a href="{% url 'group-details' pk=groupe.pk %}">{{ groupe }}</a></span> {% endfor %}</td>
+            <td>{{ p.user.last_login|date }}</td>
             <td>
                 <a class="btn btn-datatable btn-icon btn-transparent-dark me-2" href="mailto:{{ p.user.email }}"><i class="far fa-envelope text-green"></i></a>
             </td>

@@ -1,0 +1,35 @@
+<nav class="navbar navbar-marketing navbar-expand-lg bg-transparent fixed-top
+            {% if request.path == '/' or '/blog/article/' in request.path or '/password' in request.path %}
+                navbar-light
+            {% else %}
+                navbar-dark
+            {% endif %}">
+    <div class="container-fluid px-5">
+        <a class="navbar-brand              
+            {% if request.path == '/' or '/blog/article/' in request.path  or '/password' in request.path %}
+                text-dark
+            {% else %}
+                text-white
+            {% endif %}"  href="{% url 'page:accueil' %}">kwargs industria</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars 
+            {% if request.path == '/' %}
+                text-black
+            {% else %}
+                text-white
+            {% endif %}"></i></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto me-lg-5">
+
+                <li class="nav-item"><a class="nav-link" href="{% url 'glossaire:index' %}">Glossaire</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'page:contact' %}">Contact</a></li>
+                {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="#' %}">Application</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Mon profil</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Se déconnecter</a></li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Se connecter</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

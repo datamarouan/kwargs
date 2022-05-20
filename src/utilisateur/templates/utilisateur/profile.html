@@ -1,4 +1,4 @@
-{% extends "base_dash.html" %}
+{% extends "prive/base_dash.html" %}
 {% load crispy_forms_tags %}
 {% block titre_page %}Profil de {{ user }}{% endblock %}
 
@@ -26,8 +26,26 @@
 	{% csrf_token %}
 		<div class="row">
 		    <div class="col-xl-4">
-		        <!-- Profile picture card-->
-		        <div class="card mb-4 mb-xl-0">
+		        <div class="card mb-4">
+		        	<div class="card-header">
+		        		Membre 
+		        		{%if request.user.groups.all|length == 0 %}
+		        		d'aucun groupe
+		        		{% elif request.user.groups.all|length == 1 %}
+		        		du groupe suivant
+		        		{% else %}
+		        		des groupes suivants
+		        		{% endif %}
+		        	</div>
+		        	{% if request.user.groups.all %}
+		        	<div class=" card-body">
+		        		{% for g in request.user.groups.all %}
+		        			<span class="ml-2 badge bg-primary-soft text-primary"><a href="{% url 'group-details' pk=g.pk %}">{{ g }}</a></span>
+		        		{% endfor %}
+		        	</div>
+		        	{% endif %}
+		        </div>
+		        <div class="card mb-4">
 		            <div class="card-header">Photo du compte</div>
 		            <div class="card-body text-center">
 		                <!-- Profile picture image-->
@@ -44,30 +62,32 @@
 		        <!-- Account details card-->
 		        <div class="card mb-4">
 		            <div class="card-header">Détails du compte</div>
-                    <div class="card-body">
-                        <div class="row">
-                          <div class="col-md col-sm-12">
-                            {{ u_form.username|as_crispy_field }}
-                          </div>
-                          <div class="col-md col-sm-12">
-                            {{ u_form.email|as_crispy_field }}
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md col-sm-12">
-                            {{ u_form.first_name|as_crispy_field }}
-                          </div>
-                          <div class="col-md col-sm-12">
-                            {{ u_form.last_name|as_crispy_field }}
-                          </div>
-                        </div>
-                        <div class="row">
-                        	<div class="col">
-                        		<p><a href="{% url 'password_reset' %}">Changer de mot de passe</a></p>
-                        	</div>
-                        </div>
-                         <button class="btn btn-primary float-right" type="submit">Changer</button>
+                <div class="card-body">
+                    <div class="row">
+                      <div class="col-md col-sm-12">
+                        {{ u_form.username|as_crispy_field }}
+                      </div>
+                      <div class="col-md col-sm-12">
+                        {{ u_form.email|as_crispy_field }}
+                      </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md col-sm-12">
+                        {{ u_form.first_name|as_crispy_field }}
+                      </div>
+                      <div class="col-md col-sm-12">
+                        {{ u_form.last_name|as_crispy_field }}
+                      </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col">
+                    		<p class="text-end"><a href="{% url 'password_reset' %}">Changer de mot de passe</a></p>
+                    	</div>
+                    </div>
+                    <div class="text-center">
+                    	<button class="btn btn-primary mt-4" type="submit">Changer</button>	
+                    </div>
+                </div>
 		        </div>
 		    </div>
 		</div>

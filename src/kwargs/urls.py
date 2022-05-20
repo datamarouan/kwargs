@@ -8,17 +8,18 @@ from utilisateur import views as user_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('page.urls')),
-    path('drive/', include('drive.urls')),
-    path('blog/', include('blog.urls')),
-    path('catalogue/', include('catalogue.urls')),
-    path('glossaire/', include('glossaire.urls')),    
+    path("tickets/", include("ticket.urls")),
+    path("glossaire/", include("glossaire.urls")),
+    path("blog/", include("blog.urls")),
+    path('rudi/', include("rudi.urls")),
 ]
+
 
 url_users = [
     path('login/', user_views.LoginView.as_view(template_name="utilisateur/login.html"), name="login"),
     path('logout/', user_views.LogoutView.as_view(template_name="utilisateur/logout.html"), name="logout"),
     path('password-reset/',
-        user_views.PasswordResetView.as_view(
+        auth_views.PasswordResetView.as_view(
             template_name="utilisateur/password/password_reset.html"
             ),
         name="password_reset"),
@@ -39,15 +40,16 @@ url_users = [
         name="password_reset_complete"),
     path('profile/', user_views.profile, name="profile"),
     path('register/', user_views.register, name="register"),
-    path('users/', user_views.UsersList.as_view(), name="users-list"),
     path('groupes/', user_views.GroupsList.as_view(), name="groups-list"),
     path('groupe/<int:pk>/', user_views.GroupsDetailView.as_view(), name="group-details"),
     path('groupe/ajouter/', user_views.GroupsCreateView.as_view(), name="new-group"),
     path('groupe/<int:pk>/edition/', user_views.GroupsUpdateView.as_view(), name="group-modif"),
     path('groupe/<int:pk>/effacer/', user_views.GroupsDeleteView.as_view(), name="group-delete"),
+    path('users/', user_views.UsersList.as_view(), name="users-list"),
 ]
 
 urlpatterns += url_users
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
