@@ -25,6 +25,7 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 EMAIL_PORT = 587
 EMAIL_HOST_USER = env('HOST_USER')
 EMAIL_HOST_PASSWORD = env('HOST_PASSWORD')
@@ -36,7 +37,7 @@ EMAIL_HOST_PASSWORD = env('HOST_PASSWORD')
 #EMAIL_HOST_USER = env('HOST_USER')
 #EMAIL_HOST_PASSWORD = env('HOST_PASSWORD')
 
-DEFAULT_FROM_EMAIL = '**kwargs <info@kwargs.be>'
+DEFAULT_FROM_EMAIL = '**kwargs <marouanelmoussaoui@gmail.com>'
 EMAIL_SUBJECT_PREFIX = '[kwargs notification]'
 
 # Application definition
