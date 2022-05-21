@@ -29,10 +29,12 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 #EMAIL_PORT = 465
 #EMAIL_HOST_USER = env('HOST_USER')
 #EMAIL_HOST_PASSWORD = env('HOST_PASSWORD')
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp-marouan.alwaysdata.net'
-EMAIL_PORT = 465
+EMAIL_PORT = 25
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env('HOST_USER')
 EMAIL_HOST_PASSWORD = env('HOST_PASSWORD')
