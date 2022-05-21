@@ -24,13 +24,12 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp-marouan.alwaysdata.net'
-EMAIL_PORT = 465
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env('HOST_USER')
 EMAIL_HOST_PASSWORD = env('HOST_PASSWORD')
 
 DEFAULT_FROM_EMAIL = '**kwargs <info@kwargs.be>'
-EMAIL_HOST = 'smtp.alwaysdata.com'
 EMAIL_SUBJECT_PREFIX = '[kwargs notification]'
 
 # Application definition
