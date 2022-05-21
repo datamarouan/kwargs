@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'tinymce',
     'taggit',
     'simple_history',
+    "catalogue",
     "rudi",
     'blog',
     'glossaire',

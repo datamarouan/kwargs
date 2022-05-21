@@ -12,6 +12,7 @@ urlpatterns = [
     path("glossaire/", include("glossaire.urls")),
     path("blog/", include("blog.urls")),
     path('rudi/', include("rudi.urls")),
+    path("catalogue/", include("catalogue.urls")),
 ]
 
 
