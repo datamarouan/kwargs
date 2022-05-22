@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import View, CreateView, ListView, DetailView, UpdateView, DeleteView
 
-class TermeListView(ListView):
+class TermeListView(LoginRequiredMixin, ListView):
     model = Terme
 
     def get_context_data(self, **kwargs):

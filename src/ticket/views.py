@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, DeleteView, TemplateView
 from .models import *
 
+@login_required
 def index(request):
 	taches = Ticket.objects.all()
 	context = {"taches":taches}

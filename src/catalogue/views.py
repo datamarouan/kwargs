@@ -2,15 +2,18 @@ from .models import *
 from utilisateur.models import *
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, DeleteView, TemplateView
 
+@login_required
 def index(request):
 	adresses = GeoRefPostalAddress.objects.all()
 	context = {'adresses':adresses}
 	return render(request, 'catalogue/accueil.html', context)
 
+@login_required
 def gestion(request):
 	return render(request, "catalogue/gestion.html")
 
