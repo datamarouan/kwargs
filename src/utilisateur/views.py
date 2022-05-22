@@ -44,10 +44,10 @@ class UsersList(LoginRequiredMixin, ListView):
     model = kwgPerson
     template_name = "utilisateur/users_list.html"
 
-class LogoutView(LoginRequiredMixin, SuccessMessageMixin, LogoutView):
+class LogoutView(SuccessMessageMixin, LogoutView):
     template_name = 'utilisateur/logout.html'
 
-class LoginView(LoginRequiredMixin, SuccessMessageMixin,LoginView):
+class LoginView(SuccessMessageMixin,LoginView):
     template_name = 'utilisateur/login.html'
 
 def register(request):
