@@ -6,11 +6,11 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Etude(models.Model):
 	"""Une Etude est un projet qui regroupe un ou plusieurs trucs et sur ces trucs on fait des manip. Genre"""
-	status = (
-		('1', 'Stuck'),
-		('2', 'Working'),
-		('3', 'Done'),
-	)
+	status = [
+		(1, 'Stuck'),
+		(2, 'Working'),
+		(3, 'Done'),
+	]
 	nom = models.CharField(max_length=125)
 	slug = models.SlugField()
 	assign = models.ManyToManyField('auth.User')
