@@ -26,43 +26,43 @@ def index(request):
 		}
 	return render(request, 'rudi/accueil.html', context)
 
-class ValidationAApprouver(ListView, LoginRequiredMixin):
+class ValidationAApprouver(LoginRequiredMixin, ListView):
 	queryset = Document.objects.all().filter(validation="AA")
 	template_name = "rudi/vues/validation/a_approuver.html"
 
-class ValidationApprouve(ListView, LoginRequiredMixin):
+class ValidationApprouve(LoginRequiredMixin, ListView):
 	queryset = Document.objects.all().filter(validation="A")
 	template_name = "rudi/vues/validation/approuve.html"
 
-class ValidationApprouveEtCommente(ListView, LoginRequiredMixin):
+class ValidationApprouveEtCommente(LoginRequiredMixin, ListView):
 	queryset = Document.objects.all().filter(validation="AC")
 	template_name = "rudi/vues/validation/approuve_commente.html"
 
-class ValidationNonApprouve(ListView, LoginRequiredMixin):
+class ValidationNonApprouve(LoginRequiredMixin, ListView):
 	queryset = Document.objects.all().filter(validation="NA")
 	template_name = "rudi/vues/validation/non_approuve.html"
 
-class VueConception(ListView, LoginRequiredMixin):
+class VueConception(LoginRequiredMixin, ListView):
 	queryset = Document.objects.all().filter(etat=0)
 	template_name = "rudi/vues/statut/conception.html"
 
-class VueArchivage(ListView, LoginRequiredMixin):
+class VueArchivage(LoginRequiredMixin, ListView):
 	queryset = Document.objects.all().filter(etat=3)
 	template_name = "rudi/vues/statut/archivage.html"
 
-class VuePartage(ListView, LoginRequiredMixin):
+class VuePartage(LoginRequiredMixin, ListView):
 	queryset = Document.objects.all().filter(etat=1)
 	template_name = "rudi/vues/statut/partage.html"
 
-class VuePublication(ListView, LoginRequiredMixin):
+class VuePublication(LoginRequiredMixin, ListView):
 	queryset = Document.objects.all().filter(etat=2)
 	template_name = "rudi/vues/statut/publication.html"
 
-class DocDetailView(DetailView, LoginRequiredMixin):
+class DocDetailView(LoginRequiredMixin, DetailView):
 	model = Document
 	template_name = "rudi/crud/doc_details.html"
 
-class DocCreateView(CreateView, LoginRequiredMixin):
+class DocCreateView(LoginRequiredMixin, CreateView):
 	model = Document
 	template_name = "rudi/crud/doc_ajout.html"
 	fields = "__all__"
@@ -72,16 +72,16 @@ class DocCreateView(CreateView, LoginRequiredMixin):
 		#context['']
 		return context
 
-class DocListView(ListView, LoginRequiredMixin):
+class DocListView(LoginRequiredMixin, ListView):
 	model = Document
 	template_name = "rudi/crud/docs_list.html"
 
-class DocUpdateView(UpdateView, LoginRequiredMixin):
+class DocUpdateView(LoginRequiredMixin, UpdateView):
 	model = Document 
 	template_name = "rudi/crud/doc_ajout.html"
 	fields = "__all__"
 
-class DocDeleteView(DeleteView, LoginRequiredMixin):
+class DocDeleteView(LoginRequiredMixin, DeleteView):
 	model = Document
 	template_name = "objet_a_effacer.html"
 	success_url = "/rudi/documents/"

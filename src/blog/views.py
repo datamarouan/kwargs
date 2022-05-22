@@ -16,11 +16,11 @@ def index(request):
     }
     return render(request, 'blog/accueil.html', context)
 
-class ArticleListView(ListView):
+class ArticleListView(LoginRequiredMixin, ListView):
     model = Article
     template_name = "blog/crud/articles_list.html"
 
-class ArticleDetailView(DetailView):
+class ArticleDetailView(LoginRequiredMixin, DetailView):
     model = Article
     template_name = "blog/crud/article_details.html"
 

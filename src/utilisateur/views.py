@@ -11,11 +11,11 @@ from django.contrib.auth.models import Group, User
 
 from .models import kwgPerson
 
-class GroupsDetailView(SuccessMessageMixin, LoginRequiredMixin, DetailView):
+class GroupsDetailView(LoginRequiredMixin, SuccessMessageMixin, DetailView):
     model = Group
     template_name = "utilisateur/crud/group_details.html"
 
-class GroupsCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class GroupsCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Group
     fields = ["name",]
     template_name = "utilisateur/crud/group_ajout.html"
@@ -23,31 +23,31 @@ class GroupsCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     success_url = "/groupes/"
 
 
-class GroupsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class GroupsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Group
     fields = ["name",]
     template_name = "utilisateur/crud/group_ajout.html"
     success_message = "Les modifications au groupe %(name)s ont été enregistrées."
     success_url = "/groupes/"
 
-class GroupsDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class GroupsDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Group 
     template_name = "objet_a_effacer.html"
     success_message = "Le groupe %(name)s a été effacé"
     success_url = "/groupes/"
 
-class GroupsList(ListView, LoginRequiredMixin):
+class GroupsList(LoginRequiredMixin, ListView):
     model = Group
     template_name = "utilisateur/groups.html"
 
-class UsersList(ListView, LoginRequiredMixin):
+class UsersList(LoginRequiredMixin, ListView):
     model = kwgPerson
     template_name = "utilisateur/users_list.html"
 
-class LogoutView(SuccessMessageMixin, LogoutView):
+class LogoutView(LoginRequiredMixin, SuccessMessageMixin, LogoutView):
     template_name = 'utilisateur/logout.html'
 
-class LoginView(SuccessMessageMixin,LoginView):
+class LoginView(LoginRequiredMixin, SuccessMessageMixin,LoginView):
     template_name = 'utilisateur/login.html'
 
 def register(request):
