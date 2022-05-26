@@ -54,7 +54,7 @@
                 <ul class="list-unstyled list-inline text-center">
                     {% if user.is_staff %}
                     <li class="list-inline-item"><a href="{% url 'glossaire:terme-modif' slug=object.slug %}">Editer</a></li>
-                    <li class="list-inline-item"><a href="">Retour à l'application</a></li>
+                    <li class="list-inline-item"><a href="{% url 'glossaire:terms-list' %}">Retour à l'application</a></li>
                     {% endif %}
                     <li class="list-inline-item"><a href="{% url 'glossaire:index' %}">Retour</a></li>
                 </ul>

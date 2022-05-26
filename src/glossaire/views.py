@@ -17,6 +17,7 @@ class TermeListView(ListView):
         context['alphabet'] = string.ascii_uppercase
         return context
 
+
 class TermeDetailView(DetailView, LoginRequiredMixin, SuccessMessageMixin):
     model = Terme
     template_name = "glossaire/crud/terme_details.html"

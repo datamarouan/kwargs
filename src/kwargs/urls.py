@@ -8,13 +8,12 @@ from utilisateur import views as user_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('page.urls')),
-    path("tickets/", include("ticket.urls")),
-    path("glossaire/", include("glossaire.urls")),
-    path("blog/", include("blog.urls")),
-    path('rudi/', include("rudi.urls")),
+    path('projet/', include('projet.urls')),
     path("catalogue/", include("catalogue.urls")),
+    path('glossaire/', include("glossaire.urls")),
+    path('rudi/', include("rudi.urls")),
+    path("blog/", include("blog.urls"))
 ]
-
 
 url_users = [
     path('login/', user_views.LoginView.as_view(template_name="utilisateur/login.html"), name="login"),
@@ -50,7 +49,6 @@ url_users = [
 ]
 
 urlpatterns += url_users
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

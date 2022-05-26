@@ -96,9 +96,3 @@ class kwgPerson(models.Model):
 		else:
 			return self.user.username
 
-	def clean(self):
-		if not self.user.last_name and not self.user.first_name:
-			raise ValidationError("Requires that the family name or/and the given name is provided as minimum information.")
-
-		if (self.middle_name and not self.user.last_name) or (self.middle_name and not self.user.first_name):
-			raise ValidationError("If middle names are provided, the family name or/ and the given name shall be provided too.")

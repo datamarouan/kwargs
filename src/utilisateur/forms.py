@@ -8,17 +8,16 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username','email','password1','password2',
-                'first_name', 'last_name','groups']
+        fields = ['username','email','password1','password2']
 
 class UserUpdateForm(UserChangeForm):
     email = forms.EmailField()
 
     class Meta:
         model = User
-        fields = ['username','email','first_name','last_name','groups']
+        fields = ['username','email','first_name','last_name']
 
 class kwgPersonUpdateForm(forms.ModelForm):
     class Meta:
         model = kwgPerson
-        fields = ['image','roles',]
+        fields = ['image',]

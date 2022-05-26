@@ -1,0 +1,65 @@
+{% extends "prive/base_dash.html" %}
+{% load crispy_forms_tags %}
+{% block titre_page %}Accueil{% endblock %}
+{% load static %}
+{% load l10n %}
+{% block entete_dash %}
+<header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+    <div class="container-fluid px-4">
+        <div class="page-header-content pt-4">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-auto mt-4">
+                    <h1 class="page-header-title">
+                        <div class="page-header-icon"><i class="fas fa-project-diagram"></i></div>
+                        Projets
+                    </h1>
+                    <div class="page-header-subtitle">Vue d'ensemble des projets en cours</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block contenu_dash %}
+<div class="container-fluid px-4 mt-n10">
+	<div class="row justify-content-between align-items-between">
+		<div class="col-lg-12 mx-auto">
+			<div class="card">
+				<div class="card-body">
+					<div class="row text-start justify-content-between">
+						<div class="col-sm-6 border-lg border-start border-success">
+							{{ projets|length }} projets en cours
+						</div>
+						<div class="col-sm-6 border-lg border-start border-danger">
+							{{ taches|length }} tâches
+						</div>
+					</div>
+					<hr>
+					{% for cas in projets %}
+					<div class="row">
+						<a class="col text-decoration-none" href="{{ cas.get_absolute_url }}">
+							<h4 class="small">
+									{% if cas.status == 1 %}
+										<span class="badge bg-danger rounded-0">{{ cas.get_status_display }}</span>
+									{% elif cas.status == 2 %}
+										<span class="badge bg-warning rounded-0">{{ cas.get_status_display }}</span>
+									{% elif cas.status == 3 %}
+										<span class="badge bg-success rounded-0">{{ cas.get_status_display }}</span>
+									{% endif %}
+								{{ cas }}
+								<span class="float-end fw-bold">{{ cas.completude }}%</span>
+							</h4>
+							<div class="progress" style="height: 3px;">
+								<span></span><div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:{{ cas.completude|unlocalize}}%" aria-valuenow="{{ cas.completude|unlocalize }}" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<span class="float-end small text-muted mb-2">date butoir: <strong>{{ cas.date_butoir }}</strong></span>
+						</a>
+					</div>
+					{% endfor %}
+				</div>				
+			</div>
+		</div>	
+	</div>
+</div>
+{% endblock %}

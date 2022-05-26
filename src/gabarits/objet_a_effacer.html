@@ -5,17 +5,17 @@
 {% block titre_page %}/!\ Heyyy /!\{% endblock %}
 
 {% block contenu %}
-<div class="container bg-danger-soft py-10">
+<div class="container-fluid bg-danger py-10">
 	<div class="row justify-content-between align-items-center">
 	  <div class="col-md-6">
 	    <img src="{% static 'img/warning-delete.png' %}" class="img-fluid">
 	  </div>
-	  <div class="col-md-6">
+	  <div class="col-md-6 text-white">
 	    <p class="lead">Vous vous apprêtez à effacer un objet de la base de données.</p>
 	    <p><strong>{{ object }}</strong></p>
 	    <p class="lead">C'est une mauvaise idée.</p>
 	    <p>Cette action est irréversible...vous pouvez encore faire marche
-	      arrière avec le bouton ci-dessous.<br>Si vous savez ce que vous faites, confirmez.<br>Mais il vaut mieux pas.</p>
+	      arrière avec le bouton "Annuler" ci-dessous.<br>Si vous savez ce que vous faites, confirmez.<br>Mais il vaut mieux pas.</p>
 	      <form method="POST">
 	          {% csrf_token %}
 	          <div class="form-group text-center">

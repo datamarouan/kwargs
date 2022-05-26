@@ -15,7 +15,7 @@
 	                </h1>
 	            </div>
                 <div class="col-auto mb-3">
-                    <a class="btn btn-sm btn-light text-primary" href="{% url 'users-list' %}">
+                    <a class="btn btn-sm btn-light text-primary" href="{% url 'groups-list' %}">
                     <i class="far fa-edit"></i> Retour aux groupes
                     </a>
                 </div>
@@ -27,22 +27,43 @@
 
 {% block contenu_dash %}
 <div class="container-fluid px-4 mt-4">
-	<form method="POST" enctype="multipart/form-data" action=".">
-	{% csrf_token %}
-		<div class="row">
-		    <div class="col-xl-3">
-		        <div class="card mb-4 mb-xl-0">
-		            <div class="card-header">Membres du groupe</div>
-		            <div class="card-body">
-		            	<ul class="list-unstyled">
-						{% for member in object.user_set.all %}
-							<li>{{ member }}</li>
-						{% endfor %}		            		
-		            	</ul>
-		            </div>
-		        </div>
-		    </div>
+	<div class="row">
+		<div class="col-xl-3 col-xxl-4">
+			<!-- Team members / people dashboard card example-->
+			<div class="card mb-4">
+			    <div class="card-header">Membres</div>
+			    <div class="card-body">
+			    	{% for member in object.user_set.all %}
+			        <!-- Personne-->
+			        <div class="d-flex align-items-center justify-content-between mb-4">
+			            <div class="d-flex align-items-center flex-shrink-0 me-3">
+			                <div class="avatar avatar-xl me-3 bg-gray-200"><img class="avatar-img img-fluid" src="{{ member.personne.image.url }}" alt=""></div>
+			                <div class="d-flex flex-column fw-bold">
+			                    {{ member }}
+			                    <div class="small text-muted line-height-normal">{{ member.email}}</div>
+			                </div>
+			            </div>
+			        </div>
+			        {% endfor %}
+			    </div>
+			</div>
 		</div>
-	</form>
+		<div class="col-xl-3 col-xxl-4">
+			<div class="card mb-4">
+				<div class="card-header">
+					Permissions
+				</div>
+				<div class=card-body>
+					<ul class="list-unstyled">
+					{% for permission in object.permissions.all %}
+						<li>
+							{{ permission.name }}	
+						</li>
+					{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}

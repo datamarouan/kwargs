@@ -1,0 +1,98 @@
+{% extends "prive/base_dash.html" %}
+{% load crispy_forms_tags %}
+{% block titre_page %}{{ object }}{% endblock %}
+
+{% block entete_dash %}
+
+<header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+	<div class="container-fluid px-4">
+	    <div class="page-header-content">
+	        <div class="row align-items-center justify-content-between pt-3">
+	            <div class="col-auto mb-3">
+	                <h1 class="page-header-title">
+	                    <div class="page-header-icon"><i class="fas fa-thumbtack"></i></div>
+	                    {{ object }}
+	                </h1>
+	            </div>
+                <div class="col-auto mb-3">
+                    <a class="btn btn-sm btn-light text-primary" href="{% url 'groups-list' %}">
+                    <i class="far fa-edit"></i> Retour aux groupes
+                    </a>
+                </div>
+	        </div>
+	    </div>
+	</div>
+</header>
+{% endblock %}
+
+{% block contenu_dash %}
+<div class="container-fluid px-4">
+    <div class="card bg-gradient-primary-to-secondary mb-4">
+        <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="me-3">
+                    <div class="h1 text-white">{{ object }}</div>
+                    <div class="small text-white-50">{{ object.description }}</div>
+                </div>
+                <div>
+                	<div class="h1 text-white">{{ object.get_delai_display }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="row">
+	    <div class="col-xxl-4 col-xl-12 mb-4">
+	        <div class="card card-header-actions h-100">
+	            <div class="card-header">
+	                Assigné à cette tâche
+	            </div>
+	            <div class="card-body">
+	                {% for member in object.assigne.all %}
+	                <!-- Personne-->
+	                <div class="d-flex align-items-center justify-content-between mb-4">
+	                    <div class="d-flex align-items-center flex-shrink-0 me-3">
+	                        <div class="avatar avatar-xl me-3 bg-gray-200"><img class="avatar-img img-fluid" src="{{ member.personne.image.url }}" alt=""></div>
+	                        <div class="d-flex flex-column fw-bold">
+	                            {{ member }}
+	                            <div class="small text-muted line-height-normal">{{ member.email}}</div>
+	                        </div>
+	                    </div>
+	                </div>
+	                {% endfor %}
+	            </div>
+	        </div>
+	    </div>
+	    <div class="col-xxl-4 col-xl-6 mb-4">
+	        <div class="card card-header-actions">
+	            <div class="card-header">
+	                Tâches<a class="btn btn-sm btn-primary-soft text-primary" href="{% url 'projet:new-tache' %}">Create New</a>
+	            </div>
+
+	            <div class="list-group list-group-flush small">
+	                {% for task in object.tasks.all %}
+	                <a class="list-group-item list-group-item-action" href="{% url 'projet:tache-details' pk=task.pk %}">
+	                    {% if task.status == 3 %}
+	                    <i class="fas fa-check fa-fw text-green me-2"></i>
+	                    {% elif task.status == 1 %}
+	                    <i class="fas fa-times fa-fw text-red me-2"></i>
+	                    {% endif %}
+	                    {{ task }}
+	                </a>
+	                {% endfor %}
+	            </div>
+
+	        </div>
+	    </div>
+	    <div class="col-xxl-4 col-xl-6 mb-4">
+	        <div class="card card-header-actions h-100">
+	            <div class="card-header">
+	                Documents
+	            </div>
+	            <div class="card-body">
+
+	            </div>
+	        </div>
+	    </div>
+	</div>
+</div>
+{% endblock %}

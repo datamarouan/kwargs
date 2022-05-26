@@ -26,13 +26,9 @@
                             </a>
                             <div class="collapse" id="collapseProjets" data-bs-parent="#accordionSidenav">
                                 <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
-                                    {% for group in request.user.groups.all %}
-                                        {% if group.name == 'CUBIM' %}
-                                            <a class="nav-link" href="#">CuBIM</a>
-                                        {% elif group.name == 'Plage' %}
-                                            <a class="nav-link" href="">PLAGE</a>
-                                        {% endif %}
-                                    {% endfor %}
+                                    <a class="nav-link" href="{% url 'projet:index' %}">Accueil</a>
+                                    <a class="nav-link" href="{% url 'projet:new-projet' %}">Ajouter un Projet</a>
+                                    <a class="nav-link" href="{% url 'projet:new-tache' %}">Ajouter une Tâche</a>
                                 </nav>
                             </div>
                         </div>
