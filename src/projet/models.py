@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from catalogue.models import GeoRefPostalAddress
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 STATUS = (
 	(1, 'Stuck'),
@@ -23,6 +24,8 @@ class Projet(models.Model):
 	created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	modified = models.DateTimeField(auto_now=True, null=True, blank=True)
 	localisation = models.ManyToManyField(GeoRefPostalAddress)
+	tags = TaggableManager(verbose_name="Mots-clés", blank=True,
+	help_text="Une liste de mots-clés séparés par une virgule, en minuscule")
 
 	def __str__(self):
 		return self.nom
@@ -35,7 +38,10 @@ class Tache(models.Model):
 	assigne = models.ManyToManyField('auth.User')
 	nom = models.CharField(max_length=80)
 	status = models.IntegerField(default=1, choices=STATUS)
+	date_butoir = models.DateField(null=True, blank=True)
 	delai = models.IntegerField(default=1, choices=DELAI)
+	tags = TaggableManager(verbose_name="Mots-clés", blank=True,
+	help_text="Une liste de mots-clés séparés par une virgule, en minuscule")
 
 	class Meta:
 		ordering = ['projet', 'nom']

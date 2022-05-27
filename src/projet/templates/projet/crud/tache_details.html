@@ -15,8 +15,9 @@
 	                </h1>
 	            </div>
                 <div class="col-auto mb-3">
+                	<a class="btn btn-sm btn-primary-soft text-primary" href="{% url 'projet:tache-modif' pk=object.pk %}"><i class="far fa-edit"></i> Editer</a>
                     <a class="btn btn-sm btn-primary-soft text-primary" href="{% url 'projet:projet-details' pk=object.projet.pk %}">
-                    <i class="far fa-edit"></i> Retour au projet {{ object.projet.nom }}
+                    Retour au projet {{ object.projet.nom }}
                     </a>
                     <a class="btn btn-sm btn-primary-soft text-primary" href="{% url 'projet:new-tache' %}">Nouvelle tâche</a>
                 </div>

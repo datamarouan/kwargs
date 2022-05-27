@@ -39,7 +39,7 @@
     </div>
 
 <div class="row">
-    <div class="col-xxl-4 col-xl-12 mb-4">
+    <div class="col-xxl-3 col-xl-3 mb-4">
         <div class="card card-header-actions h-100">
             <div class="card-header">
                 Equipe
@@ -60,7 +60,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xxl-4 col-xl-6 mb-4">
+    <div class="col-xxl-5 col-xl-5 mb-4">
         <div class="card card-header-actions">
             <div class="card-header">
                 Tâches<a class="btn btn-sm btn-primary-soft text-primary" href="{% url 'projet:new-tache' %}">Nouvelle tâche</a>
@@ -68,13 +68,14 @@
 
             <div class="list-group list-group-flush small">
                 {% for task in object.tasks.all %}
-                <a class="list-group-item list-group-item-action" href="{% url 'projet:tache-details' pk=task.pk %}">
+                <a class="list-group-item list-group-item-action justify-content-between" href="{% url 'projet:tache-details' pk=task.pk %}">
                     {% if task.status == 3 %}
                     <i class="fas fa-check fa-fw text-green me-2"></i>
                     {% elif task.status == 1 %}
                     <i class="fas fa-times fa-fw text-red me-2"></i>
                     {% endif %}
                     {{ task }}
+                    <span class="small float-end">deadline: {{ task.date_butoir }}</span>
                 </a>
                 {% endfor %}
             </div>
