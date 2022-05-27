@@ -18,16 +18,16 @@
                                     </a>
                                     <div class="collapse" id="docsCollapseStatuts" data-bs-parent="#accordionSidenavPagesMenu" style="">
                                         <nav class="sidenav-menu-nested nav"> 
-                                            <a class="nav-link" href="">
+                                            <a class="nav-link" href="{% url 'rudi:conception-list' %}">
                                                 Conception
                                             </a>
-                                            <a class="nav-link" href="">
+                                            <a class="nav-link" href="{% url 'rudi:partage-list' %}">
                                                 Partages
                                             </a>
-                                            <a class="nav-link" href="">
+                                            <a class="nav-link" href="{% url 'rudi:publication-list' %}">
                                                 Publications
                                             </a>
-                                            <a class="nav-link" href="">
+                                            <a class="nav-link" href="{% url 'rudi:archivage-list' %}">
                                                 Archives
                                             </a>
                                         </nav>
@@ -37,16 +37,16 @@
                                     </a>
                                     <div class="collapse" id="docsCollapseValidation" data-bs-parent="#accordionSidenavPagesMenu" style="">
                                         <nav class="sidenav-menu-nested nav"> 
-                                            <a class="nav-link" href="">
+                                            <a class="nav-link" href="{% url 'rudi:a-approuver' %}">
                                                 A Approuver
                                             </a>
-                                            <a class="nav-link" href="">
+                                            <a class="nav-link" href="{% url 'rudi:approuve' %}">
                                                 Approuvé
                                             </a>
-                                            <a class="nav-link" href="">
+                                            <a class="nav-link" href="{% url 'rudi:approuve-commente' %}">
                                                 Approuvé et commenté
                                             </a>
-                                            <a class="nav-link" href="">
+                                            <a class="nav-link" href="{% url 'rudi:non-approuve' %}">
                                                 Non Approuvé
                                             </a>
                                         </nav>

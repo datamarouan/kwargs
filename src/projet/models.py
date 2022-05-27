@@ -42,3 +42,6 @@ class Tache(models.Model):
 
 	def __str__(self):
 		return self.nom
+
+	def get_absolute_url(self):
+		return reverse("projet:tache-details", args=[self.pk]) 
