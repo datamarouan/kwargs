@@ -25,9 +25,9 @@ class Projet(models.Model):
 	completude = models.FloatField(max_length=2, validators = [MinValueValidator(0), MaxValueValidator(100)])
 	created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	modified = models.DateTimeField(auto_now=True, null=True, blank=True)
-	localisation = models.ManyToManyField(GeoRefPostalAddress, related_name="endroits", blank=True, null=True)
-	docz = models.ManyToManyField(Document, related_name="documentation", blank=True, null=True)
-	client = models.ManyToManyField(kwgOrganization, related_name="client", blank=True, null=True)
+	localisation = models.ManyToManyField(GeoRefPostalAddress, related_name="endroits", null=True)
+	docz = models.ManyToManyField(Document, related_name="documentation", null=True)
+	client = models.ManyToManyField(kwgOrganization, related_name="client", null=True)
 	tags = TaggableManager(verbose_name="Mots-clés", blank=True,
 	help_text="Une liste de mots-clés séparés par une virgule, en minuscule")
 	history = HistoricalRecords(history_change_reason_field=models.TextField(null=True))
