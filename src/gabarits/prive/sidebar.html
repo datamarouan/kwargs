@@ -1,44 +1,203 @@
-            <div id="layoutSidenav_nav">
-                <nav class="sidenav shadow-right sidenav-dark">
-                    <div class="sidenav-menu">
-                        <div class="nav accordion" id="accordionSidenav">
-                            <!-- Sidenav Menu Heading (Account)-->
-                            <!-- * * Note: * * Visible only on and above the sm breakpoint-->
-                            <div class="sidenav-menu-heading d-sm-none">Account</div>
-                            <!-- Sidenav Heading (Custom)-->
-                            <a class="nav-link mt-2" href="{% url 'catalogue:index' %}">
-                                <div class="nav-link-icon"><i class="fas fa-home"></i></div>
-                                Accueil
-                            </a>
-                            {% if user.is_staff %}
-                                {% include 'prive/sidebar_dash/gestiondusite.html' %}
-                            {% endif %}
-                            {% for group in request.user.groups.all %}
-                                {% if group.name == 'CUBIM' %}
-                                {% include 'prive/sidebar_dash/rudimentaire.html' %}
-                                {% endif %}
-                            {% endfor %}                            
-                            <div class="sidenav-menu-heading">Projets</div>
-                            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseProjets" aria-expanded="false" aria-controls="collapseProjets">
-                                <div class="nav-link-icon"><i class="fas fa-project-diagram"></i></div>
-                                Projets
-                                <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseProjets" data-bs-parent="#accordionSidenav">
-                                <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
-                                    <a class="nav-link" href="{% url 'projet:index' %}">Accueil</a>
-                                    <a class="nav-link" href="{% url 'projet:new-projet' %}">Ajouter un Projet</a>
-                                    <a class="nav-link" href="{% url 'projet:new-tache' %}">Ajouter une Tâche</a>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Sidenav Footer-->
-                    <div class="sidenav-footer" style="background-color:#272f3b;">
-                        <div class="sidenav-footer-content">
-                            <div class="sidenav-footer-subtitle">{% if user.first_name %}{{ user.first_name }}{% else %}{{ user }}{% endif %} est connecté</div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
+{% load static %}
+        <nav class="navbar navbar-light navbar-vertical navbar-expand-xl">
+          <script>
+            var navbarStyle = localStorage.getItem("navbarStyle");
+            if (navbarStyle && navbarStyle !== 'transparent') {
+              document.querySelector('.navbar-vertical').classList.add(`navbar-${navbarStyle}`);
+            }
+          </script>
+          <div class="d-flex align-items-center">
+            <div class="toggle-icon-wrapper">
 
+              <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+
+            </div><a class="navbar-brand" href="{% url 'page:accueil' %}">
+              <div class="d-flex align-items-center py-3"><span class="font-sans-serif">**kwargs</span>
+              </div>
+            </a>
+          </div>
+          <!-- Sidebar-->
+          <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+						<div class="navbar-vertical-content scrollbar">
+							<ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
+								<a class="nav-link" href="{% url 'catalogue:index' %}" role="button" data-bs-toggle="" aria-expanded="false">
+				                    <div class="d-flex align-items-center">
+				                    	<span class="nav-link-icon">
+				                    		<span class="fas fa-rocket"></span>
+				                    	</span>
+				                    	<span class="nav-link-text ps-1">Accueil</span>
+				                    </div>
+			                  	</a>
+								<!-- Gestion du Site-->
+								<li class="nav-item">
+									<!-- label-->
+									<div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+										<div class="col-auto navbar-vertical-label">Gestion du site</div>
+										<div class="col ps-0">
+											<hr class="mb-0 navbar-vertical-divider" />
+										</div>
+									</div>
+									<a class="nav-link dropdown-indicator" href="#blog" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="blog">
+										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="far fa-newspaper"></span></span><span class="nav-link-text ps-1">Blog</span>
+										</div>
+									</a>
+									<ul class="nav collapse" id="blog">
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'blog:articles-list' %}" data-bs-toggle="" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Tous les articles</span>
+												</div>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'blog:nouvel-article' %}" data-bs-toggle="" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Créer un article</span>
+												</div>
+											</a>
+										</li>
+									</ul>
+									<a class="nav-link dropdown-indicator" href="#glossaire" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="glossaire">
+										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-book"></span></span><span class="nav-link-text ps-1">Glossaire</span>
+										</div>
+									</a>
+									<ul class="nav collapse" id="glossaire">
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'glossaire:terms-list' %}" data-bs-toggle="" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Tous les termes</span>
+												</div>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'glossaire:terme-ajout' %}" data-bs-toggle="" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Ajouter un terme</span>
+												</div>
+											</a>
+										</li>
+									</ul>
+									<a class="nav-link dropdown-indicator" href="#users" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="users">
+										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-users"></span></span><span class="nav-link-text ps-1">Utilisateurs</span>
+										</div>
+									</a>
+									<ul class="nav collapse" id="users">
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'users-list' %}" data-bs-toggle="" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Liste utilisateurs</span>
+												</div>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'groups-list' %}" data-bs-toggle="" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Liste groupes</span>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<!-- Common Data Environment-->
+								<li class="nav-item">
+									<!-- label-->
+									<div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+										<div class="col-auto navbar-vertical-label">Common Data Environment</div>
+										<div class="col ps-0">
+											<hr class="mb-0 navbar-vertical-divider" />
+										</div>
+									</div>
+									<a class="nav-link dropdown-indicator" href="#cde" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="cde">
+										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="far fa-file"></span></span><span class="nav-link-text ps-1">Rudi's CDE</span>
+										</div>
+									</a>
+									<ul class="nav collapse" id="cde">
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'rudi:index' %}" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Accueil</span>
+												</div>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'rudi:new-doc' %}" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Ajouter un document</span>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<!-- IFC Data Model-->
+								<li class="nav-item">
+									<!-- label-->
+									<div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+										<div class="col-auto navbar-vertical-label">IFC Data Model</div>
+										<div class="col ps-0">
+											<hr class="mb-0 navbar-vertical-divider" />
+										</div>
+									</div>
+									<a class="nav-link dropdown-indicator" href="#ifc" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="ifc">
+										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-box-open"></span></span><span class="nav-link-text ps-1">Ressources</span>
+										</div>
+									</a>
+									<ul class="nav collapse" id="ifc">
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'catalogue:acteurs' %}" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Acteurs</span>
+												</div>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Classifications <span class="badge badge-soft-danger me-1">A faire</span></span>
+												</div>
+											</a>
+										</li>
+									</ul>
+									<a class="nav-link dropdown-indicator" href="" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="ifc">
+										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="far fa-dot-circle"></span></span><span class="nav-link-text ps-1">Noyau <span class="badge badge-soft-danger me-1">A faire</span></span>
+										</div>
+									</a>
+								</li>
+								<!-- Projets-->
+								<li class="nav-item">
+									<!-- label-->
+									<div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+										<div class="col-auto navbar-vertical-label">Projets</div>
+										<div class="col ps-0">
+											<hr class="mb-0 navbar-vertical-divider" />
+										</div>
+									</div>
+									<a class="nav-link dropdown-indicator" href="#projet" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="projet">
+										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-project-diagram"></span></span><span class="nav-link-text ps-1">Projets</span>
+										</div>
+									</a>
+									<ul class="nav collapse" id="projet">
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'projet:index' %}" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Accueil</span>
+												</div>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'projet:new-projet' %}" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Nouveau projet</span>
+												</div>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'projet:new-tache' %}" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Nouvelle tâche</span>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<div class="settings mb-3">
+								<div class="card alert p-0 shadow-none bg-transparent" role="alert">
+									<div class="btn-close-falcon-container">
+										<div class="btn-close-falcon" aria-label="Close" data-bs-dismiss="alert"></div>
+									</div>
+									<div class="card-body text-center"><img src="{% static 'img/logos/osarch.png' %}" alt="" width="60" />
+										<p class="fs--2 mt-2">Open Source Architecture Community</p>
+										<div class="d-grid"><a class="btn btn-outline-danger btn-sm me-1 mb-1" type="button" href="https://osarch.org/" target="_blank">En savoir plus</a></div>
+									</div>
+								</div>
+							</div>
+						</div>
+          </div>
+        </nav>

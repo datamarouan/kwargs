@@ -18,5 +18,6 @@ urlpatterns = [
 	path('pouvoirs_organisateurs/', views.PoListView.as_view(), name='po-list'),
 	path('etablissements_enseignement/', views.EtabListView.as_view(), name='etab-list'),
 	path("localisations/", views.VueListLocalisation.as_view(), name="localisations-list"),
-	path("gestion/", views.gestion, name="gestion-du-site")
+	path("gestion/", views.gestion, name="gestion-du-site"),
+	path("ifcmodel/ifcactor/", views.acteurs, name="acteurs")
 ]

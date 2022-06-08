@@ -1,65 +1,76 @@
-{% extends "public/base.html" %}
+{% extends 'public/base.html' %}
 {% load static %}
+{% load humanize %}
+{% block titre %}{{ object }}{% endblock %}
+{% block main %}
+      {% include 'public/navbar.html' %}
+      <!-- <HEADER> begin ============================-->
+<div class="container">
+	<div class="row flex-center min-vh-100 py-3">
+		<div class="col-lg-6 mx-auto">
+			<div class="card overflow-hidden mb-3">
+			  <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url('{% static 'img/corner-1.png' %}');">
+			  </div>
+			  <!--Titre -->
+				<div class="card-body position-relative">
+			    <div class="row">
+			      <div class="col-lg-12">
+			        <h1>{{ object.mot }}</h1>
+			        <p class="mb-0 small"><em>créé le {{ object.created }}, modifié le {{ object.modified }}</em></p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<!--Contenu -->
+			<div class="card overflow-hidden mb-3">
+				<div class="card-body position-relative">
+			    <div class="row">
+			      <div class="col-lg-12">
+			        <p class="mb-0 dropcap">{{ object.desc|safe }}</p>
+			      </div>
+			    </div>
+			  </div>				
+			</div>
+			<!--Sous Contenu -->
+			<div class="card mb-3">
+			  <div class="card-body">
+			    <div class="row justify-content-between align-items-center">
+			      <div class="col-md mb-3">
+			      	<h5>Sources</h5>
+							{% if not object.references.all %}
+							    {% if user.is_authenticated %}
+							        <i class="fas fa-exclamation-triangle text-danger"></i>
+							        <a href="{% url 'glossaire:source-ajout' %}" class="alert-link">Une défintion non sourcée n'est pas recevable : Ajouter une source</a>
+							    {% endif %}
+							{% else %}
+							    {% for s in object.references.all %}
+							    <a href="{{ s.lien }}" target="_blank">{{ s }}</a><br>
+							    {% endfor %}
+							{% endif %}	        
+			      </div>
+			      {% if user.is_authenticated %}
+			      <div class="col-auto">
+			        <a class="btn btn-falcon-default btn-sm me-2" href="{% url 'glossaire:terme-modif' slug=object.slug %}">Editer</a>
+			        <a class="btn btn-falcon-default btn-sm" href="{% url 'glossaire:index' %}">Retour public</a>
+			        <a class="btn btn-falcon-default btn-sm" href="{% url 'glossaire:terms-list' %}">Retour Dashboard</a>
+			      </div>
+			      {% else %}
+			      <div class="col-auto">
+			        <a class="btn btn-falcon-default btn-sm" href="{% url 'glossaire:index' %}">Retour</a>
+			      </div>
+			      {% endif %}
+			    </div>
+			  </div>
+			</div>
+		</div>
+	</div>	
+</div>
 
-{% block titre_page %}{{ object }}{% endblock %}
+      <!-- <HEADER> close =================+===========-->
 
-{% block style_page %}
 
-{% endblock %}
+      <!-- <FOOTER> begin ============================-->
+      	{% include 'public/footer.html' %}
+      <!-- <FOOTER> close ============================-->
 
-{% block entete %}
-<header class="page-header-ui page-header-ui-dark bg-gradient-primary-to-secondary">
-    <div class="page-header-ui-content">
-        <div class="container px-5 text-center">
-            <div class="row gx-5 justify-content-center">
-                <div class="col-lg-8">
-                    <h1 class="page-header-ui-title">{{ object.mot }}</h1>
-                    <p class="page-header-ui-text mb-0">
-                        {% for tag in object.tags.all %}
-                        <span>{{ tag }} </span>
-                        {% endfor %}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% include "wave_light.html" %}
-</header>
-{% endblock %}
-
-{% block contenu %}
-<section class="bg-light py-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
-                {{ object.desc|safe }}
-            </div>
-            <div class="col-lg-3">
-                <h2>Sources</h2>
-                {% if not object.references.all %}
-                    {% if user.is_authenticated %}
-                        <i class="fas fa-exclamation-triangle text-danger"></i>
-                        <a href="{% url 'glossaire:source-ajout' %}" class="alert-link">Une défintion non sourcée n'est pas recevable : Ajouter une source</a>
-                    {% endif %}
-                {% else %}
-                    {% for s in object.references.all %}
-                    <a href="{{ s.lien }}" target="_blank">{{ s }}</a><br>
-                    {% endfor %}
-                {% endif %} 
-            </div>
-        </div>
-        <hr class="my-5">
-        <div class="row">
-            <div class="col-md-6 mx-auto">
-                <ul class="list-unstyled list-inline text-center">
-                    {% if user.is_staff %}
-                    <li class="list-inline-item"><a href="{% url 'glossaire:terme-modif' slug=object.slug %}">Editer</a></li>
-                    <li class="list-inline-item"><a href="{% url 'glossaire:terms-list' %}">Retour à l'application</a></li>
-                    {% endif %}
-                    <li class="list-inline-item"><a href="{% url 'glossaire:index' %}">Retour</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
 {% endblock %}

@@ -1,24 +1,30 @@
-{% include "easter_egg.txt" %}
+{% extends 'public/base.html' %}
+{% load crispy_forms_tags %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        {% include "meta.html" %}
-        <title>So long and thank you for the fish</title>
-        {% include "public/style.html" %}
-        {% block style_page %}{% endblock %}
-        {{ form.media }}
-    </head>
-    <body class="bg-white">
-        <div class="container-fluid">
-            {% include 'message.html' %}
-            <div class="row justify-content-center">
-                <div class="col-lg-5">
-                    <a href="{% url 'page:accueil' %}">
-                        <img class="img-fluid mx-auto d-block" src="{% static 'img/logout.png' %}"/>
-                    </a>
+{% block titre %}So long, and thank you for the fish{% endblock %}
+{% block main %}
+    <main class="main" id="top">
+      <div class="container" data-layout="container">
+        <script>
+          var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+          if (isFluid) {
+            var container = document.querySelector('[data-layout]');
+            container.classList.remove('container');
+            container.classList.add('container-fluid');
+          }
+        </script>
+        <div class="row flex-center min-vh-100 py-6">
+          <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4"><a class="d-flex flex-center mb-4" href="{% url 'page:accueil' %}"><span class="font-sans-serif fw-bolder fs-5 d-inline-block">kwargs industria</span></a>
+            <div class="card">
+              <div class="card-body p-4 p-sm-5">
+                <div class="text-center"><img class="d-block mx-auto mb-4" src="{% static 'img/45.png' %}" alt="shield" width="100" />
+                  <h4>A la prochaine</h4>
+                  <p>Merci d'avoir utilisé l'application kwargs.<br>Vous êtes maintenant déconnecté.</p><a class="btn btn-primary btn-sm mt-3" href="{% url 'login' %}"><span class="fas fa-chevron-left me-1" data-fa-transform="shrink-4 down-1"></span>Se connecter à nouveau</a>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </body>
-</html>
+      </div>
+    </main>
+{% endblock %}

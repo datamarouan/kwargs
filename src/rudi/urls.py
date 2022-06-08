@@ -1,12 +1,18 @@
 from django.urls import path
 from . import views
-
+ 
 app_name = 'rudi'
 
 urlpatterns = [
 	path('', views.index, name='index'),
 	path('document/ajout/', views.DocCreateView.as_view(), name="new-doc"),
 	path("documents/", views.DocListView.as_view(), name="docs-list"),
+	path("documents/pdf/", views.PDFListView.as_view(), name="pdf-list"),
+	path("documents/ifc/", views.IFCListView.as_view(), name="ifc-list"),
+	path("documents/doc/", views.DOCListView.as_view(), name="doc-list"),
+	path("documents/rvt/", views.RVTListView.as_view(), name="rvt-list"),
+	path("documents/ipynb/", views.JPYListView.as_view(), name="ipynb-list"),
+	path("documents/xls/", views.XLSListView.as_view(), name="xls-list"),
 	
 	path("documents/conception/", views.VueConception.as_view(), name="conception-list"),
 	path("documents/archivage/", views.VueArchivage.as_view(), name="archivage-list"),

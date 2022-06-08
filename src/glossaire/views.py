@@ -41,7 +41,7 @@ class TermeUpdateView(UpdateView, LoginRequiredMixin, SuccessMessageMixin):
 
 class TermeDeleteView(DeleteView, LoginRequiredMixin, SuccessMessageMixin):
     model = Terme
-    template_name = "blog/crud/objet_a_effacer.html"
+    template_name = "objet_a_effacer.html"
     success_url = '/glossaire/'
 
 class SourceCreateView(LoginRequiredMixin, CreateView, SuccessMessageMixin):

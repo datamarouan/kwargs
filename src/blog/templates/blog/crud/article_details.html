@@ -1,57 +1,71 @@
-{% extends "public/base.html" %}
+{% extends 'public/base.html' %}
 {% load static %}
+{% load humanize %}
+{% block titre %}{{ object }}{% endblock %}
+{% block main %}
+      {% include 'public/navbar.html' %}
+      <!-- <HEADER> begin ============================-->
+<div class="container">
+	<div class="row flex-center min-vh-100 py-6">
+		<div class="col-lg-8 mx-auto">
+			<div class="card overflow-hidden mb-3">
+			  <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url('{% static 'img/corner-2.png' %}');">
+			  </div>
+			  <!--Titre -->
+				<div class="card-body position-relative">
+			    <div class="row">
+			      <div class="col-lg-12">
+			        <h1>{{ object.titre }}</h1>
+			        <p class="mb-0"><em>{{ object.intro }}</em></p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<!--Sous Titre -->
+			<div class="card mb-3">
+			  <div class="card-body">
+			    <div class="row justify-content-between align-items-center">
+			      <div class="col-md mb-3">
+			        <span class="mb-5 mb-md-5 small">Créé par {{ object.created_by }}, {{ object.created|naturaltime }}</span>
+              {% if object.published %}
+                  <span class="badge badge-soft-success">Publié</span>
+              {% else %}
+                  <span class="badge badge-soft-warning">Brouillon</span>
+              {% endif %}			        
+			      </div>
+			      {% if user.is_authenticated %}
+			      <div class="col-auto">
+			        <a class="btn btn-falcon-default btn-sm me-2" href="{% url 'blog:article-edition' slug=object.slug %}">Editer</a>
+			        <a class="btn btn-falcon-default btn-sm" href="{% url 'blog:index' %}">Retour public</a>
+			        <a class="btn btn-falcon-default btn-sm" href="{% url 'blog:articles-list' %}">Retour Dashboard</a>
+			      </div>
+			      {% else %}
+			      <div class="col-auto">
+			        <a class="btn btn-falcon-default btn-sm" href="{% url 'blog:index' %}">Retour</a>
+			      </div>
+			      {% endif %}
+			    </div>
+			  </div>
+			</div>
+			<!--Contenu -->
+			<div class="card overflow-hidden mb-3">
+				<div class="card-body position-relative">
+			    <div class="row">
+			      <div class="col-lg-12">
+			        <p class="mb-0 dropcap">{{ object.contenu|safe }}</p>
+			      </div>
+			    </div>
+			  </div>				
+			</div>	
+		</div>
+	</div>	
+</div>
 
-{% block titre_page %}Blog(**kwargs){% endblock %}
+      <!-- <HEADER> close =================+===========-->
 
 
-{% block contenu %}
-<section class="bg-light py-15">
-    <div class="container px-5">
-        <div class="row gx-5 justify-content-center">
-            <div class="col-lg-10 col-xl-8">
-                <div class="single-post">
-                    <h1>{{ object.titre }}</h1>
-                    <p class="lead fst-italic">{{ object.intro }}</p>
-                    <div class="d-flex align-items-center justify-content-between mb-5">
-                        <div class="single-post-meta me-4">
-                            <img class="single-post-meta-img" src="{{ article.created_by.personne.image.url }}">
-                            <div class="single-post-meta-details">
-                                <div class="single-post-meta-details-name">{{ object.created_by }}</div>
-                                <div class="single-post-meta-details-date">{{ object.created|date}}</div>
-                                <div class="single-post-meta-details-date">mots-cles: 
-                                    {% for tag in object.tags.all %}
-                                    <span class="text-orange" style="font-size: 0.75rem;">{{ tag }} </span>
-                                    {% endfor %}    
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            {% if object.published %}
-                                <span class="badge bg-green-soft text-green">Publié</span>
-                            {% else %}
-                                <span class="badge bg-orange-soft text-orange">Brouillon</span>
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% if not 'default.jpg' in object.image.url %}
-                    <img class="img-fluid mb-2 rounded mx-auto d-block" src="{{ object.image.url }}">
-                    {% endif %}
-                    <div class="single-post-text my-5">
-                        {{ article.contenu|safe }}
-                        <hr class="my-5">
-                        {% if user.is_authenticated %}
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'blog:article-edition' slug=object.slug %}">Editer cet article</a></div>
-                            <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'blog:index' %}">Retour au site public</a></div>
-                            <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'blog:articles-list' %}">Retour au site d'administration</a></div>
-                        </div>
-                        {% else %}
-                        <div class="text-center"><a class="btn btn-outline-dark" href="{% url 'blog:index' %}">Retour aux autres articles</a></div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+      <!-- <FOOTER> begin ============================-->
+      	{% include 'public/footer.html' %}
+      <!-- <FOOTER> close ============================-->
+
 {% endblock %}

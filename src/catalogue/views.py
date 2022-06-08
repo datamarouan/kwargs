@@ -7,6 +7,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, DeleteView, TemplateView
 
+
+@login_required
+def acteurs(request):
+	organisations = kwgOrganization.objects.all().count()
+	individus = kwgPerson.objects.all().count()
+	context = {
+		"orga":organisations,
+		"people":individus
+	}
+	return render(request, 'catalogue/ifc/acteurs.html', context)
+
 @login_required
 def index(request):
 	adresses = GeoRefPostalAddress.objects.all()
@@ -85,7 +96,7 @@ class FaseListView(LoginRequiredMixin, ListView):
 
 class OrganizationListView(LoginRequiredMixin, ListView):
 	model = kwgOrganization
-	template_name = "catalogue/crud/organization/organization_list.html"
+	template_name = "catalogue/crud/organization_list.html"
 
 	def get_context_data(self,**kwargs):
 		context = super().get_context_data(**kwargs)
@@ -95,7 +106,7 @@ class OrganizationListView(LoginRequiredMixin, ListView):
 class OrganizationDetailView(LoginRequiredMixin, DetailView):
 	model = kwgOrganization
 	fields = '__all__'
-	template_name = "catalogue/crud/organization/organization_details.html"
+	template_name = "catalogue/crud/organization_details.html"
 
 	def get_context_data(self,**kwargs):
 		context = super().get_context_data(**kwargs)
@@ -110,10 +121,10 @@ class OrganizationDetailView(LoginRequiredMixin, DetailView):
 class OrganizationUpdateView(LoginRequiredMixin, UpdateView):
 	model = kwgOrganization
 	fields = '__all__'
-	template_name = "catalogue/crud/organization/organization_ajout.html"
+	template_name = "catalogue/crud/organization_ajout.html"
 	success_url = "/catalogue/organisation/{identification}/"
 
 class OrganizationCreateView(LoginRequiredMixin, CreateView):
 	model = kwgOrganization
 	fields = '__all__'
-	template_name = "catalogue/crud/organization/organization_ajout.html"
+	template_name = "catalogue/crud/organization_ajout.html"

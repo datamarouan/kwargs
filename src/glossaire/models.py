@@ -31,6 +31,7 @@ class Terme(Cachet):
     desc = HTMLField(verbose_name="Définition(s)")
     slug = models.SlugField(max_length=255, unique=True, editable=False)
     tags = TaggableManager(verbose_name="Mots-clés", blank=True, help_text="Une liste de mots-clés séparés par une virgule, en minuscule")
+    reviewed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.mot

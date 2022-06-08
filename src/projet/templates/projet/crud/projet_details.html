@@ -1,98 +1,142 @@
-{% extends "prive/base_dash.html" %}
-{% load crispy_forms_tags %}
-{% block titre_page %}{{ object }}{% endblock %}
+{% extends 'prive/base.html' %}
 {% load static %}
-
-{% block entete_dash %}
-<header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
-    <div class="container-fluid px-4">
-        <div class="page-header-content">
-            <div class="row align-items-center justify-content-between pt-3">
-                <div class="col-auto mb-3">
-                    <h1 class="page-header-title">
-                        <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></div>
-                        Details du projet
-                    </h1>
-                </div>
-                <div class="col-12 col-xl-auto mb-3">
-                    <a class="btn btn-sm btn-light text-primary" href="{% url 'projet:projet-modif' pk=object.pk %}">
-                    <i class="far fa-edit"></i>  Editer
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-{% endblock %}
+{% load humanize %}
+{% block titre %}{{ object }}{% endblock %}
 
 {% block contenu_dash %}
-<div class="container-fluid px-4">
-    <div class="card bg-gradient-primary-to-secondary mb-4">
-        <div class="card-body">
-            <div class="d-flex align-items-center justify-content-between">
-                <div class="me-3">
-                    <div class="h1 text-white">{{ object }}</div>
-                    <div class="small text-white-50">{{ object.description }}</div>
-                </div>
-            </div>
-        </div>
-    </div>
+      <!-- <HEADER> begin ============================-->
+<div class="container-fluid">
 
-<div class="row">
-    <div class="col-xxl-3 col-xl-3 mb-4">
-        <div class="card card-header-actions h-100">
-            <div class="card-header">
-                Equipe
-            </div>
-            <div class="card-body">
-                {% for member in object.assigne.all %}
-                <!-- Personne-->
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <div class="d-flex align-items-center flex-shrink-0 me-3">
-                        <div class="avatar avatar-xl me-3 bg-gray-200"><img class="avatar-img img-fluid" src="{{ member.personne.image.url }}" alt=""></div>
-                        <div class="d-flex flex-column fw-bold">
-                            {{ member }}
-                            <div class="small text-muted line-height-normal">{{ member.email}}</div>
+
+
+
+
+	<div class="row mb-3 pt-5">
+		<div class="col-lg-10 d-flex flex-column align-items-stretched mx-auto">
+			<div class="card mb-3">
+			  <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url('{% static 'img/corner-5.png' %}');">
+			  </div>
+
+			  <!--Titre -->
+				<div class="card-body position-relative">
+				    <div class="row">
+				      <div class="col-lg-12">
+				        <h1>{{ object }}</h1>
+				        <p class="mb-0 small"><em>Groupe créé le {{ object.history.last.history_date }}, modifié le {{ object.history.first.history_date|naturaltime }}</em></p>
+				      </div>
+				    </div>
+			  	</div>
+			</div>	
+			<div class="card mb-3">
+			  <div class="card-body">
+			    <div class="row justify-content-end align-items-center">
+			      <div class="col-auto">
+			        <a class="btn btn-falcon-default btn-sm me-2" href="{% url 'projet:projet-modif' pk=object.pk %}">Editer</a>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<div class="card bg-light mb-3">
+				<div class="card-body">
+				    <div class="row">
+				      <div class="col-lg-12">
+				        <p class="mb-0">{{ object.description|safe }}</p>
+				      </div>
+				    </div>
+				                  <div class="row">
+                <div class="col-12">
+                  <div class="overflow-hidden mt-4">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                      <li class="nav-item"><a class="nav-link active ps-0" id="modification-tab" data-bs-toggle="tab" href="#tab-modification" role="tab" aria-controls="tab-modification" aria-selected="true">Modifications</a></li>
+                      <li class="nav-item"><a class="nav-link px-2 px-md-3" id="documentation-tab" data-bs-toggle="tab" href="#tab-documentation" role="tab" aria-controls="tab-documentation" aria-selected="false">Documentation</a></li>
+                      <li class="nav-item"><a class="nav-link px-2 px-md-3" id="equipe-tab" data-bs-toggle="tab" href="#tab-equipe" role="tab" aria-controls="tab-equipe" aria-selected="false">Equipe</a></li>
+                      <li class="nav-item"><a class="nav-link px-2 px-md-3" id="tache-tab" data-bs-toggle="tab" href="#tab-tache" role="tab" aria-controls="tab-tache" aria-selected="false">Tâches</a></li>
+                      <li class="nav-item"><a class="nav-link px-2 px-md-3" id="livrable-tab" data-bs-toggle="tab" href="#tab-livrable" role="tab" aria-controls="tab-tache" aria-selected="false">Livrables</a></li>
+                      <li class="nav-item"><a class="nav-link px-2 px-md-3" id="site-tab" data-bs-toggle="tab" href="#tab-site" role="tab" aria-controls="tab-site" aria-selected="false">Sites</a></li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                      <div class="tab-pane fade show active" id="tab-modification" role="tabpanel" aria-labelledby="modification-tab">
+                        <div class="mt-3">
+													<table class="table table-sm table-borderless">
+													    <tbody>
+															{% for hist in object.history.all %}
+															    <tr>
+															        <td>
+															        {% if hist.history_type == '~' %}
+															            <span class="badge badge-soft-warning">mise à jour</span>
+															        {% elif hist.history_type == '+' %}
+															            <span class="badge badge-soft-success">création</span>
+															        {% elif hist.history_type == '-' %}
+															            <span class="badge badge-soft-danger">suppression</span>
+															        {% endif %}                                
+															        </td>
+															        <td>
+															            <span class="badge bg-dark">{{ hist.history_user }}</span>
+															        </td>
+															        <td>
+															            <span class="small"> {{ hist.history_date }}</span>
+															        </td>
+															    </tr>
+															{% endfor %}        
+													    </tbody>
+													</table>
                         </div>
+                      </div>
+                      <div class="tab-pane fade" id="tab-documentation" role="tabpanel" aria-labelledby="documentation-tab">
+												<ul class="mt-3">
+												{% for doc in object.docz.all %}
+													<li class="list-unstyled">
+														<a href="{{ doc.get_absolute_url }}">{{ doc }}</a>
+													</li>				
+												{% endfor %}        
+												</ul>
+                      </div>
+                      <div class="tab-pane fade" id="tab-equipe" role="tabpanel" aria-labelledby="equipe-tab">
+												<div class="d-flex align-items-center position-relative my-3">
+													{% for people in object.assigne.all %}
+													<div class="avatar avatar-2xl">
+														<img class="rounded-circle" src="{{ people.personne.image.url }}" alt="">
+													</div>
+													<div class="flex-1 ms-3">
+													<h6 class="mb-0 fw-semi-bold">{{ people }}</h6>
+													<p class="text-500 fs--2 mb-0">{{ people.email }}</p>
+													</div>
+													{% endfor %}
+												</div>
+                      </div>
+                      <div class="tab-pane fade" id="tab-tache" role="tabpanel" aria-labelledby="tache-tab">
+                        <div class="row mt-3">
+                          <div class="col-lg-12 mb-4">
+													{% for task in object.tasks.all %}
+													  <div class="d-flex mb-3 hover-actions-trigger align-items-center">
+													    <div class="ms-3 flex-shrink-1 flex-grow-1">
+													      <h6 class="mb-1"><a class="stretched-link text-900 fw-semi-bold" href="{% url 'projet:tache-details' pk=task.pk %}">{{ task }}</a></h6>
+													      <div class="fs--1"><span class="fw-medium text-600">deadline: {{ task.date_butoir|date|naturaltime }}</span></div>
+													      <div class="hover-actions end-0 top-50 translate-middle-y">
+													      	<a class="btn btn-light border-300 btn-sm me-1 text-600" data-bs-toggle="tooltip" data-bs-placement="top" title="" href="{% url 'projet:tache-delete' pk=task.pk%}" data-bs-original-title="Effacer" aria-label="Effacer"><i class="far fa-trash-alt"></i></a>
+													      	<a class="btn btn-light border-300 btn-sm me-1 text-600 shadow-none" href="{% url 'projet:tache-modif' pk=task.pk %}" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Edit" aria-label="Edit"><img src="{% static 'img/edit-alt.svg' %}" alt="" width="15"></a>
+													      </div>
+													    </div>
+													  </div>
+													  {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="tab-livrable" role="tabpanel" aria-labelledby="livrable-tab">
+                      	
+                      </div>
+                      <div class="tab-pane fade" id="tab-site" role="tabpanel" aria-labelledby="site-tab">
+                      	
+                      </div>
                     </div>
+                  </div>
                 </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    <div class="col-xxl-5 col-xl-5 mb-4">
-        <div class="card card-header-actions">
-            <div class="card-header">
-                Tâches<a class="btn btn-sm btn-primary-soft text-primary" href="{% url 'projet:new-tache' %}">Nouvelle tâche</a>
-            </div>
-
-            <div class="list-group list-group-flush small">
-                {% for task in object.tasks.all %}
-                <a class="list-group-item list-group-item-action justify-content-between" href="{% url 'projet:tache-details' pk=task.pk %}">
-                    {% if task.status == 3 %}
-                    <i class="fas fa-check fa-fw text-green me-2"></i>
-                    {% elif task.status == 1 %}
-                    <i class="fas fa-times fa-fw text-red me-2"></i>
-                    {% endif %}
-                    {{ task }}
-                    <span class="small float-end">deadline: {{ task.date_butoir }}</span>
-                </a>
-                {% endfor %}
-            </div>
-
-        </div>
-    </div>
-    <div class="col-xxl-4 col-xl-6 mb-4">
-        <div class="card card-header-actions h-100">
-            <div class="card-header">
-                Documents
-            </div>
-            <div class="card-body">
-
-            </div>
-        </div>
-    </div>
+              </div>
+			  	</div>				
+			</div>
+		</div>
+	</div>
 </div>
 
-</div>
+
 {% endblock %}

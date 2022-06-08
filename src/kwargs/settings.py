@@ -52,11 +52,11 @@ INSTALLED_APPS = [
     'simple_history',
     'page',
     'utilisateur',
+    'blog',
+    'glossaire',
+    'rudi',
     'projet',
     'catalogue',
-    'glossaire',
-    "rudi",
-    "blog",
     'django_cleanup.apps.CleanupConfig',
 ]
 

@@ -1,66 +1,84 @@
-{% extends "prive/base_list.html" %}
+ {% extends 'prive/base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
-{% block titre_page %}Common Data Environment{% endblock %}
+{% load humanize %}
 
-{% block entete_icone %}<i class="far fa-folder-open"></i>{% endblock %}
+{% block titre %}Liste de tous les documents{% endblock %}
 
-{% block entete_objets_a_lister %}documents dans le rudi{% endblock %}
 
-{% block entete_boutons_droites %}
-<a class="btn btn-sm btn-light text-primary" href="{% url 'rudi:new-doc' %}">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus me-1"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-    Ajouter un document
-</a>
+{% block contenu_dash %}
+<!-- Titre du tableau -->
+<div class="d-flex mb-4 mt-6">
+    <span class="fa-stack me-2 ms-n1">
+        <i class="fa-inverse fa-stack-1x text-primary far fa-file"></i>
+    </span>
+    <div class="col">
+        <h5 class="mb-0 text-primary position-relative"><span class="bg-200 dark__bg-1100 pe-3">Liste des documents</span><span class="border position-absolute top-50 translate-middle-y w-100 start-0 z-index--1"></span></h5>
+        <p class="mb-0">Les documents présentés ici ne sont pas classés</p>
+    </div>
+</div>
+<!-- Tableau -->
+<div class="card z-index-1 mb-3">
+    <div class="card-header">
+        <div class="row flex-between-center">
+            <div class="col-6 col-sm-auto ms-auto text-end ps-0">
+              <div id="table-purchases-replace-element">
+                <a class="btn btn-falcon-primary btn-sm" type="button" href="{% url 'rudi:new-doc' %}"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Ajouter</span></a>
+              </div>
+            </div>            
+        </div>
+    </div>
+    <div class="card-body">
+        <table id="table-list" class="display compact">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Extension</th>
+                    <th>Octets</th>
+                    <th>Etat</th>
+                    <th>Validation</th>       
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doc in object_list %}
+                <tr>
+                    <td><a href="{% url 'rudi:doc-details' pk=doc.pk %}">{{ doc.nom }}</a></td>
+                    <td><span class="badge bg-danger-soft text-danger">{{ doc.get_doc_extension }}</span></td>
+                    <td>{{ doc.fichier.size|intcomma }}</td>
+                    <td>
+                        {% if doc.etat == 0 %}
+                            <span class="badge badge-soft-info">{{ doc.get_etat_display }}</span>
+                        {% elif doc.etat == 1 %}
+                            <span class="badge badge-soft-warning">{{ doc.get_etat_display }}</span>
+                        {% elif doc.etat == 2 %}
+                            <span class="badge badge-soft-success">{{ doc.get_etat_display }}</span>
+                        {% elif doc.etat == 3 %}
+                            <span class="badge badge-soft-danger">{{ doc.get_etat_display }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if doc.validation == 'AA' %}
+                            <span class="badge badge-soft-primary">{{ doc.get_validation_display }}</span>
+                        {% elif doc.validation == 'A' %}
+                            <span class="badge badge-soft-info">{{ doc.get_validation_display }}</span>
+                        {% elif doc.validation == 'AC' %}
+                            <span class="badge badge-soft-success">{{ doc.get_validation_display }}</span>
+                        {% elif doc.validation == 'NA' %}
+                            <span class="badge badge-soft-danger">{{ doc.get_validation_display }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a class="btn btn-icon btn-transparent-dark me-2" href="{% url 'rudi:doc-modif' pk=doc.pk %}"><i class="far fa-edit text-success"></i></a>
+                        <a class="btn btn-icon btn-transparent-dark" href="{% url 'rudi:doc-delete' pk=doc.pk %}"><i class="far fa-trash-alt text-danger"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
-
-{% block dessus_tableau %}
-
-{% endblock %}
-
-{% block tableau %}
-<table id="example" class="table" style="width: 100%;">
-    <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Extension</th>
-            <th>Etat</th>
-            <th>Validation</th>       
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for doc in object_list %}
-        <tr>
-            <td><a href="{% url 'rudi:doc-details' pk=doc.pk %}">{{ doc.nom }}</a></td>
-            <td><span class="badge bg-danger-soft text-danger">{{ doc.get_doc_extension }}</span></td>
-            <td>
-                {% if doc.etat == 0 %}
-                    <span class="badge bg-info-soft text-info">{{ doc.get_etat_display }}</span>
-                {% elif doc.etat == 1 %}
-                    <span class="badge bg-yellow-soft text-yellow">{{ doc.get_etat_display }}</span>
-                {% elif doc.etat == 2 %}
-                    <span class="badge bg-success-soft text-success">{{ doc.get_etat_display }}</span>
-                {% elif doc.etat == 3 %}
-                    <span class="badge bg-orange-soft text-orange">{{ doc.get_etat_display }}</span>
-                {% endif %}
-            </td>
-            <td>
-                {% if doc.validation == 'AA' %}
-                    <span class="badge bg-primary-soft text-primary">{{ doc.get_validation_display }}</span>
-                {% elif doc.validation == 'A' %}
-                    <span class="badge bg-info-soft text-info">{{ doc.get_validation_display }}</span>
-                {% elif doc.validation == 'AC' %}
-                    <span class="badge bg-success-soft text-success">{{ doc.get_validation_display }}</span>
-                {% elif doc.validation == 'NA' %}
-                    <span class="badge bg-danger-soft text-danger">{{ doc.get_validation_display }}</span>
-                {% endif %}
-            </td>
-            <td>
-                <a class="btn btn-datatable btn-icon btn-transparent-dark me-2" href="{% url 'rudi:doc-modif' pk=doc.pk %}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit text-green"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>
-                <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{% url 'rudi:doc-delete' pk=doc.pk %}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-red"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% block js_supp %}
+{% include 'tables/options.html' %}
 {% endblock %}

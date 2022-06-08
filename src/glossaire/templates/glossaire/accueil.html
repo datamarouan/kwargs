@@ -1,51 +1,60 @@
-{% extends "public/base.html" %}
+ {% extends 'public/base.html' %}
 {% load static %}
-
-{% block titre_page %}Glossaire(**kwargs){% endblock %}
-
-{% block style_page %}
-
-{% endblock %}
-
-{% block entete %}
-<header class="page-header-ui page-header-ui-dark bg-gradient-primary-to-secondary">
-    <div class="page-header-ui-content">
-        <div class="container px-5 text-center">
-            <div class="row gx-5 justify-content-center">
-                <div class="col-lg-8">
-                    <h1 class="page-header-ui-title mb-3">Glossaire</h1>
-                    <p class="page-header-ui-text mb-0">Le projet de A à Z et de 0 à 1</p>
-                </div>
+{% block titre %}Glossaire(**kwargs){% endblock %}
+{% block main %}
+      {% include 'public/navbar.html' %}
+      <!-- <HEADER> begin ============================-->
+      <section class="py-0 overflow-hidden bg-dark" id="banner">
+        <div class="container">
+          <div class="row flex-center pt-8 pb-lg-3 pb-xl-0 justify-content-center">
+            <div class="col-md-11 col-lg-8 col-xl-8 pb-3 text-xl-center">
+              <h1 class="text-white fw-light text-center">Glossaire</h1>
+              <p class="lead text-white text-center mt-4">Le projet de A à Z et de 0 à 1</p>
             </div>
+          </div>
         </div>
-    </div>
-    {% include "wave_light.html" %}
-</header>
-{% endblock %}
+      </section>
+      <!-- <HEADER> close =================+===========-->
 
-{% block contenu %}
-<section class="bg-light py-4">
-    <div class="container-fluid px-5">
-        <div class="row mb-4">
-            <div class="col-lg-8 mx-auto">
-                {% for l in alphabet %}
-                <a type="button" class="btn btn-outline-primary mb-2" href="#{{ l }}">{{ l }}</a>
-                {% endfor %}
+		<section class="bg-light">
+		    <div class="container-fluid">
+		        <div class="row mb-4">
+		            <div class="col-lg-3 mx-auto">
+		                {% for l in alphabet %}
+		                <a type="button" class="btn btn-outline-primary mb-2" href="#{{ l }}">{{ l }}</a>
+		                {% endfor %}
+		            </div>
+		        </div>
+		      <div class="d-flex justify-content-center">
+		        <div class="col-lg-3 mx-auto text-center">
+		          {% regroup object_list by mot.0 as lettres %}
+		          {% for lettre in lettres %}
+		          <div class="badge rounded-pill bg-primary mr-2 mb-3" id="{{ lettre.grouper }}"><strong>{{ lettre.grouper }}</strong></div>
+		          <ul class="text-start">
+		            {% for obj in lettre.list %}
+		              <li><a href="{{ obj.get_absolute_url }}">{{ obj }}</a></li>
+		            {% endfor %}
+		          </ul>
+		          {% endfor %}
+		        </div>
+		      </div>
+		    </div>
+		</section>
+
+      <!-- <FOOTER> begin ============================-->
+      <section class="py-0 bg-dark light">
+          <hr class="my-0 text-600 opacity-25">
+          <div class="container py-3">
+            <div class="row justify-content-between fs--1">
+              <div class="col-12 col-sm-auto text-center">
+                <p class="mb-0 text-600 opacity-85">Conception & Développement <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none"> 2022 © <a class="text-white opacity-85" href="">Marouan El Moussaoui</a></p>
+              </div>
+              <div class="col-12 col-sm-auto text-center">
+                <p class="mb-0 text-600 opacity-85">v0.1.64</p>
+              </div>
             </div>
-        </div>
-      <div class="row">
-        <div class="col-sm-3 mx-auto">
-          {% regroup object_list by mot.0 as lettres %}
-          {% for lettre in lettres %}
-          <div class="icon-stack bg-primary-soft text-primary mr-2 mb-3" id="{{ lettre.grouper }}"><strong>{{ lettre.grouper }}</strong></div>
-          <ul>
-            {% for obj in lettre.list %}
-              <li><a href="{{ obj.get_absolute_url }}">{{ obj }}</a></li>
-            {% endfor %}
-          </ul>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-</section>
+          </div>
+      </section>
+      <!-- <FOOTER> close ============================-->
+
 {% endblock %}

@@ -1,32 +1,40 @@
-{% include "../easter_egg.txt" %}
+{% include '../easter_egg.txt' %}
+{% load static %}
 <!DOCTYPE html>
-<html lang="fr">
-    <head>
-        {% include "../meta.html" %}
-        <title>{% block titre_page %}{% endblock %}</title>
-        {% include "public/style.html" %}
-        {% block style_page %}{% endblock %}
-        {{ form.media }}
-    </head>
-    <body>
-        <div id="layoutDefault">
-            <div id="layoutDefault_content">
-                <main>
-                    <!-- Navbar-->
-                    {% include "public/navbar.html" %}
-                    <!-- Page Header-->
-                    {% block entete %}{% endblock %}
-                            
-                    <!-- Contenu-->
-                    {% block contenu %}{% endblock %}
-                </main>
-            </div>
-            <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-arrow-up fa-lg"></i></button>
-            <div id="layoutDefault_footer">
-                {% include "../footer.html" %}
-            </div>
-        </div>
-        {% include "public/js.html" %}
-        {% block js_page %}{% endblock %}
-    </body>
+<html lang="fr" dir="ltr">
+	<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+		<title>{% block titre %}{% endblock %}</title>
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+	   <link rel="icon" type="image/x-icon" href="{% static 'css/favicon.png' %}"/>
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    {% include 'public/style.html' %}
+    {% block css_supp %}{% endblock %}
+    {{ form.media }}
+	</head>
+	<body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+    	{% block main %}{% endblock %}
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    {% include 'public/js.html' %}
+    {% block js_supp %}{% endblock %}
+	</body>
 </html>

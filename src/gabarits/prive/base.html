@@ -1,0 +1,23 @@
+{% extends 'public/base.html' %}
+{% load static %}
+{% block titre %}kwargs industria{% endblock %}
+{% block main %}
+    <main class="main" id="top">
+      <div class="container" data-layout="container">
+        <script>
+          var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+          if (isFluid) {
+            var container = document.querySelector('[data-layout]');
+            container.classList.remove('container');
+            container.classList.add('container-fluid');
+          }
+        </script>
+        {% include 'prive/sidebar.html' %}
+        <div class="content">
+    	{% include 'prive/navbar.html' %}
+  		{% block contenu_dash %}{% endblock %}
+        {% include 'prive/footer.html' %}
+        </div>
+      </div>
+    </main>
+{% endblock %}

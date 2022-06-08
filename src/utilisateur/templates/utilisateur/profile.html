@@ -1,68 +1,44 @@
-{% extends "prive/base_dash.html" %}
+{% extends 'prive/base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
-{% block titre_page %}Profil de {{ user }}{% endblock %}
+{% load humanize %}
+{% block titre %}{{ user }}{% endblock %}
 
-{% block entete_dash %}
-
-<header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
-	<div class="container-fluid px-4">
-	    <div class="page-header-content">
-	        <div class="row align-items-center justify-content-between pt-3">
-	            <div class="col-auto mb-3">
-	                <h1 class="page-header-title">
-	                    <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
-	                    Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user}}{% endif %}
-	                </h1>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-</header>
-{% endblock %}
 
 {% block contenu_dash %}
-<div class="container-fluid px-4 mt-4">
-	<form method="POST" enctype="multipart/form-data", action="">
-	{% csrf_token %}
-		<div class="row">
-		    <div class="col-xl-4">
-		        <div class="card mb-4">
-		        	<div class="card-header">
-		        		Membre 
-		        		{%if request.user.groups.all|length == 0 %}
-		        		d'aucun groupe
-		        		{% elif request.user.groups.all|length == 1 %}
-		        		du groupe suivant
-		        		{% else %}
-		        		des groupes suivants
-		        		{% endif %}
-		        	</div>
-		        	{% if request.user.groups.all %}
-		        	<div class=" card-body">
-		        		{% for g in request.user.groups.all %}
-		        			<span class="ml-2 badge bg-primary-soft text-primary"><a href="{% url 'group-details' pk=g.pk %}">{{ g }}</a></span>
-		        		{% endfor %}
-		        	</div>
-		        	{% endif %}
-		        </div>
-		        <div class="card mb-4">
-		            <div class="card-header">Photo du compte</div>
-		            <div class="card-body text-center">
-		                <!-- Profile picture image-->
-		                <img class="img-account-profile rounded-circle mb-2" src="{{ user.personne.image.url }}" alt="">
-		                <!-- Profile picture help block-->
-		                <div class="small font-italic text-muted mb-4">JPG ou PNG taille fichier max: 5 MB</div>
-		                <!-- Profile picture upload button-->
-		                {{ p_form.image|as_crispy_field }}
-		                <button class="btn btn-primary mt-4" type="submit">Chnager de photo</button>
-		            </div>
-		        </div>
-		    </div>
-		    <div class="col-xl-8">
-		        <!-- Account details card-->
-		        <div class="card mb-4">
-		            <div class="card-header">Détails du compte</div>
-                <div class="card-body">
+<form method="POST" enctype="multipart/form-data", action="">
+{% csrf_token %}
+	<div class="row align-items-center">
+		<div class="col-lg-4">
+			<div class="card mb-3">
+				<div class="card-header position-relative min-vh-25 mb-8">
+					
+					<div class="cover-image">
+						<div class="bg-holder rounded-3 rounded-bottom-0" style="background-image:url('{% static "img/13.jpg" %}');"></div>
+					</div>
+					<div class="avatar avatar-5xl avatar-profile shadow-lg img-thumbnail rounded-circle">
+						<div class="h-100 w-100 rounded-circle overflow-hidden position-relative">
+							<img src="{{ user.personne.image.url }}" width="200" alt="" data-dz-thumbnail="data-dz-thumbnail" />
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-8">
+			<!-- Profile picture upload button-->
+			{{ p_form.image|as_crispy_field }}
+			<div class="small font-italic text-muted mb-4">JPG ou PNG taille fichier max: 5 MB</div>
+			<button class="btn btn-primary my-4" type="submit">Changer de photo</button>			
+		</div>
+	</div>
+	<div class="row g-0">
+		<div class="col-lg-12 pe-lg-2">
+			<div class="card mb-3">
+				<div class="card-header">
+					<h5 class="mb-0">Profile Settings</h5>
+				</div>
+				<div class="card-body bg-light">
                     <div class="row">
                       <div class="col-md col-sm-12">
                         {{ u_form.username|as_crispy_field }}
@@ -84,13 +60,12 @@
                     		<p class="text-end"><a href="{% url 'password_reset' %}">Changer de mot de passe</a></p>
                     	</div>
                     </div>
-                    <div class="text-center">
-                    	<button class="btn btn-primary mt-4" type="submit">Changer</button>	
-                    </div>
-                </div>
-		        </div>
-		    </div>
+					<div class="col-12 d-flex justify-content-end">
+						<button class="btn btn-primary" type="submit">Update </button>
+					</div>
+				</div>
+			</div>
 		</div>
-	</form>
-</div>
+	</div>
+</form>
 {% endblock %}

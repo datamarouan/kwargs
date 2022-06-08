@@ -8,11 +8,11 @@ from utilisateur import views as user_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('page.urls')),
+    path('blog/', include('blog.urls')),
+    path('glossaire/', include('glossaire.urls')),
+    path('cde/', include('rudi.urls')),
     path('projet/', include('projet.urls')),
-    path("catalogue/", include("catalogue.urls")),
-    path('glossaire/', include("glossaire.urls")),
-    path('rudi/', include("rudi.urls")),
-    path("blog/", include("blog.urls"))
+    path('catalogue/', include('catalogue.urls')),
 ]
 
 url_users = [
@@ -53,6 +53,6 @@ urlpatterns += url_users
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-admin.site.site_header = 'Administration kwargs Industria'  # default: "Django Administration"
+admin.site.site_header = 'kwargs Industria Administration'  # default: "Django Administration"
 admin.site.index_title = 'Objets éditables'  # default: "Site administration"
-admin.site.site_title = 'kwargs admin'       # default: "Django site admin"
+admin.site.site_title = 'kwargs site admin'       # default: "Django site admin"

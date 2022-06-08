@@ -1,96 +1,158 @@
-{% extends "prive/base_dash.html" %}
-{% load crispy_forms_tags %}
-{% block titre_page %}Rudi-Docu-Mentaire{% endblock %}
+{% extends 'prive/base.html' %}
 {% load static %}
-	{% block entete_dash %}
-<header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
-    <div class="container-fluid px-4">
-        <div class="page-header-content pt-4">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-auto mt-4">
-                    <h1 class="page-header-title">
-                        <div class="page-header-icon"><i class="far fa-folder-open"></i></div>
-                        Rudi
-                    </h1>
-                    <div class="page-header-subtitle">Un système rudimentaire de gestion documentaire</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-{% endblock %}
+{% load crispy_forms_tags %}
+{% block titre %}Rudi{% endblock %}
+
 
 {% block contenu_dash %}
-<div class="container-fluid px-4 mt-n10">
-	<div class="row">
-		<div class="col-lg-6 col-xl-3 mb-4">
-		    <div class="card bg-yellow text-white h-100">
-		        <div class="card-body">
-		            <div class="d-flex justify-content-between align-items-center">
-		                <div class="me-3">
-		                    <div class="text-white">Travail en cours</div>
-		                    <div class="text-lg fw-bold">{{ conception|length }}</div>
-		                </div>
-		                <i class="fa-solid fa-list-check fa-3x text-white-50"></i>
-		            </div>
-		        </div>
-		        <div class="card-footer d-flex align-items-center justify-content-between small">
-		            <a class="text-white stretched-link" href="{% url 'rudi:conception-list' %}">Voir les documents</a>
-		            <div class="text-white"><i class="fas fa-angle-right"></i></div>
+
+<div class="d-flex mb-4 mt-6">
+	<span class="fa-stack me-2 ms-n1">
+			<i class="fa-inverse fa-stack-1x text-primary far fa-folder-open" data-fa-transform="grow-2"></i>
+		</span>
+	<div class="col">
+    	<h5 class="mb-0 text-primary position-relative"><span class="bg-200 dark__bg-1100 pe-3">Common Data Environment</span><span class="border position-absolute top-50 translate-middle-y w-100 start-0 z-index--1"></span></h5>
+    	<p class="mb-0">Système rudimentaire de gestion documentaire.</p>
+	</div>
+</div>
+
+<div class="row g-3 mb-3">
+	<div class="col-lg-3">
+	  <div class="card overflow-hidden" style="min-width: 12rem">
+	    <div class="bg-holder bg-card" style="background-image:url('{% static 'img/corner-1.png' %}');">
+	    </div>
+	    <!--/.bg-holder-->
+
+	    <div class="card-body position-relative">
+	      <div class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-warning">Work in progress</div><a class="fw-semi-bold fs--1 text-nowrap" href="{% url 'rudi:conception-list' %}">Voir les <strong>{{ conception|length }}</strong> fichiers<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
+	    </div>
+	  </div>
+	</div>
+	<div class="col-lg-3">
+	  <div class="card overflow-hidden" style="min-width: 12rem">
+	    <div class="bg-holder bg-card" style="background-image:url('{% static 'img/corner-2.png' %}');">
+	    </div>
+	    <!--/.bg-holder-->
+
+	    <div class="card-body position-relative">
+	      <div class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-info">Shared</div><a class="fw-semi-bold fs--1 text-nowrap" href="{% url 'rudi:partage-list' %}">Voir les <strong>{{ partage|length }}</strong> fichiers<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
+	    </div>
+	  </div>
+	</div>
+	<div class="col-lg-3">
+	  <div class="card overflow-hidden" style="min-width: 12rem">
+	    <div class="bg-holder bg-card" style="background-image:url('{% static 'img/corner-3.png' %}');">
+	    </div>
+	    <!--/.bg-holder-->
+
+	    <div class="card-body position-relative">
+	      <div class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-success">Published</div><a class="fw-semi-bold fs--1 text-nowrap" href="{% url 'rudi:publication-list' %}">Voir les <strong>{{ publication|length }}</strong> fichiers<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
+	    </div>
+	  </div>
+	</div>
+	<div class="col-lg-3">
+	  <div class="card overflow-hidden" style="min-width: 12rem">
+	    <div class="bg-holder bg-card" style="background-image:url('{% static 'img/corner-5.png' %}');">
+	    </div>
+	    <!--/.bg-holder-->
+
+	    <div class="card-body position-relative">
+	      <div class="display-4 fs-4 mb-2 fw-normal font-sans-serif text-primary">Archived</div><a class="fw-semi-bold fs--1 text-nowrap" href="{% url 'rudi:archivage-list' %}">Voir les <strong>{{ archivage|length }}</strong> fichiers<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
+	    </div>
+	  </div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-7">
+		<div class="card z-index-1 mb-3 px-3">
+		    <div class="card-header">
+		        <div class="row flex-between-center">
+		        	<div class="col-6 col-sm-auto ms-4 text-start ps-0">
+		        		<h5 class="mb-0">Types de fichiers</h5>
+		        	</div>
+		            <div class="col-6 col-sm-auto ms-auto text-end ps-0">
+		              <div id="table-purchases-replace-element">
+		                <a class="btn btn-falcon-primary btn-sm" type="button" href="{% url 'rudi:new-doc' %}"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Ajouter</span></a>
+		              </div>
+		            </div>            
 		        </div>
 		    </div>
-		</div>
-		<div class="col-lg-6 col-xl-3 mb-4">
-		    <div class="card bg-green text-white h-100">
-		        <div class="card-body">
-		            <div class="d-flex justify-content-between align-items-center">
-		                <div class="me-3">
-		                    <div class="text-white">Partagés</div>
-		                    <div class="text-lg fw-bold">{{ partage|length }}</div>
-		                </div>
-		                <i class="fa-solid fa-share fa-3x text-white-50"></i>
-		            </div>
-		        </div>
-		        <div class="card-footer d-flex align-items-center justify-content-between small">
-		            <a class="text-white stretched-link" href="{% url 'rudi:partage-list' %}">Voir les documents</a>
-		            <div class="text-white"><i class="fas fa-angle-right"></i></div>
-		        </div>
-		    </div>
-		</div>
-		<div class="col-lg-6 col-xl-3 mb-4">
-		    <div class="card bg-teal text-white h-100">
-		        <div class="card-body">
-		            <div class="d-flex justify-content-between align-items-center">
-		                <div class="me-3">
-		                    <div class="text-white">Publiés</div>
-		                    <div class="text-lg fw-bold">{{ publication|length }}</div>
-		                </div>
-		                <i class="fa-solid fa-newspaper fa-3x text-white-50"></i>
-		            </div>
-		        </div>
-		        <div class="card-footer d-flex align-items-center justify-content-between small">
-		            <a class="text-white stretched-link" href="{% url 'rudi:publication-list' %}">Voir les documents</a>
-		            <div class="text-white"><i class="fas fa-angle-right"></i></div>
-		        </div>
-		    </div>
-		</div>
-		<div class="col-lg-6 col-xl-3 mb-4">
-		    <div class="card bg-cyan text-white h-100">
-		        <div class="card-body">
-		            <div class="d-flex justify-content-between align-items-center">
-		                <div class="me-3">
-		                    <div class="text-white">Archivage</div>
-		                    <div class="text-lg fw-bold">{{ archivage|length }}</div>
-		                </div>
-		                <i class="fa-solid fa-folder-tree fa-3x text-white-50"></i>
-		            </div>
-		        </div>
-		        <div class="card-footer d-flex align-items-center justify-content-between small">
-		            <a class="text-white stretched-link" href="{% url 'rudi:archivage-list' %}">Voir les documents</a>
-		            <div class="text-white"><i class="fas fa-angle-right"></i></div>
-		        </div>
-		    </div>
+			<div class="card-body fs--1 pb-0">
+				<div class="row">
+					<div class="col-sm-6 col-md-4 mb-3">
+					  <div class="d-flex position-relative align-items-center mb-2"><img class="d-flex align-self-center me-2 rounded-3" src="{% static 'img/logos/revit.png' %}" alt="" width="50" />
+					    <div class="flex-1">
+					      <h6 class="fs-0 mb-0"><a class="stretched-link" href="{% url 'rudi:rvt-list' %}">Revit</a></h6>
+					      <p class="mb-1">{{ rvt_file|length }} fichiers</p>
+					    </div>
+					  </div>
+					</div>
+					<div class="col-sm-6 col-md-4 mb-3">
+					  <div class="d-flex position-relative align-items-center mb-2"><img class="d-flex align-self-center me-2 rounded-3" src="{% static 'img/logos/Microsoft_Office_Excel_(2013–2019).svg' %}" alt="" width="50" />
+					    <div class="flex-1">
+					      <h6 class="fs-0 mb-0"><a class="stretched-link" href="{% url 'rudi:xls-list' %}">Excel</a></h6>
+					      <p class="mb-1">{{ xls_file|length }} fichiers</p>
+					    </div>
+					  </div>
+					</div>
+					<div class="col-sm-6 col-md-4 mb-3">
+					  <div class="d-flex position-relative align-items-center mb-2"><img class="d-flex align-self-center me-2 rounded-3" src="{% static 'img/logos/pdf.png' %}" alt="" width="50" />
+					    <div class="flex-1">
+					      <h6 class="fs-0 mb-0"><a class="stretched-link" href="{% url 'rudi:pdf-list' %}">pdf</a></h6>
+					      <p class="mb-1">{{ pdf_file|length }} fichiers</p>
+					    </div>
+					  </div>
+					</div>
+					<div class="col-sm-6 col-md-4 mb-3">
+					  <div class="d-flex position-relative align-items-center mb-2"><img class="d-flex align-self-center me-2 rounded-3" src="{% static 'img/logos/Microsoft_Word_2013-2019_logo.svg' %}" alt="" width="50" />
+					    <div class="flex-1">
+					      <h6 class="fs-0 mb-0"><a class="stretched-link" href="{% url 'rudi:doc-list' %}">Word</a></h6>
+					      <p class="mb-1">{{ doc_file|length }} fichiers</p>
+					    </div>
+					  </div>
+					</div>
+					<div class="col-sm-6 col-md-4 mb-3">
+					  <div class="d-flex position-relative align-items-center mb-2"><img class="d-flex align-self-center me-2 rounded-3" src="{% static 'img/logos/N-IFC-logo-600-x-400.png' %}" alt="" width="50" />
+					    <div class="flex-1">
+					      <h6 class="fs-0 mb-0"><a class="stretched-link" href="{% url 'rudi:ifc-list' %}">IFC</a></h6>
+					      <p class="mb-1">{{ ifc_file|length }} fichiers</p>
+					    </div>
+					  </div>
+					</div>
+					<div class="col-sm-6 col-md-4 mb-3">
+					  <div class="d-flex position-relative align-items-center mb-2"><img class="d-flex align-self-center me-2 rounded-3" src="{% static 'img/logos/1200px-Jupyter_logo.svg.png' %}" alt="" width="50" />
+					    <div class="flex-1">
+					      <h6 class="fs-0 mb-0"><a class="stretched-link" href="{% url 'rudi:ipynb-list' %}">Jupyter</a></h6>
+					      <p class="mb-1">{{ jpy_file|length }} fichiers</p>
+					    </div>
+					  </div>
+					</div>
+				</div>
 			</div>
+		</div>		
+	</div>
+	<div class="col-md-5">
+		<div class="card z-index-1 mb-3 px-3">
+			<div class="card-header d-flex flex-between-center">
+				<h5 class="mb-0">Fichiers récents</h5><a class="py-1 fs--1 font-sans-serif" href="{% url 'rudi:docs-list' %}">Tout voir</a>
+			</div>
+			<div class="card-body pb-0">
+			{% for file in recent_files %}
+			  <div class="d-flex mb-3 hover-actions-trigger align-items-center">
+			    <div class="ms-3 flex-shrink-1 flex-grow-1">
+			      <h6 class="mb-1"><a class="stretched-link text-900 fw-semi-bold" href="{% url 'rudi:doc-details' pk=file.pk %}">{{ file }}</a></h6>
+			      <div class="fs--1"><span class="fw-medium text-600">Dernière modification: {{ file.history.all.last.history_date }} par {{ file.history.all.last.history_user }}</span></div>
+			      <div class="hover-actions end-0 top-50 translate-middle-y">
+			      	<a class="btn btn-light border-300 btn-sm me-1 text-600" data-bs-toggle="tooltip" data-bs-placement="top" title="" href="{{ file.fichier.url }}" download="download" data-bs-original-title="Download" aria-label="Download"><img src="{% static 'img/cloud-download.svg' %}" alt="" width="15"></a>
+			        <a class="btn btn-light border-300 btn-sm me-1 text-600 shadow-none" href="{% url 'rudi:doc-modif' pk=file.pk %}" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Edit" aria-label="Edit"><img src="{% static 'img/edit-alt.svg' %}" alt="" width="15"></a>
+			      </div>
+			    </div>
+			  </div>
+			  {% endfor %}
+			  
+			</div>
+		</div>
 	</div>
 </div>
 {% endblock %}

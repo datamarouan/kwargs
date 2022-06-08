@@ -20,7 +20,7 @@ class ArticleListView(LoginRequiredMixin, ListView):
     model = Article
     template_name = "blog/crud/articles_list.html"
 
-class ArticleDetailView(LoginRequiredMixin, DetailView):
+class ArticleDetailView(DetailView):
     model = Article
     template_name = "blog/crud/article_details.html"
 

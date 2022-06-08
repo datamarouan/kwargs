@@ -1,0 +1,49 @@
+ {% extends 'prive/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% block titre %}Catalogue | Organisation | Ajout{% endblock %}
+
+
+{% block contenu_dash %}
+
+<div class="d-flex mb-4 mt-6">
+	<span class="fa-stack me-2 ms-n1">
+			<i class="fa-inverse fa-stack-1x text-primary fas fa-plus" data-fa-transform="shrink-2"></i>
+		</span>
+	<div class="col">
+    	<h5 class="mb-0 text-primary position-relative">
+    		<span class="bg-200 dark__bg-1100 pe-3">
+    			{% if '/edition/' in request.path %}Modifier{% else %}Ajouter{% endif %} un article
+    		</span>
+    		<span class="border position-absolute top-50 translate-middle-y w-100 start-0 z-index--1"></span></h5>
+	</div>
+</div>
+
+<div class="row">
+	<form method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="col-sm-10 mx-auto">
+			<div class="card mb-3 ">
+			    <div class="card-header">
+			        <div class="row flex-between-center">
+			            <div class="col-6 col-sm-auto ms-auto text-end ps-0">
+			              <div id="table-purchases-replace-element">
+			                <a class="btn btn-falcon-primary btn-sm" type="button" href="{% url 'blog:articles-list' %}"><span class="fas fa-chevron-left" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Retour</span></a>
+			              </div>
+			            </div>            
+			        </div>
+			    </div>
+			    <div class="card-body">
+			    	{{ form|crispy }}
+			    </div>
+			    <div class="card-footer">
+			    	<button type="submit" class="fw-500 btn btn-primary">Enregistrer</button>
+			    </div>
+			</div>		
+		</div>
+	</form>
+</div>
+
+
+{% endblock %}
