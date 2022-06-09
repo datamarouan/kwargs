@@ -83,6 +83,12 @@
                         </div>
                       </div>
                       <div class="tab-pane fade" id="tab-documentation" role="tabpanel" aria-labelledby="documentation-tab">
+                      	<div class=" justify-content-end align-items-center mt-3">
+													<a class="btn btn-falcon-default btn-sm me-1 mb-1" type="button" href="{% url 'rudi:new-doc' %}">
+													<span class="fas fa-plus me-1" data-fa-transform="shrink-3"></span>Ajouter
+													</a>                      		
+                      	</div>
+
 												<ul class="mt-3">
 												{% for doc in object.docz.all %}
 													<li class="list-unstyled">
@@ -90,6 +96,7 @@
 													</li>				
 												{% endfor %}        
 												</ul>
+
                       </div>
                       <div class="tab-pane fade" id="tab-equipe" role="tabpanel" aria-labelledby="equipe-tab">
 												{% for people in object.assigne.all %}

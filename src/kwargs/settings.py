@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'rudi',
     'projet',
     'catalogue',
+    'maturite',
     'django_cleanup.apps.CleanupConfig',
 ]
 

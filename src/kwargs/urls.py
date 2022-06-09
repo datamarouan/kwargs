@@ -13,6 +13,7 @@ urlpatterns = [
     path('cde/', include('rudi.urls')),
     path('projet/', include('projet.urls')),
     path('catalogue/', include('catalogue.urls')),
+    path("maturite/", include('maturite.urls'))
 ]
 
 url_users = [
