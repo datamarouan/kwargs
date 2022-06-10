@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'tinymce',
     'taggit',
     'simple_history',
+    'bootstrapform',
+    'survey',
     'page',
     'utilisateur',
     'blog',
@@ -57,7 +59,6 @@ INSTALLED_APPS = [
     'rudi',
     'projet',
     'catalogue',
-    'maturite',
     'django_cleanup.apps.CleanupConfig',
 ]
 

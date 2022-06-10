@@ -1,0 +1,64 @@
+{% extends 'prive/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% block titre %}Analyse exploratoire du fichier IFC{% endblock %}
+
+
+{% block contenu_dash %}
+<div class="d-flex mb-4 mt-6">
+	<span class="fa-stack me-2 ms-n1">
+			<i class="fa-inverse fa-stack-1x text-primary fas fa-list" data-fa-transform="shrink-2"></i>
+		</span>
+	<div class="col">
+    	<h5 class="mb-0 text-primary position-relative"><span class="bg-200 dark__bg-1100 pe-3">Analyse Exploratoire du fichier IFC</span><span class="border position-absolute top-50 translate-middle-y w-100 start-0 z-index--1"></span></h5>
+	</div>
+</div>
+<div class="row">
+    <div class="col-lg-4 mx-auto">
+        <div class="card p-3 mb-3">
+            <div class="card-header">
+                <h3>Informations de base</h3>
+            </div>
+            <div class="card-body bg-light">
+                <p><strong>Auteur: </strong>{{ owner }}</p>
+                <p><strong>Application d'origine: </strong>{{ application }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        {% if surfaces%}
+        <div class="card p-3 mb-3">
+            <div class="card-header">
+                <h3>Superficies des locaux</h3>
+            </div>
+            <div class="card-body bg-light">
+                <table id="table-list" class="display compact">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Nom</th>
+                            <th>Superficie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for surface in surfaces %}
+                        <tr>
+                            <td>{{ surface.code }}</td>
+                            <td>{{ surface.nom }}</td>
+                            <td>{{ surface.surface }} m²</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}      
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js_supp %}
+{% include 'tables/options.html' %}
+{% endblock %}

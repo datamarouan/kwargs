@@ -9,6 +9,7 @@ urlpatterns = [
 	path("documents/", views.DocListView.as_view(), name="docs-list"),
 	path("documents/pdf/", views.PDFListView.as_view(), name="pdf-list"),
 	path("documents/ifc/", views.IFCListView.as_view(), name="ifc-list"),
+
 	path("documents/doc/", views.DOCListView.as_view(), name="doc-list"),
 	path("documents/rvt/", views.RVTListView.as_view(), name="rvt-list"),
 	path("documents/ipynb/", views.JPYListView.as_view(), name="ipynb-list"),
@@ -27,4 +28,6 @@ urlpatterns = [
 	path("document/<str:pk>/", views.DocDetailView.as_view(), name="doc-details"),
 	path("document/<str:pk>/edition/", views.DocUpdateView.as_view(), name="doc-modif"),
 	path("document/<str:pk>/delete/", views.DocDeleteView.as_view(), name="doc-delete"),
+
+	path("documents/<str:pk>/analyse/", views.IfcAnalyseView.as_view(), name="analyse_ifc"),
 ]

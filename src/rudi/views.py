@@ -4,6 +4,45 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, DeleteView, TemplateView
 from .models import *
+from .utils import *
+
+import ifcopenshell as ifc
+import ifcopenshell.util
+import ifcopenshell.util.element
+
+
+class IfcAnalyseView(LoginRequiredMixin, DetailView):
+	model = Document 
+	template_name = "rudi/vues/analyse_ifc.html"
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		ifc_file = ifc.open(self.object.fichier.path)
+		owner = ifc_file.by_type("IfcOwnerHistory")[0][0][0][2]
+		app = ifc_file.by_type("IfcOwnerHistory")[0][1][2]
+		superficies = {}
+		surfaces = []
+		for local in ifc_file.by_type("IfcSpace"):
+			props = ifcopenshell.util.element.get_psets(local)
+			for pset in get_related_property_sets(local):
+				for propriete in pset.HasProperties:
+					if propriete.Name == "NetPlannedArea":
+						valeur = propriete.NominalValue.wrappedValue
+						superficies["code"] = local.Name
+						superficies["nom"] = local[7]
+						superficies["surface"] = valeur
+						surfaces.append(superficies.copy())
+		context['surfaces'] = surfaces
+		context['owner'] = owner
+		context['application'] = app
+		return context
+
+
+def analyse_ifc(request, ifc_file):
+	owner = ifc.open(ifc_file).by_type("IfcOwnerHistory")[0][0][0][2]
+	context = {"owner":owner}
+	return render(request, 'rudi/vues/analyse_ifc.html', context)
+
   
 def index(request):
 	recent_files = Document.objects.all().order_by('pk')[:5]

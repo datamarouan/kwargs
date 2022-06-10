@@ -34,6 +34,9 @@
 			  <div class="card-body">
 			    <div class="row justify-content-end align-items-center">
 			      <div class="col-auto">
+			      	{% if object.get_doc_extension == ".ifc" %}
+			      	<a class="btn btn-falcon-warning btn-sm me-2" href="{% url 'rudi:analyse_ifc' pk=object.pk %}">Analyse IFC</a>
+			      	{% endif %}
 			        <a class="btn btn-falcon-default btn-sm me-2" href="{% url 'rudi:doc-modif' pk=object.pk %}">Editer</a>
 			        <a class="btn btn-falcon-primary btn-sm me-2" href="{{ object.fichier.url }}">Télécharger</a>
 			      </div>
