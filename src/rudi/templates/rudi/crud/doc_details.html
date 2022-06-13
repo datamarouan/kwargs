@@ -4,7 +4,7 @@
 {% block titre %}{{ object }}{% endblock %}
 {% block contenu_dash %}
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row mb-3 pt-5">
 		<div class="col-lg-7 d-flex flex-column align-items-stretched">
 			<div class="card mb-3">
@@ -35,10 +35,11 @@
 			    <div class="row justify-content-end align-items-center">
 			      <div class="col-auto">
 			      	{% if object.get_doc_extension == ".ifc" %}
-			      	<a class="btn btn-falcon-warning btn-sm me-2" href="{% url 'rudi:analyse_ifc' pk=object.pk %}">Analyse IFC</a>
+				      	<a class="btn btn-falcon-warning btn-sm me-2 mb-2" href="{% url 'rudi:analyse_ifc' pk=object.pk %}">Analyse IFC</a>
+		                <a class="btn btn-falcon-success btn-sm me-2 mb-2" type="button" href="{% url 'rudi:correction_totem' %}">Correctif TOTEM</a>
 			      	{% endif %}
-			        <a class="btn btn-falcon-default btn-sm me-2" href="{% url 'rudi:doc-modif' pk=object.pk %}">Editer</a>
-			        <a class="btn btn-falcon-primary btn-sm me-2" href="{{ object.fichier.url }}">Télécharger</a>
+			        <a class="btn btn-falcon-default btn-sm me-2 mb-2" href="{% url 'rudi:doc-modif' pk=object.pk %}">Editer</a>
+			        <a class="btn btn-falcon-primary btn-sm me-2 mb-2" href="{{ object.fichier.url }}">Télécharger</a>
 			      </div>
 			    </div>
 			  </div>

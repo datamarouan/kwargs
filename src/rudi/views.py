@@ -4,12 +4,23 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, DeleteView, TemplateView
 from .models import *
-from .utils import *
+from .utils import totemification
 
-import ifcopenshell as ifc
-import ifcopenshell.util
-import ifcopenshell.util.element
+class TotemCorrectionView(LoginRequiredMixin, CreateView):
+	model = Document
+	template_name = "rudi/crud/doc_ajout.html"
+	fields = ['fichier', "nom"]
 
+	def form_valid(self, form):
+		instance = form.save(commit=False)
+		file = instance.fichier.url
+		new_file = totemification(file)
+		instance.fichier.path = new_file
+		instance = form.save(commit=True)
+#		self.object = form.save(commit=False)
+#		self.object.fichier = totemification(self.request.FILES['file'])
+#		self.object.save(commit=True)
+		return super().form_valid(form)
 
 class IfcAnalyseView(LoginRequiredMixin, DetailView):
 	model = Document 
@@ -36,13 +47,6 @@ class IfcAnalyseView(LoginRequiredMixin, DetailView):
 		context['owner'] = owner
 		context['application'] = app
 		return context
-
-
-def analyse_ifc(request, ifc_file):
-	owner = ifc.open(ifc_file).by_type("IfcOwnerHistory")[0][0][0][2]
-	context = {"owner":owner}
-	return render(request, 'rudi/vues/analyse_ifc.html', context)
-
   
 def index(request):
 	recent_files = Document.objects.all().order_by('pk')[:5]
@@ -122,6 +126,7 @@ class DocDetailView(LoginRequiredMixin, DetailView):
 	model = Document
 	template_name = "rudi/crud/doc_details.html"
 
+
 class DocCreateView(LoginRequiredMixin, CreateView):
 	model = Document
 	template_name = "rudi/crud/doc_ajout.html"
@@ -144,7 +149,7 @@ class DocUpdateView(LoginRequiredMixin, UpdateView):
 class DocDeleteView(LoginRequiredMixin, DeleteView):
 	model = Document
 	template_name = "objet_a_effacer.html"
-	success_url = "/rudi/documents/"
+	success_url = "/cde/documents/"
 
 class PDFListView(LoginRequiredMixin, ListView):
 	queryset = Document.objects.all().filter(fichier__endswith=".pdf")

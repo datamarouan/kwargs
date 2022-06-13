@@ -1,5 +1,8 @@
 from django.db import models
 import os, uuid
+from .utils import *
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.urls import reverse
 from crum import get_current_user
 from simple_history.models import HistoricalRecords
@@ -53,3 +56,11 @@ class Document(models.Model):
 
 	def get_absolute_url(self):
 		return reverse("rudi:doc-details", args=[self.identification])
+
+	def correctif_totem(self):
+		if not self.get_doc_extension == ".icf":
+			messages.danger("Le correctif TOTEM ne s'applique qu'aux fichiers .ifc")
+			return redirect('rudi:doc-details')
+		else:
+			return totemification(self.fichier.path)
+
