@@ -57,9 +57,9 @@
                 {{ doc.history.all|length }}
             </td>
             <td>
-                <a class="btn btn-icon btn-transparent-dark me-2" href="{% url 'rudi:doc-modif' pk=doc.pk %}"><i class="far fa-edit text-success"></i></a>
-
-                <a class="btn btn-icon btn-transparent-dark" href="{% url 'rudi:doc-delete' pk=doc.pk %}"><i class="far fa-trash-alt text-danger"></i></a>
+                <a class="btn btn-icon btn-transparent-dark" href="{% url 'rudi:correction_totem' pk=doc.pk %}"  data-bs-toggle="tooltip" data-bs-placement="top" title="Correctif TOTEM"><i class="fas fa-hand-sparkles text-warning"></i></a>
+                <a class="btn btn-icon btn-transparent-dark me-2" href="{% url 'rudi:doc-modif' pk=doc.pk %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Editer"><i class="far fa-edit text-success"></i></a>
+                <a class="btn btn-icon btn-transparent-dark" href="{% url 'rudi:doc-delete' pk=doc.pk %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Effacer"><i class="far fa-trash-alt text-danger"></i></a>
             </td>
         </tr>
         {% endfor %}

@@ -3,6 +3,8 @@ import ifcopenshell.util
 import ifcopenshell.util.element
 import os
 
+
+
 def get_related_property_sets(ifc_instance):
     """
     Renvoie une liste de IfcPropertySets pour une instance ifc donnée
@@ -16,7 +18,7 @@ def get_related_property_sets(ifc_instance):
                 properties_list.append(x.RelatingPropertyDefinition)
     return properties_list
 
-def totemification(ifc_file):
+def totemisage(ifc_file):
     file = ifcopenshell.open(ifc_file)
     products = [product for product in file.by_type("IfcProduct")]
     for product in products:
@@ -26,6 +28,4 @@ def totemification(ifc_file):
                     for propriete in pset.HasProperties:
                         if propriete.Name == "Type_TOTEM":
                             product.Name = propriete.NominalValue.wrappedValue
-    new_ifc_file = file
-    #.write(os.path.basename(ifc_file)[0]+'TOTEMIZE'+os.path.basename(ifc_file)[1])
-    return new_ifc_file
+    return file

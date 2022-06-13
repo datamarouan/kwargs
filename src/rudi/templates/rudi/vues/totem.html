@@ -1,12 +1,57 @@
 {% extends 'prive/base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% load humanize %}
 {% block titre %}Correctif TOTEM{% endblock %}
 
 
 {% block contenu_dash %}
+<div class="d-flex mb-4 mt-6">
+	<span class="fa-stack me-2 ms-n1">
+			<i class="fa-inverse fa-stack-1x text-primary fas fa-hand-sparkles" data-fa-transform="grow-2"></i>
+		</span>
+	<div class="col">
+    	<h5 class="mb-0 text-primary position-relative"><span class="bg-200 dark__bg-1100 pe-3">Correctif TOTEM</span><span class="border position-absolute top-50 translate-middle-y w-100 start-0 z-index--1"></span></h5>
+    	<p class="mb-0">Lorsqu'on fait un export de Revit vers ifc, les Pset_TOTEM sont "mal exportés" de sorte qu'on ne puisse pas utiliser l'application TOTEM (en gros). Il est demandé que le nom des objets auxquels sont associés le Pset_TOTEM soit identique à la valeur de la propriété "Type_TOTEM" de ce même Pset. Pour ce faire, un script Python a été rédigé (<a href="https://github.com/datamarouan/CUBIM/blob/main/IfcOpenShell%20Pset_TOTEM%20manipulations.ipynb" target="_blank">disponible ici</a>) qui utilise la bibliothèque <a href="http://ifcopenshell.org/" target="_blank">IfcOpenShell</a>.</p>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-8 mx-auto">
+			<div class="alert alert-warning border-2 d-flex align-items-center" role="alert">
+				<div class="bg-warning me-3 icon-item"><span class="fas fa-exclamation-circle text-white fs-3"></span></div>
+				<p class="mb-0 flex-1">Le correctif ne s'applique qu'aux fichiers *.ifc qui possède un Pset TOTEM. Un autre format de fichier ou un fichier sans Pset TOTEM renverra une erreur.</p>
+				<button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>			
+		</div>
+	</div>
+	<div class="row mb-3 align-items-center justify-content-center">
+		<div class="col-lg-8 d-flex flex-column align-items-stretched mx-auto">
+			<div class="card mb-3">
+			  <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url('{% static 'img/corner-1.png' %}');">
+			  </div>
+			  <!--Titre -->
+				<div class="card-body">
+				    <div class="row">
+				      <div class="col-lg-12">
+				        <h5>Le correctif s'appliquera au fichier suivant</h5>
+				        <h1>{{ object }}</h1>
+				      </div>
+				    </div>
+			  	</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-8 mx-auto text-center">
+			<div class="d-grid gap-2">
+				<a class="btn btn-warning" type="button" href="{% url 'rudi:totem_correction' pk=object.pk %}">Corriger</a>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
+
 {% block js_supp %}
-{% include 'tables/options.html' %}
+
 {% endblock %}

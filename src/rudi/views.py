@@ -1,26 +1,48 @@
 from django.shortcuts import render
 from django.db.models import Q
+from django.http import HttpResponse
+from wsgiref.util import FileWrapper
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, DeleteView, TemplateView
 from .models import *
-from .utils import totemification
+from .utils import totemisage
+from django.conf import settings
 
-class TotemCorrectionView(LoginRequiredMixin, CreateView):
+import ifcopenshell as ifc
+import ifcopenshell.util
+import ifcopenshell.util.element
+import os
+
+
+def totemification(request, pk):
+	if request.method == "GET":
+		document = Document.objects.all().get(identification=pk)
+		fichier = document.fichier
+		file_ifc= totemisage(fichier.path)
+		file_ifc.write("tempote.ifc")
+		file_location = settings.BASE_DIR / "tempote.ifc"
+		with open(file_location, "r") as f:
+			file_data = f.read()
+			response = HttpResponse(file_data, content_type='text/plain')
+			response['Content-Disposition'] = 'attachment; filename='+document.get_doc_name()+'_TOTEMIZE.ifc'
+		return response
+
+class TotemCorrectionView(LoginRequiredMixin, DetailView):
 	model = Document
-	template_name = "rudi/crud/doc_ajout.html"
-	fields = ['fichier', "nom"]
+	template_name = "rudi/vues/totem.html"
+#	fields = ['fichier', "nom"]
 
-	def form_valid(self, form):
-		instance = form.save(commit=False)
-		file = instance.fichier.url
-		new_file = totemification(file)
-		instance.fichier.path = new_file
-		instance = form.save(commit=True)
+#	def form_valid(self, form):
+#		instance = form.save(commit=False)
+#		file = instance.fichier.url
+#		new_file = totemification(file)
+#		instance.fichier.path = new_file
+#		instance = form.save(commit=True)
 #		self.object = form.save(commit=False)
 #		self.object.fichier = totemification(self.request.FILES['file'])
 #		self.object.save(commit=True)
-		return super().form_valid(form)
+#		return super().form_valid(form)
 
 class IfcAnalyseView(LoginRequiredMixin, DetailView):
 	model = Document 
@@ -125,7 +147,6 @@ class VuePublication(LoginRequiredMixin, ListView):
 class DocDetailView(LoginRequiredMixin, DetailView):
 	model = Document
 	template_name = "rudi/crud/doc_details.html"
-
 
 class DocCreateView(LoginRequiredMixin, CreateView):
 	model = Document

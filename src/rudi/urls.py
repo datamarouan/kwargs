@@ -4,7 +4,6 @@ from . import views
 app_name = 'rudi'
 
 urlpatterns = [
-	path("document/totem/", views.TotemCorrectionView.as_view(), name="correction_totem"),
 	path("documents/", views.DocListView.as_view(), name="docs-list"),
 	path('', views.index, name='index'),
 	path('document/ajout/', views.DocCreateView.as_view(), name="new-doc"),
@@ -32,5 +31,6 @@ urlpatterns = [
 	path("document/<str:pk>/delete/", views.DocDeleteView.as_view(), name="doc-delete"),
 
 	path("documents/<str:pk>/analyse/", views.IfcAnalyseView.as_view(), name="analyse_ifc"),
-	path("document/totem/", views.TotemCorrectionView.as_view(), name="correction_totem"),
+	path("document/<str:pk>/totem/", views.TotemCorrectionView.as_view(), name="correction_totem"),
+	path('document/<str:pk>/totem/corrige', views.totemification, name="totem_correction"),
 ]

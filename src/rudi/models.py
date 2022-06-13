@@ -54,13 +54,12 @@ class Document(models.Model):
 		name, ext = os.path.splitext(base_name)
 		return ext
 
+	def get_doc_name(self):
+		base_name = os.path.basename(self.fichier.name)
+		name, ext = os.path.splitext(base_name)
+		return name
+
 	def get_absolute_url(self):
 		return reverse("rudi:doc-details", args=[self.identification])
 
-	def correctif_totem(self):
-		if not self.get_doc_extension == ".icf":
-			messages.danger("Le correctif TOTEM ne s'applique qu'aux fichiers .ifc")
-			return redirect('rudi:doc-details')
-		else:
-			return totemification(self.fichier.path)
 
