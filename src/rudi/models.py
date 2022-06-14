@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.urls import reverse
 from crum import get_current_user
 from simple_history.models import HistoricalRecords
+from taggit.managers import TaggableManager
 
 def get_doc_filename(instance, filename):
 	base_name = os.path.basename(filename)
@@ -42,6 +43,7 @@ class Document(models.Model):
 	history = HistoricalRecords(
 		history_change_reason_field=models.TextField(null=True)
 		)
+	tags = TaggableManager(verbose_name="Mots-clés", blank=True, help_text="Une liste de mots-clés séparés par une virgule, en minuscule")
 
 	def __str__(self):
 		if self.nom:

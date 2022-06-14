@@ -20,14 +20,109 @@
           <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
 						<div class="navbar-vertical-content scrollbar">
 							<ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
+								<!-- Page d'accueil-->
 								<a class="nav-link" href="{% url 'catalogue:index' %}" role="button" data-bs-toggle="" aria-expanded="false">
-				                    <div class="d-flex align-items-center">
-				                    	<span class="nav-link-icon">
-				                    		<span class="fas fa-rocket"></span>
-				                    	</span>
-				                    	<span class="nav-link-text ps-1">Accueil</span>
-				                    </div>
-			                  	</a>
+                  <div class="d-flex align-items-center">
+                  	<span class="nav-link-icon">
+                  		<span class="fas fa-rocket"></span>
+                  	</span>
+                  	<span class="nav-link-text ps-1">Accueil</span>
+                  </div>
+              	</a>
+								<!-- IFC Data Model-->
+								<li class="nav-item">
+									<!-- label-->
+									<div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+										<div class="col-auto navbar-vertical-label text-primary">IFC Data Model</div>
+										<div class="col ps-0">
+											<hr class="mb-0 navbar-vertical-divider" />
+										</div>
+									</div>
+									<a class="nav-link dropdown-indicator" href="#ifc" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="ifc">
+										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-box-open"></span></span><span class="nav-link-text ps-1">Ressources</span>
+										</div>
+									</a>
+									<ul class="nav collapse" id="ifc">
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'catalogue:acteurs' %}" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Acteurs</span>
+												</div>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Classifications <span class="badge badge-soft-danger me-1">A faire</span></span>
+												</div>
+											</a>
+										</li>
+									</ul>
+									<a class="nav-link dropdown-indicator" href="" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="ifc">
+										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="far fa-dot-circle"></span></span><span class="nav-link-text ps-1">Noyau <span class="badge badge-soft-danger me-1">A faire</span></span>
+										</div>
+									</a>
+								</li>
+								<!-- Common Data Environment-->
+								<li class="nav-item">
+									<!-- label-->
+									<div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+										<div class="col-auto navbar-vertical-label">Common Data Environment</div>
+										<div class="col ps-0">
+											<hr class="mb-0 navbar-vertical-divider" />
+										</div>
+									</div>
+									<a class="nav-link dropdown-indicator" href="#cde" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="cde">
+										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="far fa-file"></span></span><span class="nav-link-text ps-1">Rudi's CDE</span>
+										</div>
+									</a>
+									<ul class="nav collapse" id="cde">
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'rudi:index' %}" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Accueil</span>
+												</div>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'rudi:new-doc' %}" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Ajouter un document</span>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<!-- Projets-->
+								<li class="nav-item">
+									<!-- label-->
+									<div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+										<div class="col-auto navbar-vertical-label">Projets</div>
+										<div class="col ps-0">
+											<hr class="mb-0 navbar-vertical-divider" />
+										</div>
+									</div>
+									<a class="nav-link dropdown-indicator" href="#projet" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="projet">
+										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-project-diagram"></span></span><span class="nav-link-text ps-1">Projets</span>
+										</div>
+									</a>
+									<ul class="nav collapse" id="projet">
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'projet:index' %}" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Accueil</span>
+												</div>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'projet:new-projet' %}" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Nouveau projet</span>
+												</div>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'projet:new-tache' %}" aria-expanded="false">
+												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Nouvelle tâche</span>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</li>
 								<!-- Gestion du Site-->
 								<li class="nav-item">
 									<!-- label-->
@@ -87,100 +182,6 @@
 										<li class="nav-item">
 											<a class="nav-link" href="{% url 'groups-list' %}" data-bs-toggle="" aria-expanded="false">
 												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Liste groupes</span>
-												</div>
-											</a>
-										</li>
-									</ul>
-								</li>
-								<!-- Common Data Environment-->
-								<li class="nav-item">
-									<!-- label-->
-									<div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-										<div class="col-auto navbar-vertical-label">Common Data Environment</div>
-										<div class="col ps-0">
-											<hr class="mb-0 navbar-vertical-divider" />
-										</div>
-									</div>
-									<a class="nav-link dropdown-indicator" href="#cde" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="cde">
-										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="far fa-file"></span></span><span class="nav-link-text ps-1">Rudi's CDE</span>
-										</div>
-									</a>
-									<ul class="nav collapse" id="cde">
-										<li class="nav-item">
-											<a class="nav-link" href="{% url 'rudi:index' %}" aria-expanded="false">
-												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Accueil</span>
-												</div>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="{% url 'rudi:new-doc' %}" aria-expanded="false">
-												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Ajouter un document</span>
-												</div>
-											</a>
-										</li>
-									</ul>
-								</li>
-								<!-- IFC Data Model-->
-								<li class="nav-item">
-									<!-- label-->
-									<div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-										<div class="col-auto navbar-vertical-label">IFC Data Model</div>
-										<div class="col ps-0">
-											<hr class="mb-0 navbar-vertical-divider" />
-										</div>
-									</div>
-									<a class="nav-link dropdown-indicator" href="#ifc" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="ifc">
-										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-box-open"></span></span><span class="nav-link-text ps-1">Ressources</span>
-										</div>
-									</a>
-									<ul class="nav collapse" id="ifc">
-										<li class="nav-item">
-											<a class="nav-link" href="{% url 'catalogue:acteurs' %}" aria-expanded="false">
-												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Acteurs</span>
-												</div>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="" aria-expanded="false">
-												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Classifications <span class="badge badge-soft-danger me-1">A faire</span></span>
-												</div>
-											</a>
-										</li>
-									</ul>
-									<a class="nav-link dropdown-indicator" href="" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="ifc">
-										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="far fa-dot-circle"></span></span><span class="nav-link-text ps-1">Noyau <span class="badge badge-soft-danger me-1">A faire</span></span>
-										</div>
-									</a>
-								</li>
-								<!-- Projets-->
-								<li class="nav-item">
-									<!-- label-->
-									<div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-										<div class="col-auto navbar-vertical-label">Projets</div>
-										<div class="col ps-0">
-											<hr class="mb-0 navbar-vertical-divider" />
-										</div>
-									</div>
-									<a class="nav-link dropdown-indicator" href="#projet" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="projet">
-										<div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-project-diagram"></span></span><span class="nav-link-text ps-1">Projets</span>
-										</div>
-									</a>
-									<ul class="nav collapse" id="projet">
-										<li class="nav-item">
-											<a class="nav-link" href="{% url 'projet:index' %}" aria-expanded="false">
-												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Accueil</span>
-												</div>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="{% url 'projet:new-projet' %}" aria-expanded="false">
-												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Nouveau projet</span>
-												</div>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="{% url 'projet:new-tache' %}" aria-expanded="false">
-												<div class="d-flex align-items-center"><span class="nav-link-text ps-1">Nouvelle tâche</span>
 												</div>
 											</a>
 										</li>
