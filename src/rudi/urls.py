@@ -7,6 +7,7 @@ urlpatterns = [
 	path("documents/", views.DocListView.as_view(), name="docs-list"),
 	path('', views.index, name='index'),
 	path('document/ajout/', views.DocCreateView.as_view(), name="new-doc"),
+	path('projet/<int:pk>/ajout/document/', views.DocAttacheCreateView.as_view(), name="new-doc-to-project"),
 
 	path("documents/pdf/", views.PDFListView.as_view(), name="pdf-list"),
 	path("documents/ifc/", views.IFCListView.as_view(), name="ifc-list"),
@@ -26,11 +27,11 @@ urlpatterns = [
 	path("documents/approuve_commente/", views.ValidationApprouveEtCommente.as_view(), name="approuve-commente"),
 	path("documents/non_approuve/", views.ValidationNonApprouve.as_view(), name="non-approuve"),
 	
-	path("document/<str:pk>/", views.DocDetailView.as_view(), name="doc-details"),
-	path("document/<str:pk>/edition/", views.DocUpdateView.as_view(), name="doc-modif"),
-	path("document/<str:pk>/delete/", views.DocDeleteView.as_view(), name="doc-delete"),
+	path("document/<str:slug>/", views.DocDetailView.as_view(), name="doc-details"),
+	path("document/<str:slug>/edition/", views.DocUpdateView.as_view(), name="doc-modif"),
+	path("document/<str:slug>/delete/", views.DocDeleteView.as_view(), name="doc-delete"),
 
-	path("documents/<str:pk>/analyse/", views.IfcAnalyseView.as_view(), name="analyse_ifc"),
-	path("document/<str:pk>/totem/", views.TotemCorrectionView.as_view(), name="correction_totem"),
-	path('document/<str:pk>/totem/corrige', views.totemification, name="totem_correction"),
+	path("documents/<str:slug>/analyse/", views.IfcAnalyseView.as_view(), name="analyse_ifc"),
+	path("document/<str:slug>/totem/", views.TotemCorrectionView.as_view(), name="correction_totem"),
+	path('document/<str:slug>/totem/corrige', views.totemification, name="totem_correction"),
 ]

@@ -39,119 +39,103 @@
 				      </div>
 				    </div>
 				    <div class="row">
-	            <div class="col-12">
-	              <div class="overflow-hidden mt-4">
-	                <ul class="nav nav-tabs" id="myTab" role="tablist">
-	                  <li class="nav-item"><a class="nav-link ps-0" id="modification-tab" data-bs-toggle="tab" href="#tab-modification" role="tab" aria-controls="tab-modification" aria-selected="true">Modifications</a></li>
-	                  <li class="nav-item"><a class="nav-link px-2 px-md-3" id="documentation-tab" data-bs-toggle="tab" href="#tab-documentation" role="tab" aria-controls="tab-documentation" aria-selected="false">Documentation</a></li>
-	                  <li class="nav-item"><a class="nav-link px-2 px-md-3" id="equipe-tab" data-bs-toggle="tab" href="#tab-equipe" role="tab" aria-controls="tab-equipe" aria-selected="false">Equipe</a></li>
-	                  <li class="nav-item"><a class="nav-link px-2 px-md-3" id="tache-tab" data-bs-toggle="tab" href="#tab-tache" role="tab" aria-controls="tab-tache" aria-selected="false">Tâches</a></li>
-	                  <li class="nav-item"><a class="nav-link active px-2 px-md-3" id="livrable-tab" data-bs-toggle="tab" href="#tab-livrable" role="tab" aria-controls="tab-tache" aria-selected="false">Livrables</a></li>
-	                  <li class="nav-item"><a class="nav-link px-2 px-md-3" id="site-tab" data-bs-toggle="tab" href="#tab-site" role="tab" aria-controls="tab-site" aria-selected="false">Sites</a></li>
-	                  <li class="nav-item"><a class="nav-link px-2 px-md-3" id="maturite-tab" data-bs-toggle="tab" href="#tab-maturite" role="tab" aria-controls="tab-maturite" aria-selected="false">Maturité BIM</a></li>
-	                </ul>
-	                <div class="tab-content" id="myTabContent">
-		                  <div class="tab-pane fade" id="tab-modification" role="tabpanel" aria-labelledby="modification-tab">
-		                    <div class="mt-3">
-								<table class="table table-sm table-borderless">
-								    <tbody>
-										{% for hist in object.history.all %}
-										    <tr>
-										        <td>
-										        {% if hist.history_type == '~' %}
-										            <span class="badge badge-soft-warning">mise à jour</span>
-										        {% elif hist.history_type == '+' %}
-										            <span class="badge badge-soft-success">création</span>
-										        {% elif hist.history_type == '-' %}
-										            <span class="badge badge-soft-danger">suppression</span>
-										        {% endif %}                                
-										        </td>
-										        <td>
-										            <span class="badge bg-dark">{{ hist.history_user }}</span>
-										        </td>
-										        <td>
-										            <span class="small"> {{ hist.history_date }}</span>
-										        </td>
-										    </tr>
-										{% endfor %}        
-								    </tbody>
-								</table>
-		                    </div>
-		                  </div>
-						<div class="tab-pane fade" id="tab-documentation" role="tabpanel" aria-labelledby="documentation-tab">
-						  	<div class=" justify-content-end align-items-center mt-3">
-								<a class="btn btn-falcon-default btn-sm me-1 mb-1" type="button" href="{% url 'rudi:new-doc' %}">
-								<span class="fas fa-plus me-1" data-fa-transform="shrink-3"></span>Ajouter
-								</a>                      		
-						  	</div>
-
-							<ul class="mt-3">
-							{% for doc in object.docz.all %}
-								<li class="list-unstyled">
-									<a href="{{ doc.get_absolute_url }}">{{ doc }}</a>
-								</li>				
-							{% endfor %}        
-							</ul>
-						</div>
-	                  <div class="tab-pane fade" id="tab-equipe" role="tabpanel" aria-labelledby="equipe-tab">
-						{% for people in object.assigne.all %}
-						<div class="d-flex align-items-center position-relative my-3">
-							
-							<div class="avatar avatar-2xl">
-								<img class="rounded-circle" src="{{ people.personne.image.url }}" alt="">
-							</div>
-							<div class="flex-1 ms-3">
-							<h6 class="mb-0 fw-semi-bold">{{ people }}</h6>
-							<p class="text-500 fs--2 mb-0">{{ people.email }}</p>
-							</div>
-							
-						</div>
-						{% endfor %}
-	                  </div>
-	                  <div class="tab-pane fade" id="tab-tache" role="tabpanel" aria-labelledby="tache-tab">
-	                    <div class="row mt-3">
-	                      <div class="col-lg-12 mb-4">
-							{% for task in object.tasks.all %}
-							  <div class="d-flex mb-3 hover-actions-trigger align-items-center">
-							    <div class="ms-3 flex-shrink-1 flex-grow-1">
-							      <h6 class="mb-1"><a class="stretched-link text-900 fw-semi-bold" href="{% url 'projet:tache-details' pk=task.pk %}">{{ task }}</a></h6>
-							      <div class="fs--1"><span class="fw-medium text-600">deadline: {{ task.date_butoir|date|naturaltime }}</span></div>
-							      <div class="hover-actions end-0 top-50 translate-middle-y">
-							      	<a class="btn btn-light border-300 btn-sm me-1 text-600" data-bs-toggle="tooltip" data-bs-placement="top" title="" href="{% url 'projet:tache-delete' pk=task.pk%}" data-bs-original-title="Effacer" aria-label="Effacer"><i class="far fa-trash-alt"></i></a>
-							      	<a class="btn btn-light border-300 btn-sm me-1 text-600 shadow-none" href="{% url 'projet:tache-modif' pk=task.pk %}" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Edit" aria-label="Edit"><img src="{% static 'img/edit-alt.svg' %}" alt="" width="15"></a>
-							      </div>
-							    </div>
-							  </div>
-							  {% endfor %}
-	                      </div>
-	                    </div>
-	                  </div>
-	                  <div class="tab-pane fade show active" id="tab-livrable" role="tabpanel" aria-labelledby="livrable-tab">
-	                  	<div class="row mt-3">
-	                  		<div class="col-lg-6 mx-auto">	
-								{% include '../vues/cubim_livrables.html' %}
-	                  		</div>
-	                  	</div>
-	                  </div>
-	                  <div class="tab-pane fade" id="tab-site" role="tabpanel" aria-labelledby="site-tab">
-	                  	
-	                  </div>
-	                  <div class="tab-pane fade" id="tab-maturite" role="tabpanel" aria-labelledby="maturite-tab">
-                            {% for group in request.user.groups.all %}
-                                {% if group.name == 'CUBIM' %}
-								<div class="row mt-3">
-									<div class="col mx-auto">
-										<canvas id="myChart"></canvas>
+			            <div class="col-12">
+			              <div class="overflow-hidden mt-4">
+			                <ul class="nav nav-tabs" id="myTab" role="tablist">
+			                  <li class="nav-item"><a class="nav-link ps-0" id="modification-tab" data-bs-toggle="tab" href="#tab-modification" role="tab" aria-controls="tab-modification" aria-selected="true">Modifications</a></li>
+			                  <li class="nav-item"><a class="nav-link px-2 px-md-3" id="documentation-tab" data-bs-toggle="tab" href="#tab-documentation" role="tab" aria-controls="tab-documentation" aria-selected="false">Documentation</a></li>
+			                  <li class="nav-item"><a class="nav-link px-2 px-md-3" id="equipe-tab" data-bs-toggle="tab" href="#tab-equipe" role="tab" aria-controls="tab-equipe" aria-selected="false">Equipe</a></li>
+			                  <li class="nav-item"><a class="nav-link active px-2 px-md-3" id="livrable-tab" data-bs-toggle="tab" href="#tab-livrable" role="tab" aria-controls="tab-tache" aria-selected="false">Livrables</a></li>
+			                  <li class="nav-item"><a class="nav-link px-2 px-md-3" id="site-tab" data-bs-toggle="tab" href="#tab-site" role="tab" aria-controls="tab-site" aria-selected="false">Sites</a></li>
+			                </ul>
+			                <div class="tab-content" id="myTabContent">
+								<div class="tab-pane fade" id="tab-modification" role="tabpanel" aria-labelledby="modification-tab">
+									<div class="mt-3">
+										<table class="table table-sm table-borderless">
+										    <tbody>
+												{% for hist in object.history.all %}
+												    <tr>
+												        <td>
+												        {% if hist.history_type == '~' %}
+												            <span class="badge badge-soft-warning">mise à jour</span>
+												        {% elif hist.history_type == '+' %}
+												            <span class="badge badge-soft-success">création</span>
+												        {% elif hist.history_type == '-' %}
+												            <span class="badge badge-soft-danger">suppression</span>
+												        {% endif %}                                
+												        </td>
+												        <td>
+												            <span class="badge bg-dark">{{ hist.history_user }}</span>
+												        </td>
+												        <td>
+												            <span class="small"> {{ hist.history_date }}</span>
+												        </td>
+												    </tr>
+												{% endfor %}        
+										    </tbody>
+										</table>
 									</div>
 								</div>
+								<div class="tab-pane fade" id="tab-documentation" role="tabpanel" aria-labelledby="documentation-tab">
+								  	<div class=" justify-content-end align-items-center mt-3">
+										<a class="btn btn-falcon-default btn-sm me-1 mb-1" type="button" href="{% url 'rudi:new-doc-to-project' pk=object.id %}">
+										<span class="fas fa-plus me-1" data-fa-transform="shrink-3"></span>Ajouter
+										</a>                      		
+								  	</div>
 
-                                {% endif %}
-                            {% endfor %}
-	                  </div>
-	                </div>
-	              </div>
-	            </div>
-            </div>
+									<ul class="mt-3">
+									{% for doc in object.docz.all %}
+										<li class="list-unstyled">
+											<a href="{{ doc.get_absolute_url }}">{{ doc }}</a>
+										</li>				
+									{% endfor %}        
+									</ul>
+								</div>
+								<div class="tab-pane fade" id="tab-equipe" role="tabpanel" aria-labelledby="equipe-tab">
+									<div class="row align-items-center">
+										<div class="col-4">
+											{% for people in object.assigne.all %}
+											<div class="d-flex align-items-center position-relative my-3">
+												
+												<div class="avatar avatar-2xl">
+													<img class="rounded-circle" src="{{ people.personne.image.url }}" alt="">
+												</div>
+												<div class="flex-1 ms-3">
+												<h6 class="mb-0 fw-semi-bold">{{ people }}</h6>
+												<p class="text-500 fs--2 mb-0">{{ people.email }}</p>
+												</div>
+												
+											</div>
+											{% endfor %}										
+										</div>
+										<div class="col-7">
+										    {% for group in request.user.groups.all %}
+										        {% if group.name == 'CUBIM' %}
+												<div class="row mt-3">
+													<h5 class="text-center">Matrice de maturité BIM de l'équipe</h5>
+													<div class="col">
+														<canvas id="myChart"></canvas>
+													</div>
+												</div>
+										        {% endif %}
+										    {% endfor %}										
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane fade show active" id="tab-livrable" role="tabpanel" aria-labelledby="livrable-tab">
+									<div class="row mt-3">
+										<div class="col-lg-6 mx-auto">	
+										{% include '../vues/cubim_livrables.html' %}
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="tab-site" role="tabpanel" aria-labelledby="site-tab">
+									
+								</div>
+			                </div>
+			              </div>
+			            </div>
+            		</div>
 			  	</div>				
 			</div>
 		</div>

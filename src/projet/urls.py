@@ -12,5 +12,5 @@ urlpatterns = [
 	path('tache/ajout/', views.TacheCreateView.as_view(), name="new-tache"),
 	path("tache/<int:pk>/", views.TacheDetailView.as_view(), name="tache-details"),
 	path("tache/<int:pk>/edition/", views.TacheUpdateView.as_view(), name="tache-modif"),
-	path("tache/<int:pk>/deletion/", views.TacheDeleteView.as_view(), name="tache-delete"),
+	path("tache/<int:pk>/deletion/", views.TacheDeleteView.as_view(), name="tache-delete")
 ]

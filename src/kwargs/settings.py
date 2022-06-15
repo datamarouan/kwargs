@@ -50,12 +50,10 @@ INSTALLED_APPS = [
     'tinymce',
     'taggit',
     'simple_history',
-    'bootstrapform',
-    'survey',
     'page',
     'utilisateur',
-    'blog',
     'glossaire',
+    'blog',
     'rudi',
     'projet',
     'catalogue',
@@ -71,7 +69,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'crum.CurrentRequestUserMiddleware',
-    'simple_history.middleware.HistoryRequestMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',    
 ]
 
 ROOT_URLCONF = 'kwargs.urls'

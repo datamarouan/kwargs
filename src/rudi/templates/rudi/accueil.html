@@ -141,11 +141,11 @@
 			{% for file in recent_files %}
 			  <div class="d-flex mb-3 hover-actions-trigger align-items-center">
 			    <div class="ms-3 flex-shrink-1 flex-grow-1">
-			      <h6 class="mb-1"><a class="stretched-link text-900 fw-semi-bold" href="{% url 'rudi:doc-details' pk=file.pk %}">{{ file }}</a></h6>
+			      <h6 class="mb-1"><a class="stretched-link text-900 fw-semi-bold" href="{% url 'rudi:doc-details' slug=file.slug %}">{{ file }}</a></h6>
 			      <div class="fs--1"><span class="fw-medium text-600">Dernière modification: {{ file.history.all.last.history_date }} par {{ file.history.all.last.history_user }}</span></div>
 			      <div class="hover-actions end-0 top-50 translate-middle-y">
 			      	<a class="btn btn-light border-300 btn-sm me-1 text-600" data-bs-toggle="tooltip" data-bs-placement="top" title="" href="{{ file.fichier.url }}" download="download" data-bs-original-title="Download" aria-label="Download"><img src="{% static 'img/cloud-download.svg' %}" alt="" width="15"></a>
-			        <a class="btn btn-light border-300 btn-sm me-1 text-600 shadow-none" href="{% url 'rudi:doc-modif' pk=file.pk %}" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Edit" aria-label="Edit"><img src="{% static 'img/edit-alt.svg' %}" alt="" width="15"></a>
+			        <a class="btn btn-light border-300 btn-sm me-1 text-600 shadow-none" href="{% url 'rudi:doc-modif' slug=file.slug %}" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Edit" aria-label="Edit"><img src="{% static 'img/edit-alt.svg' %}" alt="" width="15"></a>
 			      </div>
 			    </div>
 			  </div>

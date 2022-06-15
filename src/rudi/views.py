@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, DeleteView, TemplateView
 from .models import *
+from projet.models import Projet, Tache
 from .utils import totemisage
 from django.conf import settings
 
@@ -15,9 +16,9 @@ import ifcopenshell.util.element
 import os
 
 
-def totemification(request, pk):
+def totemification(request, slug):
 	if request.method == "GET":
-		document = Document.objects.all().get(identification=pk)
+		document = Document.objects.all().get(slug=slug)
 		fichier = document.fichier
 		file_ifc= totemisage(fichier.path)
 		file_ifc.write("tempote.ifc")
@@ -31,18 +32,6 @@ def totemification(request, pk):
 class TotemCorrectionView(LoginRequiredMixin, DetailView):
 	model = Document
 	template_name = "rudi/vues/totem.html"
-#	fields = ['fichier', "nom"]
-
-#	def form_valid(self, form):
-#		instance = form.save(commit=False)
-#		file = instance.fichier.url
-#		new_file = totemification(file)
-#		instance.fichier.path = new_file
-#		instance = form.save(commit=True)
-#		self.object = form.save(commit=False)
-#		self.object.fichier = totemification(self.request.FILES['file'])
-#		self.object.save(commit=True)
-#		return super().form_valid(form)
 
 class IfcAnalyseView(LoginRequiredMixin, DetailView):
 	model = Document 
@@ -148,15 +137,28 @@ class DocDetailView(LoginRequiredMixin, DetailView):
 	model = Document
 	template_name = "rudi/crud/doc_details.html"
 
-class DocCreateView(LoginRequiredMixin, CreateView):
+class DocAttacheCreateView(LoginRequiredMixin, CreateView):
 	model = Document
 	template_name = "rudi/crud/doc_ajout.html"
 	fields = "__all__"
 
-	def get_context_data(self, **kwargs):
+	def form_valid(self, form):
+		response = super().form_valid(form)
+		context = {'pk':self.kwargs['pk']}
+		dok = form.instance
+		projet = Projet.objects.all().get(id=self.kwargs['pk'])
+		projet.docz.add(dok)
+		return response
+
+	def get_context_data(self,**kwargs):
 		context = super().get_context_data(**kwargs)
-		#context['']
+		context['pk'] = self.kwargs['pk']
 		return context
+
+class DocCreateView(LoginRequiredMixin, CreateView):
+	model = Document
+	template_name = "rudi/crud/doc_ajout.html"
+	fields = "__all__"
 
 class DocListView(LoginRequiredMixin, ListView):
 	model = Document

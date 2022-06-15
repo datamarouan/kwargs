@@ -38,7 +38,7 @@
     <tbody>
         {% for doc in object_list %}
         <tr>
-            <td><a href="{% url 'rudi:doc-details' pk=doc.pk %}">{{ doc.nom }}</a></td>
+            <td><a href="{% url 'rudi:doc-details' slug=doc.slug %}">{{ doc.nom }}</a></td>
             <td>
                 {{ doc.history.last.history_user }}
             </td>
@@ -57,9 +57,9 @@
                 {{ doc.history.all|length }}
             </td>
             <td>
-                <a class="btn btn-icon btn-transparent-dark me-2" href="{% url 'rudi:doc-modif' pk=doc.pk %}"><i class="far fa-edit text-success"></i></a>
+                <a class="btn btn-icon btn-transparent-dark me-2" href="{% url 'rudi:doc-modif' slug=doc.slug %}"><i class="far fa-edit text-success"></i></a>
 
-                <a class="btn btn-icon btn-transparent-dark" href="{% url 'rudi:doc-delete' pk=doc.pk %}"><i class="far fa-trash-alt text-danger"></i></a>
+                <a class="btn btn-icon btn-transparent-dark" href="{% url 'rudi:doc-delete' slug=doc.slug %}"><i class="far fa-trash-alt text-danger"></i></a>
             </td>
         </tr>
         {% endfor %}

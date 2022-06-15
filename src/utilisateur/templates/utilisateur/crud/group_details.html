@@ -18,7 +18,7 @@
 
 <div class="container-fluid px-4 mt-4">
 	<div class="row">
-		<div class="col-xl-3 col-xxl-4">
+		<div class="col-xl-6 col-xxl-4">
 			<div class="card mb-3 overflow-hidden">
 				<div class="card-header bg-light">
 				  <div class="row align-items-center">
@@ -30,7 +30,7 @@
 				<div class="card-body bg-light px-1 py-0">
 				  <div class="row g-0 text-center fs--1">
 				    {% for member in object.user_set.all %}
-				    <div class="col">
+				    <div class="col-3">
 				      <div class="bg-white dark__bg-1100 p-3 h-100"><img class="img-thumbnail img-fluid rounded-circle mb-3 shadow-sm" src="{{ member.personne.image.url }}" alt="" width="100">
 				        <h6 class="mb-1">{{ member }}
 				        </h6>
@@ -41,7 +41,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xl-3 col-xxl-4">
+		<div class="col-xl-6 col-xxl-4">
 			<div class="card mb-3 overflow-hidden">
 				<div class="card-header bg-light">
 				  <div class="row align-items-center">

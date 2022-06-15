@@ -7,6 +7,7 @@ from django.urls import reverse
 from crum import get_current_user
 from simple_history.models import HistoricalRecords
 from taggit.managers import TaggableManager
+from django.utils.text import slugify
 
 def get_doc_filename(instance, filename):
 	base_name = os.path.basename(filename)
@@ -22,9 +23,10 @@ def get_doc_filename(instance, filename):
 
 
 class Document(models.Model):
-	identification = models.CharField(max_length=36, primary_key=True, default=uuid.uuid4, editable=False)
+	identification = models.CharField(max_length=36, default=uuid.uuid4, editable=False)
 	fichier = models.FileField(upload_to=get_doc_filename, max_length=255, verbose_name="Document")
 	nom = models.CharField(max_length=125, help_text="Un nom courant du fichier", blank=True, null=True)
+	slug = models.SlugField(max_length=255, unique=True, blank=True, editable=False)
 	description = models.TextField(blank=True, null=True)
 	class EtatTypeEnum(models.IntegerChoices):
 		CONCEPTION = 0
@@ -56,12 +58,16 @@ class Document(models.Model):
 		name, ext = os.path.splitext(base_name)
 		return ext
 
+	def save(self,*args,**kwargs):
+		self.slug = slugify(self.identification)
+		return super().save(*args,**kwargs)
+
 	def get_doc_name(self):
 		base_name = os.path.basename(self.fichier.name)
 		name, ext = os.path.splitext(base_name)
 		return name
 
 	def get_absolute_url(self):
-		return reverse("rudi:doc-details", args=[self.identification])
+		return reverse("rudi:doc-details", args=[self.slug])
 
 

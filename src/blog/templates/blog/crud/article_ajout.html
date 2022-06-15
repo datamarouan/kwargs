@@ -9,7 +9,7 @@
 
 <div class="d-flex mb-4 mt-6">
 	<span class="fa-stack me-2 ms-n1">
-			<i class="fa-inverse fa-stack-1x text-primary fas fa-plus" data-fa-transform="shrink-2"></i>
+			<i class="fa-inverse fa-stack-1x text-primary fas fa-plus" data-fa-transform="grow-2"></i>
 		</span>
 	<div class="col">
     	<h5 class="mb-0 text-primary position-relative">
@@ -20,30 +20,42 @@
 	</div>
 </div>
 
-<div class="row">
-	<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
-		<div class="col-sm-10 mx-auto">
-			<div class="card mb-3 ">
-			    <div class="card-header">
-			        <div class="row flex-between-center">
-			            <div class="col-6 col-sm-auto ms-auto text-end ps-0">
-			              <div id="table-purchases-replace-element">
-			                <a class="btn btn-falcon-primary btn-sm" type="button" href="{% url 'blog:articles-list' %}"><span class="fas fa-chevron-left" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Retour</span></a>
-			              </div>
-			            </div>            
-			        </div>
-			    </div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<div class="card mb-3">
+				<div class="card-body">
+					{{ form.titre|as_crispy_field }}
+				</div>
+			</div>
+			<div class="card mb-3">
+				<div class="card-body">
+					{{ form.image|as_crispy_field }}
+				</div>
+			</div>			
+			<div class="card mb-3">
+				<div class="card-body">
+					{{ form.intro|as_crispy_field }}
+					{{ form.published|as_crispy_field }}
+					{{ form.tags|as_crispy_field }}					
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="card mb-3">
 			    <div class="card-body">
-			    	{{ form|crispy }}
+			    	{{ form.contenu|as_crispy_field }}
 			    </div>
 			    <div class="card-footer">
 			    	<button type="submit" class="fw-500 btn btn-primary">Enregistrer</button>
+			    	<a href="{% url 'blog:articles-list' %}" type="submit" class="fw-500 btn btn-secondary">Annuler</a>
 			    </div>
 			</div>		
 		</div>
-	</form>
-</div>
+	</div>
+</form>
 
 
 {% endblock %}

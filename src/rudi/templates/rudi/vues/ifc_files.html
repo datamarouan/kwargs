@@ -38,7 +38,7 @@
     <tbody>
         {% for doc in object_list %}
         <tr>
-            <td><a href="{% url 'rudi:doc-details' pk=doc.pk %}">{{ doc.nom }}</a></td>
+            <td><a href="{% url 'rudi:doc-details' slug=doc.slug %}">{{ doc.nom }}</a></td>
             <td>
                 {{ doc.history.last.history_user }}
             </td>
@@ -58,8 +58,8 @@
             </td>
             <td>
                 <a class="btn btn-icon btn-transparent-dark" href="{% url 'rudi:correction_totem' pk=doc.pk %}"  data-bs-toggle="tooltip" data-bs-placement="top" title="Correctif TOTEM"><i class="fas fa-hand-sparkles text-warning"></i></a>
-                <a class="btn btn-icon btn-transparent-dark me-2" href="{% url 'rudi:doc-modif' pk=doc.pk %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Editer"><i class="far fa-edit text-success"></i></a>
-                <a class="btn btn-icon btn-transparent-dark" href="{% url 'rudi:doc-delete' pk=doc.pk %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Effacer"><i class="far fa-trash-alt text-danger"></i></a>
+                <a class="btn btn-icon btn-transparent-dark me-2" href="{% url 'rudi:doc-modif' slug=doc.slug %}"><i class="far fa-edit text-success"></i></a>
+                <a class="btn btn-icon btn-transparent-dark" href="{% url 'rudi:doc-delete' slug=doc.slug %}"><i class="far fa-trash-alt text-danger"></i></a>
             </td>
         </tr>
         {% endfor %}
