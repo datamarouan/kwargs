@@ -148,7 +148,7 @@
 			</li>
 			<li class="treeview-list-item">
 				<div class="treeview-item">
-					<a class="flex-1" href="#!">
+					<a class="flex-1" href="{% url 'rudi:doc-details' slug=fce85993-2479-4710-9b72-6f7160d30f06 %}">
 						<p class="treeview-text">
 							<span class="me-2 far fa-file-pdf text-danger"></span>
 							Scénario de la présentation
@@ -552,6 +552,163 @@
 				</div>
 			</li>
 		</ul>
+	</li>
+	<!-- Rapports -->
+	<li class="treeview-list-item">
+		<a data-bs-toggle="collapse" href="#rapport" role="button" aria-expanded="false">
+			<p class="treeview-text">
+			Rapports
+			</p>
+		</a>
+		<ul class="collapse treeview-list" id="rapport" data-show="false">
+			<li class="treeview-list-item">
+				<a data-bs-toggle="collapse" href="#treeviewExample-2-1" role="button" aria-expanded="false">
+					<p class="treeview-text">
+					Réunions
+					</p>
+				</a>
+				<ul class="collapse treeview-list" id="treeviewExample-2-1" data-show="false">
+					<li class="treeview-list-item">
+						<div class="treeview-item">
+							<a class="flex-1" href="#!">
+								<p class="treeview-text">
+									<span class="me-2 far fa-file-pdf text-danger"></span>
+									Rappoort issues global
+								</p>
+							</a>
+						</div>
+					</li>
+					<li class="treeview-list-item">
+						<div class="treeview-item">
+							<a class="flex-1" href="#!">
+								<p class="treeview-text">
+									<span class="me-2 far fa-file-pdf text-danger"></span>
+									Présentation
+								</p>
+							</a>
+						</div>
+					</li>
+					<li class="treeview-list-item">
+						<div class="treeview-item">
+							<a class="flex-1" href="#!">
+								<p class="treeview-text">
+									<span class="me-2 far fa-file-pdf text-danger"></span>
+									Rappoort Qualité
+								</p>
+							</a>
+						</div>
+					</li>
+					<li class="treeview-list-item">
+						<div class="treeview-item">
+							<a class="flex-1" href="#!">
+								<p class="treeview-text">
+									<span class="me-2 far fa-file-pdf text-danger"></span>
+									Rappoort Synthèses
+								</p>
+							</a>
+						</div>
+					</li>
+				</ul>				
+			</li>
+			<li class="treeview-list-item">
+				<a data-bs-toggle="collapse" href="#treeviewExample-2-2" role="button" aria-expanded="false">
+					<p class="treeview-text">
+					Contrôle Qualité
+					</p>
+				</a>
+				<ul class="collapse treeview-list" id="treeviewExample-2-2" data-show="false">
+					<li class="treeview-list-item">
+						<div class="treeview-item">
+							<a class="flex-1" href="#!">
+								<p class="treeview-text">
+									<span class="me-2 far fa-file-pdf text-danger"></span>
+									Contrôle Qualité Import TOTEM 01
+								</p>
+							</a>
+						</div>
+					</li>
+					<li class="treeview-list-item">
+						<div class="treeview-item">
+							<a class="flex-1" href="#!">
+								<p class="treeview-text">
+									<span class="me-2 far fa-file-pdf text-danger"></span>
+									Contrôle Qualité Import TOTEM 02
+								</p>
+							</a>
+						</div>
+					</li>
+					<li class="treeview-list-item">
+						<div class="treeview-item">
+							<a class="flex-1" href="#!">
+								<p class="treeview-text">
+									<span class="me-2 far fa-file-excel text-success"></span>
+									Quality Control List
+								</p>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li class="treeview-list-item">
+				<a data-bs-toggle="collapse" href="#treeviewExample-2-3" role="button" aria-expanded="false">
+					<p class="treeview-text">
+					TOTEM
+					</p>
+				</a>
+				<ul class="collapse treeview-list" id="treeviewExample-2-3" data-show="false">
+					<li class="treeview-list-item">
+						<div class="treeview-item">
+							<a class="flex-1" href="#!">
+								<p class="treeview-text">
+									<span class="me-2 far fa-file-word text-primary"></span>
+									Contrôle Qualité Import TOTEM 01
+								</p>
+							</a>
+						</div>
+					</li>
+					<li class="treeview-list-item">
+						<div class="treeview-item">
+							<a class="flex-1" href="#!">
+								<p class="treeview-text">
+									<span class="me-2 far fa-file-word text-primary"></span>
+									Contrôle Qualité Import TOTEM 02
+								</p>
+							</a>
+						</div>
+					</li>
+					<li class="treeview-list-item">
+						<div class="treeview-item">
+							<a class="flex-1" href="#!">
+								<p class="treeview-text">
+									<span class="me-2 far fa-file-word text-primary"></span>
+									Shared parameters
+								</p>
+							</a>
+						</div>
+					</li>
+					<li class="treeview-list-item">
+						<div class="treeview-item">
+							<a class="flex-1" href="#!">
+								<p class="treeview-text">
+									<span class="me-2 far fa-file-word text-primary"></span>
+									Mapping IFC
+								</p>
+							</a>
+						</div>
+					</li>
+					<li class="treeview-list-item">
+						<div class="treeview-item">
+							<a class="flex-1" href="#!">
+								<p class="treeview-text">
+									<span class="me-2"><img src="{% static 'img/ifc_icone.png' %}" style="height:13.5px;"></span>
+									Maquette "Totemisée"
+								</p>
+							</a>
+						</div>
+					</li>
+				</ul>				
+			</li>
+		</ul>		
 	</li>
 	<!-- Slides de présentation du 17 juin 2022 -->
 	<li class="treeview-list-item">
