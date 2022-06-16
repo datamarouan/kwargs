@@ -13,13 +13,17 @@ from django.conf import settings
 import ifcopenshell as ifc
 import ifcopenshell.util
 import ifcopenshell.util.element
-import os
+import os, magic
+
+def file_path_mime(file_path):
+    return magic.from_file(file_path, mime=True)
 
 def livrables(request, pk):
 	if request.method == 'GET':
 		document = Document.objects.all().get(id=pk)
-		fichier = document.fichier.url
-		response = HttpResponse(fichier, content_type='application/force-download')
+		fichier = document.fichier.path
+		mime = file_path_mime(fichier)
+		response = HttpResponse(fichier, content_type=mime)
 		response['Content-Disposition'] = 'attachment; filename='+document.get_doc_name()+document.get_doc_extension()
 		return response		
 
