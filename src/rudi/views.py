@@ -19,7 +19,7 @@ def livrables(request, pk):
 	if request.method == 'GET':
 		document = Document.objects.all().get(id=pk)
 		fichier = document.fichier.url
-		response = HttpResponse(fichier, content_type='application/octet-stream')
+		response = HttpResponse(fichier, content_type='application/force-download')
 		response['Content-Disposition'] = 'attachment; filename='+document.get_doc_name()+document.get_doc_extension()
 		return response		
 
