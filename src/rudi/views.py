@@ -15,13 +15,13 @@ import ifcopenshell.util
 import ifcopenshell.util.element
 import os
 
-def livrables(request, id):
+def livrables(request, pk):
 	if request.method == 'GET':
-		doc = Document.objects.all().get(id=id)
-		fichier = doc.fichier.url
-		response = HttpResponse(fichier)
-		response['Content-Disposition'] = 'attachment; filename='+doc.get_doc_name()+doc.get_doc_extension()
-		return response
+		document = Document.objects.all().get(id=pk)
+		fichier = document.fichier.url
+		response = HttpResponse(fichier, content_type='application/octet-stream')
+		response['Content-Disposition'] = 'attachment; filename='+document.get_doc_name()+document.get_doc_extension()
+		return response		
 
 def totemification(request, slug):
 	if request.method == "GET":

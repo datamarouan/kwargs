@@ -7,6 +7,7 @@ urlpatterns = [
 	path("documents/", views.DocListView.as_view(), name="docs-list"),
 	path('', views.index, name='index'),
 	path('document/ajout/', views.DocCreateView.as_view(), name="new-doc"),
+	path('document/<int:pk>/download/', views.livrables, name="download_livrable"),
 	path('projet/<int:pk>/ajout/document/', views.DocAttacheCreateView.as_view(), name="new-doc-to-project"),
 
 	path("documents/pdf/", views.PDFListView.as_view(), name="pdf-list"),
