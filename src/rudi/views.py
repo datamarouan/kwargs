@@ -20,15 +20,14 @@ def file_path_mime(file_path):
     return magic.from_file(file_path, mime=True)
 
 def livrables(request, pk):
-	if request.method == 'GET':
-		document = Document.objects.all().get(id=pk)
-		fichier = document.fichier.path
-		mime = file_path_mime(fichier)
-		with open(fichier, 'rb') as f:
-			file_data = FileWrapper(f)
-			response = HttpResponse(file_data, content_type=mime)
-			response['Content-Disposition'] = 'attachment; filename='+document.get_doc_name()+document.get_doc_extension()
-		return response		
+	document = Document.objects.all().get(id=pk)
+	fichier = document.fichier.path
+	mime = file_path_mime(fichier)
+	with open(fichier, 'rb') as f:
+		#file_data = FileWrapper(f)
+		response = HttpResponse(f, content_type=mime)
+		response['Content-Disposition'] = 'attachment; filename='+document.get_doc_name()+document.get_doc_extension()
+	return response		
 
 def totemification(request, slug):
 	if request.method == "GET":

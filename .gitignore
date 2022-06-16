@@ -5,3 +5,6 @@ TokenGithub.txt
 /src/.my.cnf
 /__pycache__/
 *.pyc
+*.pdf
+*.ifc
+*.doc
