@@ -70,6 +70,7 @@ class IfcAnalyseView(LoginRequiredMixin, DetailView):
 		context['surfaces'] = surfaces
 		context['owner'] = owner
 		context['application'] = app
+		context['schema'] = ifc_file.schema
 		return context
   
 def index(request):
