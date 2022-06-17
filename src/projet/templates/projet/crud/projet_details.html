@@ -93,7 +93,7 @@
 								</div>
 								<div class="tab-pane fade" id="tab-equipe" role="tabpanel" aria-labelledby="equipe-tab">
 									<div class="row align-items-center">
-										<div class="col-4">
+										<div class="col-lg-4 mx-auto">
 											{% for people in object.assigne.all %}
 											<div class="d-flex align-items-center position-relative my-3">
 												
@@ -108,7 +108,7 @@
 											</div>
 											{% endfor %}										
 										</div>
-										<div class="col-7">
+										<div class="col-lg-7 mx-auto">
 										    {% for group in request.user.groups.all %}
 										        {% if group.name == 'CUBIM' %}
 												<div class="row mt-3">
