@@ -55,7 +55,7 @@
 			</div>
 		</div>
 		<div class="col-lg-4 d-flex flex-column align-items-stretched">
-			<div class="card">
+			<div class="card mb-3">
 			    <div class="card-body">
 			    	{% if implantations %}
 			        <div class="row">
@@ -92,12 +92,39 @@
 
 			        {% endif %}
 			    </div>
+			</div>
+			<div class="card mb-3">
+			    <div class="card-body">
+			        <div class="small text-muted mb-2">Relation(s) avec d'autres organisations</div>
+			        <div class="row">
+			            <div class="col">
+			            	{% if relations %}
+                            <ul class="list-unstyled">
+                            	{% for rel in relations %}
+	                                {% for r in rel.related_organization.all %}
+	                                <li><a href="{{ r.get_absolute_url }}">{{ r }}</a></li>
+	                                {% endfor %}
+                                {% endfor %}
+                            </ul>
+                            {% elif depend_de %}
+                            <ul class="list-unstyled">
+                            	{% for dep in depend_de %}
+	                                <li><a href="{{ dep.relating_organization.get_absolute_url }}">
+	                                {{ dep.relating_organization }} {% for role in dep.relating_organization.roles.all %}
+	                            		({{role}}) 
+	                            	{% endfor %}</a></li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+			            </div>
+			        </div>
+			    </div>
 			</div>				
 		</div>
 	</div>
 	<div class="row mb-3">
 		<div class="col-lg-6 d-flex flex-column align-items-stretched">
-			
+
 		</div>
 		<div class="col-lg-6 d-flex flex-column align-items-stretched">
 			
